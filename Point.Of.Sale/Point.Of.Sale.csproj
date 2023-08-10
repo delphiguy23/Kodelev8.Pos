@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediatR" Version="12.1.1" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.9">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+        <PackageReference Include="Scrutor" Version="4.2.2" />
+        <PackageReference Include="supabase-csharp" Version="0.12.2" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\Point.Of.Sale.Abstraction\Point.Of.Sale.Abstraction.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Category\Point.Of.Sale.Category.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Customer\Point.Of.Sale.Customer.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Inventory\Point.Of.Sale.Inventory.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Person\Point.Of.Sale.Person.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Product\Point.Of.Sale.Product.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Sales\Point.Of.Sale.Sales.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Shopping.Cart\Point.Of.Sale.Shopping.Cart.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Supplier\Point.Of.Sale.Supplier.csproj" />
+      <ProjectReference Include="..\Point.Of.Sale.Tenant\Point.Of.Sale.Tenant.csproj" />
+    </ItemGroup>
+
+
+
+
+
+<!--    <ItemGroup>-->
+<!--      <Content Include="..\.dockerignore">-->
+<!--        <Link>.dockerignore</Link>-->
+<!--      </Content>-->
+<!--    </ItemGroup>-->
+
+<!--    <ItemGroup>-->
+<!--      <Compile Remove="Shared\Result\**" />-->
+<!--    </ItemGroup>-->
+
+<!--    <ItemGroup>-->
+<!--      <EmbeddedResource Remove="Shared\Result\**" />-->
+<!--    </ItemGroup>-->
+
+<!--    <ItemGroup>-->
+<!--      <None Remove="Shared\Result\**" />-->
+
+
+
+<!--    <ItemGroup>-->
+<!--      <Folder Include="Shared\" />-->
+<!--    </ItemGroup>-->
+
+<!--    </ItemGroup>-->
+
+
+
+
+</Project>
