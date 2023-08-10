@@ -32,3 +32,8 @@
 /Point.Of.Sale.Tenant/bin/Debug/net7.0
 /Point.Of.Sale.Tenant/obj
 /Point.Of.Sale/obj
+/.vs/slnx.sqlite
+/.vs/Kodelev8.Point.Of.Sale/v17/.suo
+/.vs/Kodelev8.Point.Of.Sale/FileContentIndex
+/.vs/Kodelev8.Point.Of.Sale/DesignTimeBuild/.dtbcache.v2
+/Point.Of.Sale.Product/bin/Debug/net7.0-windows
