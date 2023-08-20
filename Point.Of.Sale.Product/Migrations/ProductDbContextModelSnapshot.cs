@@ -17,7 +17,7 @@ namespace Point.Of.Sale.Product.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.9")
+                .HasAnnotation("ProductVersion", "7.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -33,6 +33,13 @@ namespace Point.Of.Sale.Product.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("BarCodeType")
+                        .HasColumnType("integer");
+
+                    b.Property<byte[]>("Barcode")
+                        .IsRequired()
+                        .HasColumnType("bytea");
+
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
@@ -42,6 +49,10 @@ namespace Point.Of.Sale.Product.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("bytea");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -66,6 +77,10 @@ namespace Point.Of.Sale.Product.Migrations
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("WebSite")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

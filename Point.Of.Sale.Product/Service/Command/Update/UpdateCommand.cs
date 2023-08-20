@@ -1,4 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
+using Point.Of.Sale.Shared.Enums;
 
 namespace Point.Of.Sale.Product.Service.Command.Update;
 
@@ -12,5 +13,9 @@ public sealed record UpdateCommand : ICommand
     public decimal UnitPrice { get; set; }
     public int SupplierId { get; set; }
     public int CategoryId { get; set; }
+    public string WebSite { get; set; }
+    public byte[] Image { get; set; }
+    public BarCodes BarCodeType { get; set; }
+    public byte[] Barcode { get; set; }
     public bool Active { get; set; }
 }

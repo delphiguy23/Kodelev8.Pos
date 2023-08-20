@@ -42,6 +42,7 @@ public class Repository : IRepository
                 ProductId = request.ProductId,
                 SupplierId = request.SupplierId,
                 Quantity = request.Quantity,
+                Active = true,
                 CreatedOn = DateTime.Now.ToUniversalTime(),
                 UpdatedOn = DateTime.Now.ToUniversalTime(),
                 UpdatedBy = "System"

@@ -19,8 +19,15 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
     {
         var result = await _repository.GetByTenantId(request.id, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<List<ProductResponse>>().WithMessage("Product Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<List<ProductResponse>>().WithMessage(result.Messages);
+        if (result.IsNotFound())
+        {
+            return ResultsTo.NotFound<List<ProductResponse>>().WithMessage("Product Not Found");
+        }
+
+        if (result.IsFailure())
+        {
+            return ResultsTo.Failure<List<ProductResponse>>().WithMessage(result.Messages);
+        }
 
         var response = result.Value.Select(r => new ProductResponse
             {
@@ -35,7 +42,11 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
                 CreatedOn = r.CreatedOn,
                 UpdatedOn = r.UpdatedOn,
                 UpdatedBy = r.UpdatedBy,
-                TenantId = r.TenantId
+                TenantId = r.TenantId,
+                WebSite = r.WebSite,
+                Image = r.Image,
+                BarCodeType = r.BarCodeType,
+                Barcode = r.Barcode,
             })
             .ToList();
 

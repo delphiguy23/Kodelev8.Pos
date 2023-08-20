@@ -2,8 +2,8 @@ namespace Point.Of.Sale.Shared.Enums;
 
 public enum SaleStatus
 {
-    OrderPlaced = -1,
-    Cancelled = 0,
+    Cancelled = -1,
+    OrderPlaced = 0,
     Processed,
     Served,
     UnPaid,

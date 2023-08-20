@@ -26,9 +26,16 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
             UnitPrice = request.UnitPrice,
             SupplierId = request.SupplierId,
             CategoryId = request.CategoryId,
+            WebSite = request.WebSite,
+            Image = request.Image,
+            BarCodeType = request.BarCodeType,
+            Barcode = request.Barcode,
         }, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound().WithMessage("Product Not Found");
+        if (result.IsNotFound())
+        {
+            return ResultsTo.NotFound().WithMessage("Product Not Found");
+        }
 
         return ResultsTo.Success();
     }

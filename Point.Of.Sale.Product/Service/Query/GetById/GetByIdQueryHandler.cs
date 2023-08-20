@@ -19,8 +19,15 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, ProductRespon
     {
         var result = await _repository.GetById(request.Id, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<ProductResponse>().WithMessage("Product Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<ProductResponse>().WithMessage(result.Messages);
+        if (result.IsNotFound())
+        {
+            return ResultsTo.NotFound<ProductResponse>().WithMessage("Product Not Found");
+        }
+
+        if (result.IsFailure())
+        {
+            return ResultsTo.Failure<ProductResponse>().WithMessage(result.Messages);
+        }
 
         var response = new ProductResponse
         {
@@ -35,7 +42,11 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, ProductRespon
             CreatedOn = result.Value.CreatedOn,
             UpdatedOn = result.Value.UpdatedOn,
             UpdatedBy = result.Value.UpdatedBy,
-            TenantId = result.Value.TenantId
+            TenantId = result.Value.TenantId,
+            WebSite = result.Value.WebSite,
+            Image = result.Value.Image,
+            BarCodeType = result.Value.BarCodeType,
+            Barcode = result.Value.Barcode,
         };
 
         return ResultsTo.Success(response);

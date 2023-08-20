@@ -1,3 +1,4 @@
+using Bogus;
 using Microsoft.EntityFrameworkCore;
 using Point.Of.Sale.Category.Database.Context;
 using Point.Of.Sale.Category.Models;
@@ -91,6 +92,27 @@ public class Repository : IRepository
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
+        return ResultsTo.Success();
+    }
+
+    public async Task<IFluentResults> Init(CancellationToken cancellationToken = default)
+    {
+        // var categories = new List<Database.Model.Category>();
+        // var faker = new Faker();
+        // faker.
+        //
+        // categories.Add(new Database.Model.Category
+        // {
+        //     TenantId = 1,
+        //     Name = "Category 1",
+        //     Description = "Category 1",
+        //     CreatedOn = DateTime.Now.ToUniversalTime(),
+        //     UpdatedOn = DateTime.Now.ToUniversalTime(),
+        //     UpdatedBy = "System",
+        //     Active = true,
+        // });
+
+        await Task.Delay(1000, cancellationToken);
         return ResultsTo.Success();
     }
 }

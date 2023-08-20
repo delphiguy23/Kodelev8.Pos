@@ -12,4 +12,6 @@ public interface IRepository
     Task<IFluentResults> LinkToTenant (LinkToTenant linkToTenant, CancellationToken cancellationToken = default);
     Task<IFluentResults<List<Database.Model.Category>>> GetByTenantId (int Id, CancellationToken cancellationToken = default);
     Task<IFluentResults> Update (UpdateCategory updateCategory, CancellationToken cancellationToken = default);
+    Task<IFluentResults> Init (CancellationToken cancellationToken = default);
+
 }

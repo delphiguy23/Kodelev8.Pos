@@ -1,11 +1,11 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Category.Service.Query.GetById;
 using Point.Of.Sale.Product.Models;
 using Point.Of.Sale.Product.Service.Command.LinkToTenant;
 using Point.Of.Sale.Product.Service.Command.Register;
 using Point.Of.Sale.Product.Service.Command.Update;
 using Point.Of.Sale.Product.Service.Query.GetAll;
-using Point.Of.Sale.Product.Service.Query.GetById;
 using Point.Of.Sale.Product.Service.Query.GetByTenantId;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
@@ -15,7 +15,7 @@ namespace Point.Of.Sale.Product.Controller;
 
 [ApiController]
 [Route("/api/product/")]
-public class ProductController: ControllerBase
+public class ProductController : ControllerBase
 {
     private readonly ISender _sender;
 
@@ -28,16 +28,20 @@ public class ProductController: ControllerBase
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] UpsertProduct request, CancellationToken cancellationToken = default)
     {
-        var category =    _sender.Send(new Category.Service.Query.GetById.GetById(request.CategoryId), cancellationToken);
-        var supplier =    _sender.Send(new Supplier.Service.Query.GetById.GetById(request.SupplierId), cancellationToken);
+        var category = _sender.Send(new GetById(request.CategoryId), cancellationToken);
+        var supplier = _sender.Send(new Supplier.Service.Query.GetById.GetById(request.SupplierId), cancellationToken);
 
         await Task.WhenAll(category, supplier);
 
-        if ((await category).IsNotFoundOrBadRequest()) return (await category).ToActionResult();
-        if ((await supplier).IsNotFoundOrBadRequest()) return (await supplier).ToActionResult();
+        if ((await category).IsNotFoundOrBadRequest())
+        {
+            return (await category).ToActionResult();
+        }
 
-        // if (category.IsNotFound()) return category.ToActionResult();
-        // if (supplier.IsNotFound()) return supplier.ToActionResult();
+        if ((await supplier).IsNotFoundOrBadRequest())
+        {
+            return (await supplier).ToActionResult();
+        }
 
         var result = await _sender.Send(new RegisterCommand
         {
@@ -47,6 +51,10 @@ public class ProductController: ControllerBase
             UnitPrice = request.UnitPrice,
             SupplierId = request.SupplierId,
             CategoryId = request.CategoryId,
+            WebSite = request.WebSite,
+            Image = request.Image,
+            BarCodeType = request.BarCodeType,
+            Barcode = request.Barcode,
         }, cancellationToken);
 
         return result.ToActionResult();
@@ -63,7 +71,7 @@ public class ProductController: ControllerBase
     [Route("{id:int}")]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new GetById(id), cancellationToken);
+        var result = await _sender.Send(new Service.Query.GetById.GetById(id), cancellationToken);
         return result.ToActionResult();
     }
 
@@ -110,7 +118,11 @@ public class ProductController: ControllerBase
             UnitPrice = request.UnitPrice,
             SupplierId = request.SupplierId,
             CategoryId = request.CategoryId,
-            Active = request.Active
+            WebSite = request.WebSite,
+            Barcode = request.Barcode,
+            BarCodeType = request.BarCodeType,
+            Image = request.Image,
+            Active = request.Active,
         }, cancellationToken);
 
         if (result.IsFailure() || result.IsNotFoundOrBadRequest())

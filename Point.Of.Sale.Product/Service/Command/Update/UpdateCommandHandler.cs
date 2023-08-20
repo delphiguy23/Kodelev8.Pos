@@ -27,9 +27,17 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             UnitPrice = request.UnitPrice,
             SupplierId = request.SupplierId,
             CategoryId = request.CategoryId,
+            WebSite = request.WebSite,
+            Image = request.Image,
+            BarCodeType = request.BarCodeType,
+            Barcode = request.Barcode,
+            Active = request.Active,
         }, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound().WithMessage("Product Not Found");
+        if (result.IsNotFound())
+        {
+            return ResultsTo.NotFound().WithMessage("Product Not Found");
+        }
 
         return ResultsTo.Success();
     }

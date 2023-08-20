@@ -1,3 +1,5 @@
+using Point.Of.Sale.Shared.Enums;
+
 namespace Point.Of.Sale.Product.Database.Model;
 
 public class Product
@@ -10,6 +12,10 @@ public class Product
     public decimal UnitPrice { get; set; }
     public int SupplierId { get; set; }
     public int CategoryId { get; set; }
+    public string WebSite { get; set; }
+    public byte[] Image { get; set; }
+    public BarCodes BarCodeType { get; set; }
+    public byte[] Barcode { get; set; }
     public bool Active { get; set; }
     public DateTime CreatedOn { get; set; }
     public DateTime UpdatedOn { get; set; }
