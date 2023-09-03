@@ -1,6 +1,6 @@
 using Point.Of.Sale.Abstraction.Message;
-using Point.Of.Sale.Customer.Models;
 using Point.Of.Sale.Customer.Repository;
+using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
 
@@ -9,15 +9,17 @@ namespace Point.Of.Sale.Customer.Service.Command.Update;
 public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
 {
     private readonly IRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCommandHandler(IRepository repository)
+    public UpdateCommandHandler(IRepository repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IFluentResults> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.Update(new UpdateCustomer
+        var result = await _repository.Update(new Persistence.Models.Customer
         {
             Id = request.Id,
             TenantId = request.TenantId,
@@ -26,10 +28,16 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             PhoneNumber = request.PhoneNumber,
             Email = request.Email,
             Active = request.Active,
-        }, cancellationToken);
+            UpdatedOn = DateTime.UtcNow,
+            UpdatedBy = "User",
+        });
 
-        if (result.IsNotFound()) return ResultsTo.NotFound().WithMessage("Customer Not Found");
+        if (!result.IsSuccess())
+        {
+            return ResultsTo.Something(result);
+        }
 
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         return ResultsTo.Success();
     }
 }

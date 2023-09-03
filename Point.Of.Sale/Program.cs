@@ -4,36 +4,49 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Point.Of.Sale.Assembly;
-using Point.Of.Sale.Category.Database.Context;
-using Point.Of.Sale.Customer.Database.Context;
-using Point.Of.Sale.Inventory.Database.Context;
+using Microsoft.OpenApi.Models;
+using Point.Of.Sale.Abstraction.Assembly;
+using Point.Of.Sale.Category.Repository;
+using Point.Of.Sale.Persistence.Context;
 using Point.Of.Sale.Persistence.Initializable;
-using Point.Of.Sale.Person.Database.Context;
-using Point.Of.Sale.Product.Database.Context;
-using Point.Of.Sale.Sales.Database.Context;
-using Point.Of.Sale.Shopping.Cart.Database.Context;
-using Point.Of.Sale.Supplier.Database.Context;
-using Point.Of.Sale.Tenant.Database.Context;
+using Point.Of.Sale.Persistence.UnitOfWork;
+using Supabase;
 
 const string url = "https://ykoorfkswtiuzwokviis.supabase.co"; // Environment.GetEnvironmentVariable("SUPABASE_URL");
-const string key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrb29yZmtzd3RpdXp3b2t2aWlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTAwOTM1NzEsImV4cCI6MjAwNTY2OTU3MX0.2hIJJvz91kRAPWjg6KcIu-UhzuJEUOc5jIiArRGyxIY"; //Environment.GetEnvironmentVariable("SUPABASE_KEY");
+const string key =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inlrb29yZmtzd3RpdXp3b2t2aWlzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTAwOTM1NzEsImV4cCI6MjAwNTY2OTU3MX0.2hIJJvz91kRAPWjg6KcIu-UhzuJEUOc5jIiArRGyxIY"; //Environment.GetEnvironmentVariable("SUPABASE_KEY");
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = "User Id=postgres;Password=xqdOSyXTk69227f5;Server=db.ykoorfkswtiuzwokviis.supabase.co;Port=5432;Database=postgres";
 
-builder.Services.AddDbContext<ICategoryDbContext, CategoryDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<ICustomerDbContext, CustomerDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<IInventoryDbContext, InventoryDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<IPersonDbContext, PersonDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<IProductDbContext, ProductDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<ISaleDbContext, SaleDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<IShoppingCartDbContext, ShoppingCartDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<ISupplierDbContext, SupplierDbContext>(o => { o.UseNpgsql(connectionString); });
-builder.Services.AddDbContext<ITenantDbContext, TenantDbContext>(o => { o.UseNpgsql(connectionString); });
+builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseNpgsql(connectionString); });
+builder.Services.AddScoped<IPosDbContext>(c => c.GetRequiredService<PosDbContext>());
+builder.Services.AddScoped<IUnitOfWork>(c => c.GetRequiredService<PosDbContext>());
 
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Abstraction.Assembly.AssemblyReference.Assembly));
+// builder.Services.AddDbContext<ICustomerDbContext, CustomerDbContext>(o => { o.UseNpgsql(connectionString); });
+// builder.Services.AddDbContext<IInventoryDbContext, InventoryDbContext>(o => { o.UseNpgsql(connectionString); });
+// builder.Services.AddDbContext<IPersonDbContext, PersonDbContext>(o => { o.UseNpgsql(connectionString); });
+// builder.Services.AddDbContext<IProductDbContext, ProductDbContext>(o => { o.UseNpgsql(connectionString); });
+// builder.Services.AddDbContext<ISaleDbContext, SaleDbContext>(o => { o.UseNpgsql(connectionString); });
+// builder.Services.AddDbContext<IShoppingCartDbContext, ShoppingCartDbContext>(o => { o.UseNpgsql(connectionString); });
+// builder.Services.AddDbContext<ISupplierDbContext, SupplierDbContext>(o => { o.UseNpgsql(connectionString); });
+// builder.Services.AddDbContext<ITenantDbContext, TenantDbContext>(o => { o.UseNpgsql(connectionString); });
+
+/*
+ *            options
+                .UseNpgsql(configuration.GetConnectionString("Database"))
+                .UseSnakeCaseNamingConvention());
+
+        services.AddScoped<IApplicationDbContext>(sp =>
+            sp.GetRequiredService<ApplicationDbContext>());
+
+        services.AddScoped<IUnitOfWork>(sp =>
+            sp.GetRequiredService<ApplicationDbContext>());
+ *
+ */
+
+builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(AssemblyReference.Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Category.Assembly.AssemblyReference.Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Customer.Assembly.AssemblyReference.Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Inventory.Assembly.AssemblyReference.Assembly));
@@ -49,7 +62,8 @@ builder
     .Services
     .Scan(
         selector => selector
-            .FromAssemblies(Point.Of.Sale.Abstraction.Assembly.AssemblyReference.Assembly)
+            .FromAssemblies(AssemblyReference.Assembly)
+            .FromAssemblies(Point.Of.Sale.Persistence.Assembly.AssemblyReference.Assembly)
             .FromAssemblies(Point.Of.Sale.Category.Assembly.AssemblyReference.Assembly)
             .FromAssemblies(Point.Of.Sale.Customer.Assembly.AssemblyReference.Assembly)
             .FromAssemblies(Point.Of.Sale.Inventory.Assembly.AssemblyReference.Assembly)
@@ -65,24 +79,21 @@ builder
             .WithScopedLifetime());
 
 
-var options = new Supabase.SupabaseOptions
+var options = new SupabaseOptions
 {
     AutoConnectRealtime = true,
     AutoRefreshToken = true,
 };
 
-var supabase = new Supabase.Client(url, key, options);
+var supabase = new Client(url, key, options);
 
 await supabase.InitializeAsync();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(s =>
-{
-    s.SwaggerDoc("v1", new() {Title = "Kodelev8 POS Service API", Version = "v1"});
-});
+builder.Services.AddSwaggerGen(s => { s.SwaggerDoc("v1", new OpenApiInfo {Title = "Kodelev8 POS Service API", Version = "v1"}); });
 
-builder.Services.AddScoped<Point.Of.Sale.Category.Repository.IRepository, Point.Of.Sale.Category.Repository.Repository>();
+builder.Services.AddScoped<IRepository, Repository>();
 builder.Services.AddScoped<Point.Of.Sale.Customer.Repository.IRepository, Point.Of.Sale.Customer.Repository.Repository>();
 builder.Services.AddScoped<Point.Of.Sale.Inventory.Repository.IRepository, Point.Of.Sale.Inventory.Repository.Repository>();
 builder.Services.AddScoped<Point.Of.Sale.Person.Repository.IRepository, Point.Of.Sale.Person.Repository.Repository>();
@@ -124,7 +135,7 @@ app.MapControllers();
 
 app.Map("/exception", () => { throw new InvalidOperationException("Sample Exception"); });
 
-IEnumerable<Type> initializables = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(y => typeof(IInitializable).IsAssignableFrom(y) && !y.IsInterface);
+var initializables = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(y => typeof(IInitializable).IsAssignableFrom(y) && !y.IsInterface);
 
 if (initializables is not null || initializables.Any())
 {

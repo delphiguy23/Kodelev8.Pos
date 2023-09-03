@@ -1,138 +1,65 @@
 using Microsoft.EntityFrameworkCore;
-using Point.Of.Sale.Sales.Database.Context;
-using Point.Of.Sale.Sales.Database.Model;
+using Point.Of.Sale.Persistence.Context;
+using Point.Of.Sale.Persistence.Models;
+using Point.Of.Sale.Persistence.Repository;
 using Point.Of.Sale.Sales.Models;
-using Point.Of.Sale.Shared.Enums;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.Models;
 
 namespace Point.Of.Sale.Sales.Repository;
 
-public class Repository : IRepository
+public class Repository : GenericRepository<Persistence.Models.Sale>, IRepository
 {
-    private readonly ISaleDbContext _dbContext;
+    private new readonly PosDbContext _dbContext;
 
-    public Repository(ISaleDbContext dbContext)
+    public Repository(PosDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IFluentResults<List<Sale.Sales.Database.Model.Sale>>> All(CancellationToken cancellationToken = default)
-    {
-        var result = await _dbContext.Sales.ToListAsync(cancellationToken);
-        return ResultsTo.Success(result);
-    }
-
-    public async Task<IFluentResults<Sale.Sales.Database.Model.Sale>> GetById(int Id,  CancellationToken cancellationToken = default)
-    {
-        var result = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == Id, cancellationToken);
-
-        if (result is null) ResultsTo.NotFound();
-
-        return ResultsTo.Success(result!);
-    }
-
-    public async Task<IFluentResults> Add(UpsertSale request, CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            await _dbContext.Sales.AddAsync(new Sale.Sales.Database.Model.Sale
-            {
-                TenantId = request.TenantId,
-                CustomerId = request.CustomerId,
-                LineItems = request.LineItems,
-                SubTotal = request.SubTotal,
-                TotalDiscounts =  request.TotalDiscounts,
-                TaxPercentage = request.TaxPercentage,
-                SalesTax = request.SalesTax,
-                TotalSales = request.TotalSales,
-                SaleDate = DateTime.UtcNow,
-                Active = true,
-                Status = SaleStatus.OrderPlaced
-            }, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-        catch (Exception e)
-        {
-            return ResultsTo.Failure(e).WithMessage(e.Message);
-        }
-
-        return ResultsTo.Success();
-    }
 
     public async Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default)
     {
         var tenant = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == linkToTenant.EntityId, cancellationToken);
 
-        if (tenant is null) return ResultsTo.NotFound();
+        if (tenant is null)
+        {
+            return ResultsTo.NotFound();
+        }
 
         tenant.TenantId = linkToTenant.TenantId;
-        await _dbContext.SaveChangesAsync(cancellationToken);
 
         return ResultsTo.Success();
     }
 
-    public async Task<IFluentResults<List<Sale.Sales.Database.Model.Sale>>> GetByTenantId(int Id, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<List<Persistence.Models.Sale>>> GetByTenantId(int Id, CancellationToken cancellationToken = default)
     {
         var result = await _dbContext.Sales.Where(t => t.TenantId == Id).ToListAsync(cancellationToken);
-
-        if (!result.Any()) ResultsTo.NotFound();
-
-        return ResultsTo.Success(result!);
-    }
-
-    public async Task<IFluentResults> Update(UpsertSale request, CancellationToken cancellationToken = default)
-    {
-        var result = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == request.Id, cancellationToken);
-
-        if (result is null) return ResultsTo.NotFound();
-
-        result.TenantId = request.TenantId;
-        result.CustomerId = request.CustomerId;
-        result.LineItems = request.LineItems;
-        result.SubTotal = request.SubTotal;
-        result.TotalDiscounts = request.TotalDiscounts;
-        result.TaxPercentage = request.TaxPercentage;
-        result.SalesTax = request.SalesTax;
-        result.TotalSales = request.TotalSales;
-        result.Active = request.Active;
-        result.Status = request.Status;
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
-
-        return ResultsTo.Success();
+        return ResultsTo.Something(result!);
     }
 
     public async Task<IFluentResults> UpsertLineItem(UpsertSaleLineItem request, CancellationToken cancellationToken = default)
     {
-        SaleLineItem NewLine() =>
-            new()
-            {
-                LineId = request.LineId,
-                TenantId = request.TenantId,
-                ProductId = request.ProductId,
-                ProductName = request.ProductName,
-                Quantity = request.Quantity,
-                UnitPrice = request.UnitPrice,
-                LineDiscount = request.LineDiscount,
-                Active = true,
-                LineTax = request.LineTax,
-                ProductDescription = request.ProductDescription,
-                LineTotal = request.LineTotal,
-            };
+        var newLiune = NewLine(request);
 
         var result = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == request.SaleId, cancellationToken);
 
-        if (result is null) return ResultsTo.NotFound();
+        if (result is null)
+        {
+            return ResultsTo.NotFound();
+        }
 
         if (!result.LineItems.Any())
         {
-            result.LineItems.Add(NewLine());
+            result.LineItems.Add(newLiune);
         }
 
         var lineItem = result.LineItems.FirstOrDefault(t => t.LineId == request.LineId);
 
-        if (lineItem is null) result.LineItems.Add(NewLine());
+        if (lineItem is null)
+        {
+            result.LineItems.Add(newLiune);
+        }
         else
         {
             lineItem.TenantId = request.TenantId;
@@ -147,8 +74,24 @@ public class Repository : IRepository
             lineItem.Active = request.Active;
         }
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
-
         return ResultsTo.Success();
+    }
+
+    private static SaleLineItem NewLine(UpsertSaleLineItem request)
+    {
+        return new SaleLineItem
+        {
+            LineId = request.LineId,
+            TenantId = request.TenantId,
+            ProductId = request.ProductId,
+            ProductName = request.ProductName,
+            Quantity = request.Quantity,
+            UnitPrice = request.UnitPrice,
+            LineDiscount = request.LineDiscount,
+            Active = true,
+            LineTax = request.LineTax,
+            ProductDescription = request.ProductDescription,
+            LineTotal = request.LineTotal,
+        };
     }
 }

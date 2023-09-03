@@ -122,6 +122,11 @@ public static class ResultsTo
             return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound);
         }
 
+        // if (typeof(TValue) == typeof(int) && value.Value is typeof(int) == 0)
+        // {
+        //     return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound);
+        // }
+
         if (value.Status == FluentResultsStatus.Success)
         {
             return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.Success).FromResults(value);

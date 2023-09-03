@@ -16,7 +16,7 @@ public static class FluentResultsExtension
     {
         return result is { } fluentResults && fluentResults.Status == FluentResultsStatus.Failure;
     }
-        
+
     public static bool IsBadRequest(this IFluentResults result)
     {
         return result is { } fluentResults && fluentResults.Status == FluentResultsStatus.BadRequest;
@@ -24,7 +24,7 @@ public static class FluentResultsExtension
 
     public static bool IsNotFoundOrBadRequest(this IFluentResults result)
     {
-        return result is { } fluentResults && (fluentResults.Status == FluentResultsStatus.BadRequest || fluentResults.Status == FluentResultsStatus.NotFound);
+        return result is { } fluentResults && (fluentResults.Status == FluentResultsStatus.BadRequest || fluentResults.Status == FluentResultsStatus.NotFound || fluentResults.Status == FluentResultsStatus.Failure);
     }
 
     public static IFluentResults OnNotFound(this IFluentResults result, Func<IFluentResults> func)

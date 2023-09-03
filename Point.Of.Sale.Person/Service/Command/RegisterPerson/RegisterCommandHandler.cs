@@ -1,5 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
-using Point.Of.Sale.Person.Models;
+using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Person.Repository;
 using Point.Of.Sale.Shared.FluentResults;
 
@@ -8,15 +8,18 @@ namespace Point.Of.Sale.Person.Service.Command.RegisterPerson;
 public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 {
     private readonly IRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RegisterCommandHandler(IRepository repository)
+    public RegisterCommandHandler(IRepository repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IFluentResults> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.AddPerson(new UpsertPerson
+        // var result = await
+        _repository.Add(new Persistence.Models.Person
         {
             TenantId = request.TenantId,
             FirstName = request.FirstName,
@@ -28,9 +31,14 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
             Address = request.Address,
             Email = request.Email,
             IsUser = request.IsUser,
-            UserDetails = request.UserDetails
-        }, cancellationToken);
+            UserDetails = request.UserDetails,
+            Active = true,
+            CreatedOn = DateTime.UtcNow,
+            UpdatedOn = DateTime.UtcNow,
+            UpdatedBy = "User",
+        });
 
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         return ResultsTo.Success();
     }
 }

@@ -17,7 +17,7 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
 
     public async Task<IFluentResults<List<PersonResponse>>> Handle(GetByTenantIdQuery request, CancellationToken cancellationToken)
     {
-        var result = await _repository.GetByTenantId(request.id, cancellationToken);
+        var result = await _repository.GetByTenantId(request.Id, cancellationToken);
 
         if (result.IsNotFound() || result.IsFailure())
         {
@@ -37,7 +37,7 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
                 Email = r.Email,
                 CreatedOn = r.CreatedOn,
                 UpdatedOn = r.UpdatedOn,
-                TenantId = r.TenantId
+                TenantId = r.TenantId,
             })
             .ToList();
 

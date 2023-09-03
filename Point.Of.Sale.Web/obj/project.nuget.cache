@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ep7PXw8hBvdpmFf4QNIBIKn5KjphbGjUC19Bqn7zS8VBHSyPw9V9kEM9t+Stkug/oY8kGJK+lKqJXHYb2Ym28A==",
+  "dgSpecHash": "uoCLnBT8KQwPIHM7L5DF+TXBOzYWIhEqI/IdGHsNdM+Ooy62JkMZ76stox9gVQvoWg5vP+lCVwuDizzYPoIxbg==",
   "success": true,
   "projectFilePath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Web/Point.Of.Sale.Web.csproj",
   "expectedPackageFiles": [
@@ -31,7 +31,7 @@
     "/Users/delphiguy/.nuget/packages/system.io.pipelines/7.0.0/system.io.pipelines.7.0.0.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/system.text.encodings.web/7.0.0/system.text.encodings.web.7.0.0.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/system.text.json/7.0.0/system.text.json.7.0.0.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/microsoft.netcore.app.runtime.mono.browser-wasm/7.0.0/microsoft.netcore.app.runtime.mono.browser-wasm.7.0.0.nupkg.sha512"
+    "/Users/delphiguy/.nuget/packages/microsoft.netcore.app.runtime.mono.browser-wasm/7.0.7/microsoft.netcore.app.runtime.mono.browser-wasm.7.0.7.nupkg.sha512"
   ],
   "logs": []
 }

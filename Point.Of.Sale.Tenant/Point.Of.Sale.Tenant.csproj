@@ -6,33 +6,33 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Bogus" Version="34.0.2" />
-        <PackageReference Include="MediatR" Version="12.1.1" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10" />
+        <PackageReference Include="Bogus" Version="34.0.2"/>
+        <PackageReference Include="MediatR" Version="12.1.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.10"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Point.Of.Sale.Abstraction\Point.Of.Sale.Abstraction.csproj" />
-        <ProjectReference Include="..\Point.Of.Sale.Persistence\Point.Of.Sale.Persistence.csproj" />
-        <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj" />
+        <ProjectReference Include="..\Point.Of.Sale.Abstraction\Point.Of.Sale.Abstraction.csproj"/>
+        <ProjectReference Include="..\Point.Of.Sale.Persistence\Point.Of.Sale.Persistence.csproj"/>
+        <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">
-        <HintPath>..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\7.0.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.AspNetCore.Mvc.Core">
-        <HintPath>..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\7.0.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
-      </Reference>
+        <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">
+            <HintPath>..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\7.0.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.AspNetCore.Mvc.Core">
+            <HintPath>..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\7.0.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Service\" />
+        <Folder Include="Service\"/>
     </ItemGroup>
 </Project>

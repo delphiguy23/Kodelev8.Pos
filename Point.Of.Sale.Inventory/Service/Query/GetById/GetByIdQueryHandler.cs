@@ -1,10 +1,10 @@
 using MediatR;
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Inventory.Models;
+using Point.Of.Sale.Inventory.Repository;
 using Point.Of.Sale.Inventory.Service.Query.GetProductDetails;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using IRepository = Point.Of.Sale.Inventory.Repository.IRepository;
 
 namespace Point.Of.Sale.Inventory.Service.Query.GetById;
 
@@ -23,11 +23,18 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, InventoryResp
     {
         var result = await _repository.GetById(request.Id, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<InventoryResponse>().WithMessage("Inventory Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<InventoryResponse>().WithMessage(result.Messages);
+        if (result.IsNotFound())
+        {
+            return ResultsTo.NotFound<InventoryResponse>().WithMessage("Inventory Not Found");
+        }
+
+        if (result.IsFailure())
+        {
+            return ResultsTo.Failure<InventoryResponse>().WithMessage(result.Messages);
+        }
 
         var detail = await _sender.Send(new GetProductDetailsQuery(
-            result.Value.TenantId,
+            result.Value!.TenantId,
             result.Value.CategoryId,
             result.Value.ProductId,
             result.Value.SupplierId), cancellationToken);

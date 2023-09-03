@@ -1,6 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Supplier.Models;
 using Point.Of.Sale.Supplier.Repository;
 
@@ -19,25 +18,26 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, SupplierRespo
     {
         var result = await _repository.GetById(request.Id, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<SupplierResponse>().WithMessage("Supplier Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<SupplierResponse>().WithMessage(result.Messages);
-
-        var response = new SupplierResponse
+        return result.Status switch
         {
-            Id = result.Value.Id,
-            Name = result.Value.Name,
-            Address = result.Value.Address,
-            Phone = result.Value.Phone,
-            Email = result.Value.Email,
-            City = result.Value.City,
-            State = result.Value.State,
-            Country = result.Value.Country,
-            Active = result.Value.Active,
-            CreatedOn = result.Value.CreatedOn,
-            UpdatedOn = result.Value.UpdatedOn,
-            TenantId = result.Value.TenantId
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<SupplierResponse>().WithMessage("Supplier Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<SupplierResponse>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<SupplierResponse>().FromResults(result),
+            _ => ResultsTo.Success(new SupplierResponse
+            {
+                Id = result.Value.Id,
+                Name = result.Value.Name,
+                Address = result.Value.Address,
+                Phone = result.Value.Phone,
+                Email = result.Value.Email,
+                City = result.Value.City,
+                State = result.Value.State,
+                Country = result.Value.Country,
+                Active = result.Value.Active,
+                CreatedOn = result.Value.CreatedOn.ToLocalTime(),
+                UpdatedOn = result.Value.UpdatedOn.ToLocalTime(),
+                TenantId = result.Value.TenantId,
+            }),
         };
-
-        return ResultsTo.Success(response);
     }
 }

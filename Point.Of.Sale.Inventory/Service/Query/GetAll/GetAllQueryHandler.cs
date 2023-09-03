@@ -1,10 +1,10 @@
 using MediatR;
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Inventory.Models;
+using Point.Of.Sale.Inventory.Repository;
 using Point.Of.Sale.Inventory.Service.Query.GetProductDetails;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using IRepository = Point.Of.Sale.Inventory.Repository.IRepository;
 
 namespace Point.Of.Sale.Inventory.Service.Query.GetAll;
 
@@ -21,10 +21,17 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<Invento
 
     public async Task<IFluentResults<List<InventoryResponse>>> Handle(GetAllQuery request, CancellationToken cancellationToken)
     {
-        var result = await _repository.All(cancellationToken);
+        var result = await _repository.GetAll(cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<List<InventoryResponse>>().WithMessage("Inventory Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<List<InventoryResponse>>().WithMessage(result.Messages);
+        if (result.IsNotFound())
+        {
+            return ResultsTo.NotFound<List<InventoryResponse>>().WithMessage("Inventory Not Found");
+        }
+
+        if (result.IsFailure())
+        {
+            return ResultsTo.Failure<List<InventoryResponse>>().WithMessage(result.Messages);
+        }
 
         var response = new List<InventoryResponse>();
 

@@ -1,5 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
-using Point.Of.Sale.Product.Models;
+using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Product.Repository;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
@@ -9,15 +9,17 @@ namespace Point.Of.Sale.Product.Service.Command.Update;
 public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
 {
     private readonly IRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public UpdateCommandHandler(IRepository repository)
+    public UpdateCommandHandler(IRepository repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IFluentResults> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.Update(new UpsertProduct
+        var result = await _repository.Update(new Persistence.Models.Product
         {
             Id = request.Id,
             TenantId = request.TenantId,
@@ -32,12 +34,16 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             BarCodeType = request.BarCodeType,
             Barcode = request.Barcode,
             Active = request.Active,
-        }, cancellationToken);
+            UpdatedOn = DateTime.UtcNow,
+            UpdatedBy = "User",
+        });
 
         if (result.IsNotFound())
         {
             return ResultsTo.NotFound().WithMessage("Product Not Found");
         }
+
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return ResultsTo.Success();
     }

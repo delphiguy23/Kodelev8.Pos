@@ -17,7 +17,7 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<SaleRes
 
     public async Task<IFluentResults<List<SaleResponse>>> Handle(GetAllQuery request, CancellationToken cancellationToken)
     {
-        var result = await _repository.All(cancellationToken);
+        var result = await _repository.GetAll(cancellationToken);
 
         if (result.IsNotFound() || result.IsFailure())
         {
@@ -37,7 +37,7 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<SaleRes
                 TotalSales = r.TotalSales,
                 SaleDate = r.SaleDate,
                 Status = r.Status,
-                TenantId = r.TenantId
+                TenantId = r.TenantId,
             })
             .ToList();
 

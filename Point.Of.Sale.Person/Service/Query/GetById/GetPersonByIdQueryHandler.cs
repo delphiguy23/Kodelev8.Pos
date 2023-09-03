@@ -26,7 +26,7 @@ internal sealed class GetPersonByIdQueryHandler : IQueryHandler<GetPersonById, P
 
         var response = new PersonResponse
         {
-            Id = result.Value.Id,
+            Id = result.Value!.Id,
             TenantId = result.Value.TenantId,
             FirstName = result.Value.FirstName,
             MiddleName = result.Value.MiddleName,
@@ -44,14 +44,5 @@ internal sealed class GetPersonByIdQueryHandler : IQueryHandler<GetPersonById, P
         };
 
         return ResultsTo.Success(response);
-
-
-        // result
-        //     .OnNotFound(() => ResultsTo.NotFound<PersonResponse>())
-        //     .OnFailure(() => ResultsTo.Failure<PersonResponse>("Person Not Found"))
-        //     .OnSuccess(() => ResultsTo.Failure<PersonResponse>("Person Not Found"))
-
-
-
     }
 }

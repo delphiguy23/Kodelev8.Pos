@@ -1,23 +1,25 @@
 using Point.Of.Sale.Abstraction.Message;
-using Point.Of.Sale.Product.Models;
+using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Product.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Product.Service.Command.Register;
 
 public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 {
     private readonly IRepository _repository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public RegisterCommandHandler(IRepository repository)
+    public RegisterCommandHandler(IRepository repository, IUnitOfWork unitOfWork)
     {
         _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<IFluentResults> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.Add(new UpsertProduct
+        // var result = await
+        _repository.Add(new Persistence.Models.Product
         {
             TenantId = request.TenantId,
             SkuCode = request.SkuCode,
@@ -30,13 +32,13 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
             Image = request.Image,
             BarCodeType = request.BarCodeType,
             Barcode = request.Barcode,
-        }, cancellationToken);
+            Active = true,
+            CreatedOn = DateTime.UtcNow,
+            UpdatedOn = DateTime.UtcNow,
+            UpdatedBy = "User",
+        });
 
-        if (result.IsNotFound())
-        {
-            return ResultsTo.NotFound().WithMessage("Product Not Found");
-        }
-
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
         return ResultsTo.Success();
     }
 }

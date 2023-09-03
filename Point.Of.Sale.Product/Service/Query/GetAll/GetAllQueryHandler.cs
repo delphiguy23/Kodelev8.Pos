@@ -17,7 +17,7 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<Product
 
     public async Task<IFluentResults<List<ProductResponse>>> Handle(GetAllQuery request, CancellationToken cancellationToken)
     {
-        var result = await _repository.All(cancellationToken);
+        var result = await _repository.GetAll(cancellationToken);
 
         if (result.IsNotFound())
         {

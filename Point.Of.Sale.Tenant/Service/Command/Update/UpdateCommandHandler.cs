@@ -1,7 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Tenant.Models;
 using Point.Of.Sale.Tenant.Repository;
 
 namespace Point.Of.Sale.Tenant.Service.Command.Update;
@@ -17,17 +15,23 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
 
     public async Task<IFluentResults> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.Update(new UpsertTenant
+        var result = await _repository.Update(new Persistence.Models.Tenant
         {
             Id = request.Id,
             Type = request.Type,
             Code = request.Code,
             Name = request.Name,
-            Active = true,
+            Active = request.Active,
+            UpdatedOn = DateTime.UtcNow,
+            UpdatedBy = "User",
         }, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound().WithMessage("Tenant Not Found");
-
-        return ResultsTo.Success();
+        return result.Status switch
+        {
+            FluentResultsStatus.NotFound => ResultsTo.NotFound("Tenant Not Found"),
+            FluentResultsStatus.Failure => ResultsTo.Something(result),
+            FluentResultsStatus.BadRequest => ResultsTo.Something(result),
+            _ => ResultsTo.Something(result),
+        };
     }
 }

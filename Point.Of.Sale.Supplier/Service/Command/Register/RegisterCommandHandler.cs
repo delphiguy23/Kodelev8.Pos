@@ -1,7 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Supplier.Models;
 using Point.Of.Sale.Supplier.Repository;
 
 namespace Point.Of.Sale.Supplier.Service.Command.Register;
@@ -17,7 +15,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 
     public async Task<IFluentResults> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.Add(new UpsertSupplier
+        var result = await _repository.Add(new Persistence.Models.Supplier
         {
             TenantId = request.TenantId,
             Name = request.Name,
@@ -27,10 +25,12 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
             City = request.City,
             State = request.State,
             Country = request.Country,
+            CreatedOn = DateTime.UtcNow,
+            UpdatedOn = DateTime.UtcNow,
+            Active = true,
+            UpdatedBy = "User",
         }, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound().WithMessage("Supplier Not Found");
-
-        return ResultsTo.Success();
+        return ResultsTo.Something(result);
     }
 }

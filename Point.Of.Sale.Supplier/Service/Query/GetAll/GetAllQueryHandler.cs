@@ -1,6 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Supplier.Models;
 using Point.Of.Sale.Supplier.Repository;
 
@@ -17,28 +16,29 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<Supplie
 
     public async Task<IFluentResults<List<SupplierResponse>>> Handle(GetAllQuery request, CancellationToken cancellationToken)
     {
-        var result = await _repository.All(cancellationToken);
+        var result = await _repository.GetAll(cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<List<SupplierResponse>>().WithMessage("Supplier Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<List<SupplierResponse>>().WithMessage(result.Messages);
-
-        var response = result.Value.Select(r => new SupplierResponse
-            {
-                Id = r.Id,
-                Name = r.Name,
-                Address = r.Address,
-                Phone = r.Phone,
-                Email = r.Email,
-                City = r.City,
-                State = r.State,
-                Country = r.Country,
-                Active = r.Active,
-                CreatedOn = r.CreatedOn,
-                UpdatedOn = r.UpdatedOn,
-                TenantId = r.TenantId
-            })
-            .ToList();
-
-        return ResultsTo.Success(response);
+        return result.Status switch
+        {
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<SupplierResponse>>().WithMessage("Supplier Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<SupplierResponse>>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<List<SupplierResponse>>().FromResults(result),
+            _ => ResultsTo.Success(result.Value.Select(r => new SupplierResponse
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Address = r.Address,
+                    Phone = r.Phone,
+                    Email = r.Email,
+                    City = r.City,
+                    State = r.State,
+                    Country = r.Country,
+                    Active = r.Active,
+                    CreatedOn = r.CreatedOn,
+                    UpdatedOn = r.UpdatedOn,
+                    TenantId = r.TenantId,
+                })
+                .ToList()),
+        };
     }
 }

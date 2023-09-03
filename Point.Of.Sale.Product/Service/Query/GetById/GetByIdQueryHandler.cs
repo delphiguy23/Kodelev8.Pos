@@ -31,7 +31,7 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, ProductRespon
 
         var response = new ProductResponse
         {
-            Id = result.Value.Id,
+            Id = result.Value!.Id,
             SkuCode = result.Value.SkuCode,
             Name = result.Value.Name,
             Description = result.Value.Description,

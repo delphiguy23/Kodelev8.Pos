@@ -1,4 +1,4 @@
-using Point.Of.Sale.Sales.Database.Model;
+using Point.Of.Sale.Persistence.Models;
 using Point.Of.Sale.Shared.Enums;
 
 namespace Point.Of.Sale.Sales.Models;

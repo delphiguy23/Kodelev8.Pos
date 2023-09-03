@@ -17,7 +17,7 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<PersonR
 
     public async Task<IFluentResults<List<PersonResponse>>> Handle(GetAllQuery request, CancellationToken cancellationToken)
     {
-        var result = await _repository.All(cancellationToken);
+        var result = await _repository.GetAll(cancellationToken);
 
         if (result.IsNotFound() || result.IsFailure())
         {
@@ -37,7 +37,7 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<PersonR
                 Email = r.Email,
                 CreatedOn = r.CreatedOn,
                 UpdatedOn = r.UpdatedOn,
-                TenantId = r.TenantId
+                TenantId = r.TenantId,
             })
             .ToList();
 
