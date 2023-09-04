@@ -1,7 +1,6 @@
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Shopping.Cart.Repository;
 
 namespace Point.Of.Sale.Shopping.Cart.Service.Command.LinkToTenant;
@@ -25,13 +24,6 @@ public class LinkToTenantCommandHandler : ICommandHandler<LinkToTenantCommand>
             EntityId = request.entityId,
         }, cancellationToken);
 
-        if (result.IsNotFound())
-        {
-            return ResultsTo.NotFound().WithMessage("Shopping Cart Not Found");
-        }
-
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-        return ResultsTo.Success();
+        return ResultsTo.Something(result);
     }
 }

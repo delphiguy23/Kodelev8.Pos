@@ -18,8 +18,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 
     public async Task<IFluentResults> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        // var result = await
-        _repository.Add(new Persistence.Models.Product
+        var result = await _repository.Add(new Persistence.Models.Product
         {
             TenantId = request.TenantId,
             SkuCode = request.SkuCode,
@@ -36,9 +35,8 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
             CreatedOn = DateTime.UtcNow,
             UpdatedOn = DateTime.UtcNow,
             UpdatedBy = "User",
-        });
+        }, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ResultsTo.Success();
+        return ResultsTo.Something(result);
     }
 }

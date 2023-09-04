@@ -2,7 +2,6 @@ using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Customer.Repository;
 using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Customer.Service.Command.Update;
 
@@ -30,14 +29,8 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             Active = request.Active,
             UpdatedOn = DateTime.UtcNow,
             UpdatedBy = "User",
-        });
+        }, cancellationToken);
 
-        if (!result.IsSuccess())
-        {
-            return ResultsTo.Something(result);
-        }
-
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ResultsTo.Success();
+        return ResultsTo.Something(result);
     }
 }

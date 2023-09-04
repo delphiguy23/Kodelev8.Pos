@@ -10,7 +10,7 @@ namespace Point.Of.Sale.Sales.Repository;
 
 public class Repository : GenericRepository<Persistence.Models.Sale>, IRepository
 {
-    private new readonly PosDbContext _dbContext;
+    private readonly PosDbContext _dbContext;
 
     public Repository(PosDbContext dbContext) : base(dbContext)
     {
@@ -18,18 +18,22 @@ public class Repository : GenericRepository<Persistence.Models.Sale>, IRepositor
     }
 
 
-    public async Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<CrudResult<Persistence.Models.Sale>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default)
     {
-        var tenant = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == linkToTenant.EntityId, cancellationToken);
+        var sales = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == request.EntityId, cancellationToken);
 
-        if (tenant is null)
+        if (sales is null)
         {
-            return ResultsTo.NotFound();
+            return ResultsTo.NotFound<CrudResult<Persistence.Models.Sale>>($"No Sale found with Id {request.EntityId}.");
         }
 
-        tenant.TenantId = linkToTenant.TenantId;
+        sales.TenantId = request.TenantId;
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(new CrudResult<Persistence.Models.Sale>
+        {
+            Count = await _dbContext.SaveChangesAsync(cancellationToken),
+            Entity = sales,
+        });
     }
 
     public async Task<IFluentResults<List<Persistence.Models.Sale>>> GetByTenantId(int Id, CancellationToken cancellationToken = default)
@@ -38,27 +42,27 @@ public class Repository : GenericRepository<Persistence.Models.Sale>, IRepositor
         return ResultsTo.Something(result!);
     }
 
-    public async Task<IFluentResults> UpsertLineItem(UpsertSaleLineItem request, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<CrudResult<Persistence.Models.Sale>>> UpsertLineItem(UpsertSaleLineItem request, CancellationToken cancellationToken = default)
     {
-        var newLiune = NewLine(request);
+        var newLine = NewLine(request);
 
         var result = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == request.SaleId, cancellationToken);
 
         if (result is null)
         {
-            return ResultsTo.NotFound();
+            return ResultsTo.NotFound<CrudResult<Persistence.Models.Sale>>($"No Sale found with Id {request.SaleId}.");
         }
 
         if (!result.LineItems.Any())
         {
-            result.LineItems.Add(newLiune);
+            result.LineItems.Add(newLine);
         }
 
         var lineItem = result.LineItems.FirstOrDefault(t => t.LineId == request.LineId);
 
         if (lineItem is null)
         {
-            result.LineItems.Add(newLiune);
+            result.LineItems.Add(newLine);
         }
         else
         {
@@ -74,7 +78,11 @@ public class Repository : GenericRepository<Persistence.Models.Sale>, IRepositor
             lineItem.Active = request.Active;
         }
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(new CrudResult<Persistence.Models.Sale>
+        {
+            Count = await _dbContext.SaveChangesAsync(cancellationToken),
+            Entity = result,
+        });
     }
 
     private static SaleLineItem NewLine(UpsertSaleLineItem request)

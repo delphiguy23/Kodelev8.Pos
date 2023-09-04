@@ -2,7 +2,6 @@ using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Customer.Models;
 using Point.Of.Sale.Customer.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Customer.Service.Query.GetByTenantId;
 
@@ -19,11 +18,13 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
     {
         var result = await _repository.GetByTenantId(request.id, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<List<CustomerResponse>>().WithMessage("Customer Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<List<CustomerResponse>>().WithMessage(result.Messages);
-
-        var response = result.Value.Select(r => new CustomerResponse
-            {
+        return result.Status switch
+        {
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<CustomerResponse>>().WithMessage("Customer Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<CustomerResponse>>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<List<CustomerResponse>>().FromResults(result),
+            _ => ResultsTo.Success(result.Value.Select(r => new CustomerResponse
+                {
                     Id = r.Id,
                     Name = r.Name,
                     Address = r.Address,
@@ -31,9 +32,9 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
                     Email = r.Email,
                     CreatedOn = r.CreatedOn,
                     UpdatedOn = r.UpdatedOn,
-            })
-            .ToList();
-
-        return ResultsTo.Success(response);
+                    TenantId = r.TenantId,
+                })
+                .ToList()),
+        };
     }
 }

@@ -1,6 +1,5 @@
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Shopping.Cart.Models;
 using Point.Of.Sale.Shopping.Cart.Repository;
 
@@ -19,24 +18,23 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<CartRes
     {
         var result = await _repository.GetAll(cancellationToken);
 
-        if (result.IsNotFound() || result.IsFailure())
+        return result.Status switch
         {
-            return ResultsTo.Failure<List<CartResponse>>("Cart Not Found");
-        }
-
-        var response = result.Value.Select(r => new CartResponse
-            {
-                Id = r.Id,
-                CustomerId = r.CustomerId,
-                ProductId = r.ProductId,
-                ItemCount = r.ItemCount,
-                Active = r.Active,
-                CreatedOn = r.CreatedOn,
-                UpdatedOn = r.UpdatedOn,
-                TenantId = r.TenantId,
-            })
-            .ToList();
-
-        return ResultsTo.Success(response);
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<CartResponse>>().WithMessage("Cart Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<CartResponse>>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<List<CartResponse>>().FromResults(result),
+            _ => ResultsTo.Success(result.Value.Select(r => new CartResponse
+                {
+                    Id = r.Id,
+                    CustomerId = r.CustomerId,
+                    ProductId = r.ProductId,
+                    ItemCount = r.ItemCount,
+                    Active = r.Active,
+                    CreatedOn = r.CreatedOn,
+                    UpdatedOn = r.UpdatedOn,
+                    TenantId = r.TenantId,
+                })
+                .ToList()),
+        };
     }
 }

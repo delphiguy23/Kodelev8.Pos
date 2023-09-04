@@ -19,8 +19,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 
     public async Task<IFluentResults> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        // var result = await
-        _repository.Add(new ShoppingCart
+        var result = await _repository.Add(new ShoppingCart
         {
             TenantId = request.TenantId,
             CustomerId = request.CustomerId,
@@ -32,7 +31,6 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
             UpdatedBy = "User",
         });
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ResultsTo.Success();
+        return ResultsTo.Something(result);
     }
 }

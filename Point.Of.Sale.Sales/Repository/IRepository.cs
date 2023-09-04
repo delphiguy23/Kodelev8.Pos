@@ -7,7 +7,7 @@ namespace Point.Of.Sale.Sales.Repository;
 
 public interface IRepository : IGenericRepository<Persistence.Models.Sale>
 {
-    Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default);
+    Task<IFluentResults<CrudResult<Persistence.Models.Sale>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default);
     Task<IFluentResults<List<Persistence.Models.Sale>>> GetByTenantId(int id, CancellationToken cancellationToken = default);
-    Task<IFluentResults> UpsertLineItem(UpsertSaleLineItem request, CancellationToken cancellationToken = default);
+    Task<IFluentResults<CrudResult<Persistence.Models.Sale>>> UpsertLineItem(UpsertSaleLineItem request, CancellationToken cancellationToken = default);
 }

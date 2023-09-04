@@ -2,7 +2,6 @@ using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Sales.Models;
 using Point.Of.Sale.Sales.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Sales.Service.Query.GetByTenantId;
 
@@ -19,28 +18,27 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
     {
         var result = await _repository.GetByTenantId(request.id, cancellationToken);
 
-        if (result.IsNotFound() || result.IsFailure())
+        return result.Status switch
         {
-            return ResultsTo.Failure<List<SaleResponse>>("Sale Not Found");
-        }
-
-        var response = result.Value.Select(r => new SaleResponse
-            {
-                Id = r.Id,
-                CustomerId = r.CustomerId,
-                LineItems = r.LineItems,
-                Active = r.Active,
-                SubTotal = r.SubTotal,
-                TotalDiscounts = r.TotalDiscounts,
-                TaxPercentage = r.TaxPercentage,
-                SalesTax = r.SalesTax,
-                TotalSales = r.TotalSales,
-                SaleDate = r.SaleDate,
-                Status = r.Status,
-                TenantId = r.TenantId
-            })
-            .ToList();
-
-        return ResultsTo.Success(response);
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<SaleResponse>>().WithMessage("Sale Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<SaleResponse>>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<List<SaleResponse>>().FromResults(result),
+            _ => ResultsTo.Success(result.Value.Select(r => new SaleResponse
+                {
+                    Id = r.Id,
+                    CustomerId = r.CustomerId,
+                    LineItems = r.LineItems,
+                    Active = r.Active,
+                    SubTotal = r.SubTotal,
+                    TotalDiscounts = r.TotalDiscounts,
+                    TaxPercentage = r.TaxPercentage,
+                    SalesTax = r.SalesTax,
+                    TotalSales = r.TotalSales,
+                    SaleDate = r.SaleDate,
+                    Status = r.Status,
+                    TenantId = r.TenantId,
+                })
+                .ToList()),
+        };
     }
 }

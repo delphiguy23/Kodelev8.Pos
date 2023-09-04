@@ -8,30 +8,34 @@ namespace Point.Of.Sale.Inventory.Repository;
 
 public class Repository : GenericRepository<Persistence.Models.Inventory>, IRepository
 {
-    private new readonly PosDbContext _dbContext;
+    private readonly PosDbContext _dbContext;
 
     public Repository(PosDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<CrudResult<Persistence.Models.Inventory>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default)
     {
-        var tenant = await _dbContext.Inventories.FirstOrDefaultAsync(t => t.Id == linkToTenant.EntityId, cancellationToken);
+        var inventory = await _dbContext.Inventories.FirstOrDefaultAsync(t => t.Id == request.EntityId, cancellationToken);
 
-        if (tenant is null)
+        if (inventory is null)
         {
-            return ResultsTo.NotFound();
+            return ResultsTo.NotFound<CrudResult<Persistence.Models.Inventory>>($"No Inventory found with Id {request.EntityId}.");
         }
 
-        tenant.TenantId = linkToTenant.TenantId;
+        inventory.TenantId = request.TenantId;
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(new CrudResult<Persistence.Models.Inventory>
+        {
+            Count = await _dbContext.SaveChangesAsync(cancellationToken),
+            Entity = inventory,
+        });
     }
 
-    public async Task<IFluentResults<List<Persistence.Models.Inventory>>> GetByTenantId(int Id, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<List<Persistence.Models.Inventory>>> GetByTenantId(int id, CancellationToken cancellationToken = default)
     {
-        var result = await _dbContext.Inventories.Where(t => t.TenantId == Id).ToListAsync(cancellationToken);
+        var result = await _dbContext.Inventories.Where(t => t.TenantId == id).ToListAsync(cancellationToken);
         return ResultsTo.Something(result!);
     }
 }

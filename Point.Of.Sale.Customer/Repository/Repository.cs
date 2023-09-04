@@ -8,30 +8,34 @@ namespace Point.Of.Sale.Customer.Repository;
 
 public class Repository : GenericRepository<Persistence.Models.Customer>, IRepository
 {
-    private new readonly PosDbContext _dbContext;
+    private readonly PosDbContext _dbContext;
 
     public Repository(PosDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<CrudResult<Persistence.Models.Customer>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default)
     {
-        var tenant = await _dbContext.Customers.FirstOrDefaultAsync(t => t.Id == linkToTenant.EntityId, cancellationToken);
+        var customer = await _dbContext.Customers.FirstOrDefaultAsync(t => t.Id == request.EntityId, cancellationToken);
 
-        if (tenant is null)
+        if (customer is null)
         {
-            return ResultsTo.NotFound();
+            return ResultsTo.NotFound<CrudResult<Persistence.Models.Customer>>($"No Customer found with Id {request.EntityId}.");
         }
 
-        tenant.TenantId = linkToTenant.TenantId;
+        customer.TenantId = request.TenantId;
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(new CrudResult<Persistence.Models.Customer>
+        {
+            Count = await _dbContext.SaveChangesAsync(cancellationToken),
+            Entity = customer,
+        });
     }
 
-    public async Task<IFluentResults<List<Persistence.Models.Customer>>> GetByTenantId(int Id, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<List<Persistence.Models.Customer>>> GetByTenantId(int id, CancellationToken cancellationToken = default)
     {
-        var result = await _dbContext.Customers.Where(t => t.TenantId == Id).ToListAsync(cancellationToken);
-        return ResultsTo.Something(result!);
+        var result = await _dbContext.Customers.Where(t => t.TenantId == id).ToListAsync(cancellationToken);
+        return ResultsTo.Something(result);
     }
 }

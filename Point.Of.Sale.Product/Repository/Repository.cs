@@ -8,32 +8,35 @@ namespace Point.Of.Sale.Product.Repository;
 
 public class Repository : GenericRepository<Persistence.Models.Product>, IRepository
 {
-    private new readonly PosDbContext _dbContext;
+    private readonly PosDbContext _dbContext;
 
     public Repository(PosDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<CrudResult<Persistence.Models.Product>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default)
     {
-        var tenant = await _dbContext.Products.FirstOrDefaultAsync(t => t.Id == linkToTenant.EntityId, cancellationToken);
+        var product = await _dbContext.Products.FirstOrDefaultAsync(t => t.Id == request.EntityId, cancellationToken);
 
-        if (tenant is null)
+        if (product is null)
         {
-            return ResultsTo.NotFound();
+            return ResultsTo.NotFound<CrudResult<Persistence.Models.Product>>($"No Product found with Id {request.EntityId}.");
         }
 
-        tenant.TenantId = linkToTenant.TenantId;
+        product.TenantId = request.TenantId;
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(new CrudResult<Persistence.Models.Product>
+        {
+            Count = await _dbContext.SaveChangesAsync(cancellationToken),
+            Entity = product,
+        });
     }
 
 
     public async Task<IFluentResults<List<Persistence.Models.Product>>> GetByTenantId(int id, CancellationToken cancellationToken = default)
     {
         var result = await _dbContext.Products.Where(t => t.TenantId == id).ToListAsync(cancellationToken);
-
         return ResultsTo.Something(result);
     }
 }

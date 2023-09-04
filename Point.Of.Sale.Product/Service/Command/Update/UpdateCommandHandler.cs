@@ -36,15 +36,18 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             Active = request.Active,
             UpdatedOn = DateTime.UtcNow,
             UpdatedBy = "User",
-        });
+        }, cancellationToken);
 
         if (result.IsNotFound())
         {
-            return ResultsTo.NotFound().WithMessage("Product Not Found");
+            return ResultsTo.NotFound().WithMessage("Shopping Cart Not Found");
         }
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        if (result.Value.Count == 0)
+        {
+            return ResultsTo.NotFound().WithMessage("Shopping Cart not updated");
+        }
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(result.Value.Entity);
     }
 }

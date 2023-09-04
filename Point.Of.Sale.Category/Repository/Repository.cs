@@ -8,25 +8,29 @@ namespace Point.Of.Sale.Category.Repository;
 
 public class Repository : GenericRepository<Persistence.Models.Category>, IRepository
 {
-    private new readonly PosDbContext _dbContext;
+    private readonly PosDbContext _dbContext;
 
     public Repository(PosDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<CrudResult<Persistence.Models.Category>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default)
     {
-        var tenant = await _dbContext.Categories.FirstOrDefaultAsync(t => t.Id == linkToTenant.EntityId, cancellationToken);
+        var category = await _dbContext.Categories.FirstOrDefaultAsync(t => t.Id == request.EntityId, cancellationToken);
 
-        if (tenant is null)
+        if (category is null)
         {
-            return ResultsTo.NotFound();
+            return ResultsTo.NotFound<CrudResult<Persistence.Models.Category>>($"No Category found with Id {request.EntityId}.");
         }
 
-        tenant.TenantId = linkToTenant.TenantId;
+        category.TenantId = request.TenantId;
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(new CrudResult<Persistence.Models.Category>
+        {
+            Count = await _dbContext.SaveChangesAsync(cancellationToken),
+            Entity = category,
+        });
     }
 
     public async Task<IFluentResults<List<Persistence.Models.Category>>> GetByTenantId(int id, CancellationToken cancellationToken = default)

@@ -18,8 +18,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 
     public async Task<IFluentResults> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        // var result = await
-        _repository.Add(new Persistence.Models.Category
+        var result = await _repository.Add(new Persistence.Models.Category
         {
             TenantId = request.TenantId,
             Name = request.Name,
@@ -28,9 +27,8 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
             CreatedOn = DateTime.UtcNow,
             UpdatedOn = DateTime.UtcNow,
             UpdatedBy = "User",
-        });
+        }, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ResultsTo.Success();
+        return ResultsTo.Something(result);
     }
 }

@@ -6,6 +6,6 @@ namespace Point.Of.Sale.Inventory.Repository;
 
 public interface IRepository : IGenericRepository<Persistence.Models.Inventory>
 {
-    Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default);
-    Task<IFluentResults<List<Persistence.Models.Inventory>>> GetByTenantId(int Id, CancellationToken cancellationToken = default);
+    Task<IFluentResults<CrudResult<Persistence.Models.Inventory>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default);
+    Task<IFluentResults<List<Persistence.Models.Inventory>>> GetByTenantId(int id, CancellationToken cancellationToken = default);
 }

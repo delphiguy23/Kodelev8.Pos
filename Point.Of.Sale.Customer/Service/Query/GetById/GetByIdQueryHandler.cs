@@ -2,7 +2,6 @@ using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Customer.Models;
 using Point.Of.Sale.Customer.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Customer.Service.Query.GetById;
 
@@ -19,28 +18,22 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, CustomerRespo
     {
         var result = await _repository.GetById(request.Id, cancellationToken);
 
-        if (result.IsNotFound())
+        return result.Status switch
         {
-            return ResultsTo.NotFound<CustomerResponse>().WithMessage("Customer Not Found");
-        }
-
-        if (result.IsFailure())
-        {
-            return ResultsTo.Failure<CustomerResponse>().WithMessage(result.Messages);
-        }
-
-        var response = new CustomerResponse
-        {
-            Id = result.Value!.Id,
-            Name = result.Value.Name,
-            Address = result.Value.Address,
-            PhoneNumber = result.Value.PhoneNumber,
-            Email = result.Value.Email,
-            CreatedOn = result.Value.CreatedOn,
-            UpdatedOn = result.Value.UpdatedOn,
-            TenantId = result.Value.TenantId,
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<CustomerResponse>().WithMessage("Customer Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<CustomerResponse>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<CustomerResponse>().FromResults(result),
+            _ => ResultsTo.Success(new CustomerResponse
+            {
+                Id = result.Value.Id,
+                Name = result.Value.Name,
+                Address = result.Value.Address,
+                PhoneNumber = result.Value.PhoneNumber,
+                Email = result.Value.Email,
+                CreatedOn = result.Value.CreatedOn,
+                UpdatedOn = result.Value.UpdatedOn,
+                TenantId = result.Value.TenantId,
+            }),
         };
-
-        return ResultsTo.Success(response);
     }
 }

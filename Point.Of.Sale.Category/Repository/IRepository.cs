@@ -6,6 +6,6 @@ namespace Point.Of.Sale.Category.Repository;
 
 public interface IRepository : IGenericRepository<Persistence.Models.Category>
 {
-    Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default);
+    Task<IFluentResults<CrudResult<Persistence.Models.Category>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default);
     Task<IFluentResults<List<Persistence.Models.Category>>> GetByTenantId(int id, CancellationToken cancellationToken = default);
 }

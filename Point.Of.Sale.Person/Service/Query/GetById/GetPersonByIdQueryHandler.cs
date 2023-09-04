@@ -2,7 +2,6 @@ using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Person.Models;
 using Point.Of.Sale.Person.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Person.Service.Query.GetById;
 
@@ -19,30 +18,26 @@ internal sealed class GetPersonByIdQueryHandler : IQueryHandler<GetPersonById, P
     {
         var result = await _repository.GetById(request.Id, cancellationToken);
 
-        if (result.IsNotFound() || result.IsFailure())
+        return result.Status switch
         {
-            return ResultsTo.NotFound<PersonResponse>();
-        }
-
-        var response = new PersonResponse
-        {
-            Id = result.Value!.Id,
-            TenantId = result.Value.TenantId,
-            FirstName = result.Value.FirstName,
-            MiddleName = result.Value.MiddleName,
-            LastName = result.Value.LastName,
-            Suffix = result.Value.Suffix,
-            Genmder = result.Value.Gender,
-            BirthDate = result.Value.BirthDate,
-            Address = result.Value.Address,
-            Email = result.Value.Email,
-            IsUser = result.Value.IsUser,
-            UserDetails = result.Value.UserDetails,
-            Active = result.Value.Active,
-            CreatedOn = result.Value.CreatedOn,
-            UpdatedOn = result.Value.UpdatedOn,
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<PersonResponse>().WithMessage("Person Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<PersonResponse>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<PersonResponse>().FromResults(result),
+            _ => ResultsTo.Success(new PersonResponse
+            {
+                Id = result.Value.Id,
+                FirstName = result.Value.FirstName,
+                MiddleName = result.Value.MiddleName,
+                LastName = result.Value.LastName,
+                Suffix = result.Value.Suffix,
+                Genmder = result.Value.Gender,
+                BirthDate = result.Value.BirthDate,
+                Address = result.Value.Address,
+                Email = result.Value.Email,
+                CreatedOn = result.Value.CreatedOn,
+                UpdatedOn = result.Value.UpdatedOn,
+                TenantId = result.Value.TenantId,
+            }),
         };
-
-        return ResultsTo.Success(response);
     }
 }

@@ -1,20 +1,18 @@
 using Point.Of.Sale.Abstraction.Message;
-using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Sales.Models;
 using Point.Of.Sale.Sales.Repository;
 using Point.Of.Sale.Shared.FluentResults;
+using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Sales.Service.Command.UpsertLineItem;
 
 public class UpsertLineItemCommandHandler : ICommandHandler<UpsertLineItemCommand>
 {
     private readonly IRepository _repository;
-    private readonly IUnitOfWork _unitOfWork;
 
-    public UpsertLineItemCommandHandler(IRepository repository, IUnitOfWork unitOfWork)
+    public UpsertLineItemCommandHandler(IRepository repository)
     {
         _repository = repository;
-        _unitOfWork = unitOfWork;
     }
 
     public async Task<IFluentResults> Handle(UpsertLineItemCommand request, CancellationToken cancellationToken)
@@ -34,7 +32,16 @@ public class UpsertLineItemCommandHandler : ICommandHandler<UpsertLineItemComman
             LineTotal = request.LineTax + request.UnitPrice * request.Quantity - request.LineDiscount,
         }, cancellationToken);
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ResultsTo.Success();
+        if (result.IsNotFound())
+        {
+            return ResultsTo.NotFound().WithMessage("Sales Not Found");
+        }
+
+        if (result.Value.Count == 0)
+        {
+            return ResultsTo.NotFound().WithMessage("Sales not updated");
+        }
+
+        return ResultsTo.Something(result.Value.Entity);
     }
 }

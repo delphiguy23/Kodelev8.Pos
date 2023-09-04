@@ -9,31 +9,34 @@ namespace Point.Of.Sale.Shopping.Cart.Repository;
 
 public class Repository : GenericRepository<ShoppingCart>, IRepository
 {
-    private new readonly PosDbContext _dbContext;
+    private readonly PosDbContext _dbContext;
 
     public Repository(PosDbContext dbContext) : base(dbContext)
     {
         _dbContext = dbContext;
     }
 
-    public async Task<IFluentResults> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default)
+    public async Task<IFluentResults<CrudResult<ShoppingCart>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default)
     {
-        var tenant = await _dbContext.ShoppingCarts.FirstOrDefaultAsync(t => t.Id == request.EntityId, cancellationToken);
+        var shoppingCart = await _dbContext.ShoppingCarts.FirstOrDefaultAsync(t => t.Id == request.EntityId, cancellationToken);
 
-        if (tenant is null)
+        if (shoppingCart is null)
         {
-            return ResultsTo.NotFound();
+            return ResultsTo.NotFound<CrudResult<ShoppingCart>>($"No Shopping Cart found with Id {request.EntityId}.");
         }
 
-        tenant.TenantId = request.TenantId;
+        shoppingCart.TenantId = request.TenantId;
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(new CrudResult<ShoppingCart>
+        {
+            Count = await _dbContext.SaveChangesAsync(cancellationToken),
+            Entity = shoppingCart,
+        });
     }
 
     public async Task<IFluentResults<List<ShoppingCart>>> GetByTenantId(int request, CancellationToken cancellationToken = default)
     {
         var result = await _dbContext.ShoppingCarts.Where(t => t.TenantId == request).ToListAsync(cancellationToken);
-
-        return ResultsTo.Something(result!);
+        return ResultsTo.Something(result);
     }
 }

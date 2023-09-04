@@ -45,6 +45,6 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             return ResultsTo.NotFound().WithMessage("Supplier not updated");
         }
 
-        return ResultsTo.Success();
+        return ResultsTo.Something(result.Value.Entity);
     }
 }

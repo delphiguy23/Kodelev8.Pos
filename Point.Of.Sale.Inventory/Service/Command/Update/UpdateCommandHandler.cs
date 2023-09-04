@@ -29,14 +29,18 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             Active = request.Active,
             UpdatedOn = DateTime.UtcNow,
             UpdatedBy = "User",
-        });
+        }, cancellationToken);
 
         if (result.IsNotFound())
         {
             return ResultsTo.NotFound().WithMessage("Inventory Not Found");
         }
 
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
-        return ResultsTo.Success();
+        if (result.Value.Count == 0)
+        {
+            return ResultsTo.NotFound().WithMessage("Inventory not updated");
+        }
+
+        return ResultsTo.Something(result);
     }
 }

@@ -19,6 +19,29 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<PersonR
     {
         var result = await _repository.GetAll(cancellationToken);
 
+        return result.Status switch
+        {
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<PersonResponse>>().WithMessage("Person Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<PersonResponse>>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<List<PersonResponse>>().FromResults(result),
+            _ => ResultsTo.Success(result.Value.Select(r => new PersonResponse
+                {
+                    Id = r.Id,
+                    FirstName = r.FirstName,
+                    MiddleName = r.MiddleName,
+                    LastName = r.LastName,
+                    Suffix = r.Suffix,
+                    Genmder = r.Gender,
+                    BirthDate = r.BirthDate,
+                    Address = r.Address,
+                    Email = r.Email,
+                    CreatedOn = r.CreatedOn,
+                    UpdatedOn = r.UpdatedOn,
+                    TenantId = r.TenantId,
+                })
+                .ToList()),
+        };
+
         if (result.IsNotFound() || result.IsFailure())
         {
             return ResultsTo.Failure<List<PersonResponse>>("Person Not Found");

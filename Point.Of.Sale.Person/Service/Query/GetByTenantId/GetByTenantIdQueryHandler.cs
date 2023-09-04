@@ -2,7 +2,6 @@ using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Person.Models;
 using Point.Of.Sale.Person.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Person.Service.Query.GetByTenantId;
 
@@ -19,28 +18,27 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
     {
         var result = await _repository.GetByTenantId(request.Id, cancellationToken);
 
-        if (result.IsNotFound() || result.IsFailure())
+        return result.Status switch
         {
-            return ResultsTo.Failure<List<PersonResponse>>("Inventory Not Found");
-        }
-
-        var response = result.Value.Select(r => new PersonResponse
-            {
-                Id = r.Id,
-                FirstName = r.FirstName,
-                MiddleName = r.MiddleName,
-                LastName = r.LastName,
-                Suffix = r.Suffix,
-                Genmder = r.Gender,
-                BirthDate = r.BirthDate,
-                Address = r.Address,
-                Email = r.Email,
-                CreatedOn = r.CreatedOn,
-                UpdatedOn = r.UpdatedOn,
-                TenantId = r.TenantId,
-            })
-            .ToList();
-
-        return ResultsTo.Success(response);
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<PersonResponse>>().WithMessage("Person Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<PersonResponse>>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<List<PersonResponse>>().FromResults(result),
+            _ => ResultsTo.Success(result.Value.Select(r => new PersonResponse
+                {
+                    Id = r.Id,
+                    FirstName = r.FirstName,
+                    MiddleName = r.MiddleName,
+                    LastName = r.LastName,
+                    Suffix = r.Suffix,
+                    Genmder = r.Gender,
+                    BirthDate = r.BirthDate,
+                    Address = r.Address,
+                    Email = r.Email,
+                    CreatedOn = r.CreatedOn,
+                    UpdatedOn = r.UpdatedOn,
+                    TenantId = r.TenantId,
+                })
+                .ToList()),
+        };
     }
 }

@@ -6,6 +6,6 @@ namespace Point.Of.Sale.Person.Repository;
 
 public interface IRepository : IGenericRepository<Persistence.Models.Person>
 {
-    Task<IFluentResults> LinkToTenant(LinkToTenant linkToTenant, CancellationToken cancellationToken = default);
-    Task<IFluentResults<List<Persistence.Models.Person>>> GetByTenantId(int Id, CancellationToken cancellationToken = default);
+    Task<IFluentResults<CrudResult<Persistence.Models.Person>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default);
+    Task<IFluentResults<List<Persistence.Models.Person>>> GetByTenantId(int id, CancellationToken cancellationToken = default);
 }

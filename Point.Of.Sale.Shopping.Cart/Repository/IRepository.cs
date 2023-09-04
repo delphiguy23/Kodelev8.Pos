@@ -7,6 +7,6 @@ namespace Point.Of.Sale.Shopping.Cart.Repository;
 
 public interface IRepository : IGenericRepository<ShoppingCart>
 {
-    Task<IFluentResults> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default);
+    Task<IFluentResults<CrudResult<ShoppingCart>>> LinkToTenant(LinkToTenant request, CancellationToken cancellationToken = default);
     Task<IFluentResults<List<ShoppingCart>>> GetByTenantId(int request, CancellationToken cancellationToken = default);
 }

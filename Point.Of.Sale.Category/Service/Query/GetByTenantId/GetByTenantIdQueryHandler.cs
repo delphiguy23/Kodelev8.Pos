@@ -2,7 +2,6 @@ using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Category.Models;
 using Point.Of.Sale.Category.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 
 namespace Point.Of.Sale.Category.Service.Query.GetByTenantId;
 
@@ -19,20 +18,21 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
     {
         var result = await _repository.GetByTenantId(request.id, cancellationToken);
 
-        if (result.IsNotFound()) return ResultsTo.NotFound<List<CategoryResponse>>().WithMessage("Category Not Found");
-        if (result.IsFailure()) return ResultsTo.Failure<List<CategoryResponse>>().WithMessage(result.Messages);
-
-        var response = result.Value.Select(r => new CategoryResponse
-            {
-                Id = r.Id,
-                Name = r.Name,
-                TenantId = r.TenantId,
-                Description = r.Description,
-                CreatedOn = r.CreatedOn,
-                UpdatedOn = r.UpdatedOn,
-            })
-            .ToList();
-
-        return ResultsTo.Success(response);
+        return result.Status switch
+        {
+            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<CategoryResponse>>().WithMessage("Category Not Found"),
+            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<CategoryResponse>>().WithMessage("Bad Request"),
+            FluentResultsStatus.Failure => ResultsTo.Failure<List<CategoryResponse>>().FromResults(result),
+            _ => ResultsTo.Success(result.Value.Select(r => new CategoryResponse
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    TenantId = r.TenantId,
+                    Description = r.Description,
+                    CreatedOn = r.CreatedOn,
+                    UpdatedOn = r.UpdatedOn,
+                })
+                .ToList()),
+        };
     }
 }
