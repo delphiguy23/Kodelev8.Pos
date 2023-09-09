@@ -1,8 +1,13 @@
 using MediatR;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Point.Of.Sale.Shared.Configuration;
 using Point.Of.Sale.Shared.Enums;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Tenant.Models;
+using Point.Of.Sale.Tenant.Service.Command.Patch;
 using Point.Of.Sale.Tenant.Service.Command.RegisterTenant;
 using Point.Of.Sale.Tenant.Service.Command.Update;
 using Point.Of.Sale.Tenant.Service.Query.GetAllTenants;
@@ -14,11 +19,15 @@ namespace Point.Of.Sale.Tenant.Controller;
 [Route("/api/tenant/")]
 public sealed class TenantController : ControllerBase
 {
+    private readonly ILogger<TenantController> _logger;
+    private readonly IOptions<PosConfiguration> _options;
     private readonly ISender _sender;
 
-    public TenantController(ISender sender)
+    public TenantController(ISender sender, ILogger<TenantController> logger, IOptions<PosConfiguration> options)
     {
         _sender = sender;
+        _logger = logger;
+        _options = options;
     }
 
     [HttpPost]
@@ -30,7 +39,7 @@ public sealed class TenantController : ControllerBase
             Code = request.Code,
             Name = request.Name,
             Type = TenantType.NonSpecific,
-            Active = false
+            Active = false,
         }, cancellationToken);
         return result.ToActionResult();
     }
@@ -46,6 +55,8 @@ public sealed class TenantController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
     {
+        var a = _options.Value;
+        _logger.LogInformation("Retrieving all Tenants");
         var result = await _sender.Send(new GetAll(), cancellationToken);
         return result.ToActionResult();
     }
@@ -58,8 +69,20 @@ public sealed class TenantController : ControllerBase
             Id = request.Id,
             Code = request.Code,
             Name = request.Name,
-            Type = TenantType.NonSpecific,
-            Active = false
+            Type = request.Type,
+            Active = request.Active,
+        }, cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpPatch]
+    [Route("{id:int}")]
+    public async Task<IActionResult> Patch(int id, JsonPatchDocument<Persistence.Models.Tenant> patch, CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(new PatchCommand
+        {
+            Id = id,
+            Patch = patch,
         }, cancellationToken);
         return result.ToActionResult();
     }

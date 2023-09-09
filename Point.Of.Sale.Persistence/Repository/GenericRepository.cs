@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Point.Of.Sale.Persistence.Context;
 using Point.Of.Sale.Shared.FluentResults;
@@ -111,5 +112,20 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
         {
             return ResultsTo.Failure<CrudResult<TEntity>>().FromException(e);
         }
+    }
+
+    public virtual async Task<IFluentResults<CrudResult<TEntity>>> Patch(object id, JsonPatchDocument<TEntity> patch, CancellationToken cancellationToken = default)
+    {
+        var forPatching = await GetById(id, cancellationToken);
+
+        if (forPatching.IsNotFoundOrBadRequest())
+        {
+            return ResultsTo.NotFound(new CrudResult<TEntity> {Count = 0, Entity = null});
+        }
+
+        patch.ApplyTo(forPatching.Value);
+        var result = await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return ResultsTo.Something(new CrudResult<TEntity> {Count = result, Entity = forPatching.Value!});
     }
 }
