@@ -16,6 +16,7 @@ public interface IPosDbContext : IInitializable
     DbSet<Supplier> Suppliers { get; set; }
     DbSet<Tenant> Tenants { get; set; }
     DbSet<AuditLog> AuditLogs { get; set; }
+    DbSet<ServiceUser> ServiceUsers { get; set; }
 
     // Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     // DatabaseFacade Database { get; }

@@ -5,9 +5,11 @@ using System.Reflection;
 using Honeycomb.OpenTelemetry;
 using Honeycomb.Serilog.Sink;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenTelemetry.Trace;
@@ -18,8 +20,10 @@ using Point.Of.Sale.Persistence.Initializable;
 using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Shared.Configuration;
 using Serilog;
+using ILogger = Serilog.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.ClearProviders();
 
 //load appsettings configuration
 builder.Services.AddOptions();
@@ -46,6 +50,12 @@ switch (options.Value.Database.DbProvider)
         builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseInMemoryDatabase(options.Value.Database.BuildConnectionString() ?? string.Empty); });
         break;
 }
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<PosDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication();
 
 //setup compression
 builder.Services.AddResponseCompression(options =>
@@ -75,6 +85,7 @@ builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Tenant.Assembly.AssemblyReference.Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Shopping.Cart.Assembly.AssemblyReference.Assembly));
 builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Shared.Assembly.AssemblyReference.Assembly));
+builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.User.Assembly.AssemblyReference.Assembly));
 
 //scan assemblies with scrutor
 builder
@@ -92,6 +103,7 @@ builder
             .FromAssemblies(Point.Of.Sale.Supplier.Assembly.AssemblyReference.Assembly)
             .FromAssemblies(Point.Of.Sale.Tenant.Assembly.AssemblyReference.Assembly)
             .FromAssemblies(Point.Of.Sale.Shopping.Cart.Assembly.AssemblyReference.Assembly)
+            .FromAssemblies(Point.Of.Sale.User.Assembly.AssemblyReference.Assembly)
             .FromAssemblies(Point.Of.Sale.Shared.Assembly.AssemblyReference.Assembly)
             .AddClasses(false)
             .AsImplementedInterfaces()
@@ -121,6 +133,7 @@ builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Poi
 builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Supplier")));
 builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Sales")));
 builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Tenant")));
+builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.User")));
 
 // Setup OpenTelemetry Tracing w/ honeybcomb
 HoneycombOptions honeycombOptions = new()
@@ -140,13 +153,21 @@ builder.Services.AddOpenTelemetry().WithTracing(otelBuilder =>
 
 builder.Services.AddSingleton(TracerProvider.Default.GetTracer(honeycombOptions.ServiceName));
 
+//TODO: there seems to be some issue with the serilog sinks...
 using var log = new LoggerConfiguration()
-    .WriteTo.HoneycombSink(options.Value.HoneyComb.Dataset, options.Value.HoneyComb.ApiKey)
+    .WriteTo.HoneycombSink(options.Value.HoneyComb.ServiceName, options.Value.HoneyComb.ApiKey)
+    //.WriteTo.HoneycombSink(teamId: options.Value.HoneyComb.ServiceName, apiKey: options.Value.HoneyComb.ApiKey, batchSizeLimit: 100, period: TimeSpan.FromSeconds(5), null, options.Value.HoneyComb.Endpoint)
+    // .Enrich.FromLogContext()
+    // .WriteTo.SQLite(sqliteDbPath: "logs.db")
+    //.WriteTo.File("logs.txt")
     .CreateLogger();
-
+//
+// // builder.Host.UseSerilog((ctx, lc) => lc
+// //     .WriteTo.HoneycombSink(options.Value.HoneyComb.Dataset, options.Value.HoneyComb.ApiKey)
+// //     .ReadFrom.Configuration(ctx.Configuration));
+//
 builder.Logging.AddSerilog(log);
 builder.Services.AddSingleton<ILogger>(log);
-
 
 // builder.Services.AddControllers();
 var app = builder.Build();
