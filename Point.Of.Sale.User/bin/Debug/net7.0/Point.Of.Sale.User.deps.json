@@ -29,7 +29,8 @@
           "Point.Of.Sale.Shared": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
           "Serilog": "3.0.1",
-          "Serilog.AspNetCore": "7.0.0"
+          "Serilog.AspNetCore": "7.0.0",
+          "Point.Of.Sale.Tenant": "1.0.0.0"
         },
         "runtime": {
           "Point.Of.Sale.User.dll": {}
@@ -1713,6 +1714,14 @@
         "runtime": {
           "Point.Of.Sale.Shared.dll": {}
         }
+      },
+      "Point.Of.Sale.Tenant/1.0.0.0": {
+        "runtime": {
+          "Point.Of.Sale.Tenant.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -2819,6 +2828,11 @@
     },
     "Point.Of.Sale.Shared/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Point.Of.Sale.Tenant/1.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

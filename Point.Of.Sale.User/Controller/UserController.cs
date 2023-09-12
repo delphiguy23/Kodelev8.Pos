@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using Point.Of.Sale.Shared.Configuration;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.User.Models;
-using Point.Of.Sale.User.Service.Query.ValidateUser;
+using Point.Of.Sale.User.Service.Query.ValidateUserQuery;
 
 namespace Point.Of.Sale.User.Controller;
 
@@ -27,11 +27,20 @@ public sealed class UserController : ControllerBase
 
     [AllowAnonymous]
     [Route("validate")]
-    [HttpPost]
+    [HttpGet]
     public async Task<ActionResult> ValidateUser([FromBody] ValidateUserRequest request, CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new ValidateUserQuery(request.UserName, request.Password, request.TenantId), cancellationToken);
+        var result = await _sender.Send(new ValidateUserQuery(request.UserName, request.Password, request.Email, request.TenantId), cancellationToken);
 
+        return result.ToActionResult();
+    }
+
+    [AllowAnonymous]
+    [Route("register")]
+    [HttpPost]
+    public async Task<ActionResult> RegisterUser([FromBody] RegisterUserRequest request, CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(new ValidateUserQuery(request.UserName, request.Password, request.Email, request.TenantId), cancellationToken);
         return result.ToActionResult();
     }
 }

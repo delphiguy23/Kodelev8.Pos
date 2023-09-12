@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Point.Of.Sale.User")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6e4fc66004c18af6112ab2edf3af9f5fede55695")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b970c4feec9200495b7bc28dab86056c8c1c933")]
 [assembly: System.Reflection.AssemblyProductAttribute("Point.Of.Sale.User")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Point.Of.Sale.User")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

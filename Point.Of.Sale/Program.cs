@@ -9,21 +9,22 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Point.Of.Sale.Abstraction.Assembly;
 using Point.Of.Sale.Category.Repository;
 using Point.Of.Sale.Persistence.Context;
 using Point.Of.Sale.Persistence.Initializable;
+using Point.Of.Sale.Persistence.Models;
 using Point.Of.Sale.Persistence.UnitOfWork;
 using Point.Of.Sale.Shared.Configuration;
+using Point.Of.Sale.User.IdentityContext;
 using Serilog;
-using ILogger = Serilog.ILogger;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();
+// builder.Logging.ClearProviders();
 
 //load appsettings configuration
 builder.Services.AddOptions();
@@ -35,24 +36,29 @@ switch (options.Value.Database.DbProvider)
 {
     case DbProvider.PostgreSql:
         builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseNpgsql(options.Value.Database.BuildConnectionString() ?? string.Empty); });
+        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseNpgsql(options.Value.Database.BuildConnectionString() ?? string.Empty); });
         break;
     case DbProvider.MsSql:
         builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseSqlServer(options.Value.Database.BuildConnectionString() ?? string.Empty); });
+        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseSqlServer(options.Value.Database.BuildConnectionString() ?? string.Empty); });
         break;
     case DbProvider.MySql:
         var connectionString = options.Value.Database.BuildConnectionString() ?? string.Empty;
         builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)); });
+        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)); });
         break;
     case DbProvider.SqLlite:
         builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseSqlite(options.Value.Database.BuildConnectionString() ?? string.Empty); });
+        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseSqlite(options.Value.Database.BuildConnectionString() ?? string.Empty); });
         break;
     default:
         builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseInMemoryDatabase(options.Value.Database.BuildConnectionString() ?? string.Empty); });
+        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseInMemoryDatabase(options.Value.Database.BuildConnectionString() ?? string.Empty); });
         break;
 }
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<PosDbContext>()
+builder.Services.AddIdentity<ServiceUser, IdentityRole>()
+    .AddEntityFrameworkStores<UsersDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication();
@@ -147,8 +153,15 @@ HoneycombOptions honeycombOptions = new()
 builder.Services.AddOpenTelemetry().WithTracing(otelBuilder =>
 {
     otelBuilder
-        .AddHoneycomb(honeycombOptions)
-        .AddCommonInstrumentations();
+        .AddConsoleExporter()
+        .AddSource(options.Value.General.ServiceName)
+        .SetResourceBuilder(
+            ResourceBuilder.CreateDefault().AddService(options.Value.General.ServiceName, serviceVersion: "1.0.0.0")
+        )
+        .AddCommonInstrumentations()
+        .AddHttpClientInstrumentation()
+        .AddAspNetCoreInstrumentation()
+        .AddHoneycomb(honeycombOptions);
 });
 
 builder.Services.AddSingleton(TracerProvider.Default.GetTracer(honeycombOptions.ServiceName));
@@ -178,8 +191,8 @@ app.UseSwagger();
 app.UseSwaggerUI();
 //}
 
-app.UseHttpsRedirection();
-
+// app.UseHttpsRedirection();
+//
 app.UseAuthorization();
 
 app.MapControllers();

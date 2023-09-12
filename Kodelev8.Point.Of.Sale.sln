@@ -32,8 +32,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Db.Views", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceDomains", "ServiceDomains", "{094B1A2C-1E96-4D1E-A3A4-982377D90E35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Web", "Point.Of.Sale.Web\Point.Of.Sale.Web.csproj", "{5444F3B5-D801-4034-8E44-6D379FC3B6D0}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.User", "Point.Of.Sale.User\Point.Of.Sale.User.csproj", "{6D711C7D-2304-4AC4-A77D-065D06915B31}"
 EndProject
 Global
@@ -98,10 +96,6 @@ Global
 		{084887A5-DC2D-4839-90C9-14FAA3AB149B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{084887A5-DC2D-4839-90C9-14FAA3AB149B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{084887A5-DC2D-4839-90C9-14FAA3AB149B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5444F3B5-D801-4034-8E44-6D379FC3B6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5444F3B5-D801-4034-8E44-6D379FC3B6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5444F3B5-D801-4034-8E44-6D379FC3B6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5444F3B5-D801-4034-8E44-6D379FC3B6D0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D711C7D-2304-4AC4-A77D-065D06915B31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D711C7D-2304-4AC4-A77D-065D06915B31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D711C7D-2304-4AC4-A77D-065D06915B31}.Release|Any CPU.ActiveCfg = Release|Any CPU

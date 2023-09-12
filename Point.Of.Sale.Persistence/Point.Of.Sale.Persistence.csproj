@@ -38,19 +38,4 @@
     </ItemGroup>
 
 
-    <ItemGroup>
-        <Compile Remove="IdentityContext\**"/>
-    </ItemGroup>
-
-
-    <ItemGroup>
-        <EmbeddedResource Remove="IdentityContext\**"/>
-    </ItemGroup>
-
-
-    <ItemGroup>
-        <None Remove="IdentityContext\**"/>
-    </ItemGroup>
-
-
 </Project>

@@ -25,54 +25,6 @@ namespace Point.Of.Sale.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NormalizedName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityRole");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
-                            ConcurrencyStamp = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
-                            Name = "SuperAdmin",
-                            NormalizedName = "SUPERADMIN"
-                        });
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("RoleId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("RoleId", "UserId");
-
-                    b.ToTable("IdentityUserRole<string>");
-
-                    b.HasData(
-                        new
-                        {
-                            RoleId = "341743f0-asd2–42de-afbf-59kmkkmk72cf6",
-                            UserId = "02174cf0–9412–4cfe-afbf-59f706d72cf6"
-                        });
-                });
-
             modelBuilder.Entity("Point.Of.Sale.Persistence.Models.AuditLog", b =>
                 {
                     b.Property<int>("Id")
@@ -422,108 +374,6 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.ServiceUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("ApiToken")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("RefreshToken")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<int>("TenantId")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ServiceUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
-                            AccessFailedCount = 0,
-                            Active = true,
-                            ApiToken = "JH+C1Fnv72VIXbmM8aS8+UXJ6ci8Bgtn5R1MeOksvdWz11qmVKNvVQrSsbYivtzBkBikwz6s3ycyY4nyf34i/Q==",
-                            ConcurrencyStamp = "97c8f3dd-d15a-427e-a2b3-21c329406445",
-                            Email = "admin@kodelev8.com",
-                            EmailConfirmed = true,
-                            FirstName = "Super",
-                            LastName = "Admin",
-                            LockoutEnabled = false,
-                            MiddleName = "",
-                            NormalizedUserName = "SuperAdmin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK0RlaIJV3+cFHIqZrpiElugQZ9v8rntA5MhiE6SEkFTIySpqDXapC+r/8NYptuWjg==",
-                            PhoneNumberConfirmed = false,
-                            RefreshToken = "dMQa7YJBXc0rgNQeBeeJnabu+mpChoi4NAkO+1WnhqS+A+fRESDU2svYGdWPTH+1OkpzeHeVBPw8TbJ9p/LKXg==",
-                            SecurityStamp = "59b0f5eb-4784-4720-8ac2-f7387a044fd3",
-                            TenantId = 0,
-                            TwoFactorEnabled = false,
-                            UserName = "SuperAdmin"
-                        });
-                });
-
             modelBuilder.Entity("Point.Of.Sale.Persistence.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
@@ -641,7 +491,15 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TenantApiKey")
                         .IsRequired()
                         .HasColumnType("text");
 
