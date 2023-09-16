@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "a6a5kCDcgw6l+BihsUSSs7d2M8nKpr78e7C8WsCLPjpLfPpQJ7dGvxAV41guNAkSLBmP0fq81pH8/8o+FP8rRw==",
+  "success": true,
+  "projectFilePath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj",
+  "expectedPackageFiles": [
+    "/Users/delphiguy/.nuget/packages/microsoft.netcore.app.ref/7.0.9/microsoft.netcore.app.ref.7.0.9.nupkg.sha512",
+    "/Users/delphiguy/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.9/microsoft.aspnetcore.app.ref.7.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}

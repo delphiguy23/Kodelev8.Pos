@@ -19,7 +19,7 @@ public static class TokenExtension
             parameters.Claims,
             signingCredentials: new SigningCredentials(new SymmetricSecurityKey(secret), SecurityAlgorithms.HmacSha256),
             notBefore: DateTime.UtcNow,
-            expires: parameters.ExpiresIn.Minutes > 500_000 ? DateTime.UtcNow.AddDays(parameters.ExpiresIn.Days) : DateTime.UtcNow.AddMinutes(parameters.ExpiresIn.Minutes));
+            expires: parameters.ExpiresIn.TotalMinutes > 500_000 ? DateTime.UtcNow.AddDays(parameters.ExpiresIn.TotalDays) : DateTime.UtcNow.AddMinutes(parameters.ExpiresIn.TotalMinutes));
 
         var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -80,20 +80,22 @@ public static class TokenExtension
                 new TokenValidationParameters
                 {
                     ValidateIssuer = true,
-                    ValidIssuer = $"{general.ServiceName}-{general.Environment}",
+                    ValidIssuer = $"{general.ServiceName}-{general.ServiceName}",
                     ValidateAudience = true,
                     ValidAudience = general.ServiceName,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(general.SecretKey)),
+                    RequireExpirationTime = true,
                 },
                 out var validatedToken);
             claims = tokenHandler.ReadJwtToken(token).Claims;
             return validatedToken.ValidTo > DateTime.UtcNow;
         }
-        catch (SecurityTokenException)
+        catch (SecurityTokenException ex)
         {
             claims = Array.Empty<Claim>();
+            throw;
         }
 
         return false;

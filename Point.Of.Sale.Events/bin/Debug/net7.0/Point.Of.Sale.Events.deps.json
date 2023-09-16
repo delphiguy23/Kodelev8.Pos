@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "Point.Of.Sale.Events/1.0.0": {
+        "runtime": {
+          "Point.Of.Sale.Events.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Point.Of.Sale.Events/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

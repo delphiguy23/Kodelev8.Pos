@@ -1,30 +1,25 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.IO.Compression;
-using System.Reflection;
-using Honeycomb.OpenTelemetry;
-using Honeycomb.Serilog.Sink;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
-using Point.Of.Sale.Abstraction.Assembly;
-using Point.Of.Sale.Category.Repository;
-using Point.Of.Sale.Persistence.Context;
+using Point.Of.Sale.Auth.IdentityContext;
 using Point.Of.Sale.Persistence.Initializable;
 using Point.Of.Sale.Persistence.Models;
-using Point.Of.Sale.Persistence.UnitOfWork;
+using Point.Of.Sale.Registrations;
 using Point.Of.Sale.Shared.Configuration;
-using Point.Of.Sale.User.IdentityContext;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
-// builder.Logging.ClearProviders();
+
 
 //load appsettings configuration
 builder.Services.AddOptions();
@@ -32,36 +27,21 @@ builder.Services.Configure<PosConfiguration>(builder.Configuration.GetSection("P
 var options = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<PosConfiguration>>();
 
 //setup dynamic ef providers
-switch (options.Value.Database.DbProvider)
-{
-    case DbProvider.PostgreSql:
-        builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseNpgsql(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseNpgsql(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        break;
-    case DbProvider.MsSql:
-        builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseSqlServer(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseSqlServer(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        break;
-    case DbProvider.MySql:
-        var connectionString = options.Value.Database.BuildConnectionString() ?? string.Empty;
-        builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)); });
-        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)); });
-        break;
-    case DbProvider.SqLlite:
-        builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseSqlite(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseSqlite(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        break;
-    default:
-        builder.Services.AddDbContext<IPosDbContext, PosDbContext>(o => { o.UseInMemoryDatabase(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        builder.Services.AddDbContext<IUsersDbContext, UsersDbContext>(o => { o.UseInMemoryDatabase(options.Value.Database.BuildConnectionString() ?? string.Empty); });
-        break;
-}
+builder.Services.AddDbProvidersRegistration(options.Value);
+
 
 builder.Services.AddIdentity<ServiceUser, IdentityRole>()
     .AddEntityFrameworkStores<UsersDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication();
+
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+    builder.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
+
 
 //setup compression
 builder.Services.AddResponseCompression(options =>
@@ -72,127 +52,99 @@ builder.Services.AddResponseCompression(options =>
 });
 
 builder.Services.Configure<BrotliCompressionProviderOptions>(options => { options.Level = CompressionLevel.Fastest; });
-
 builder.Services.Configure<GzipCompressionProviderOptions>(options => { options.Level = CompressionLevel.Optimal; });
 
-
-builder.Services.AddScoped<IPosDbContext>(c => c.GetRequiredService<PosDbContext>());
-builder.Services.AddScoped<IUnitOfWork>(c => c.GetRequiredService<PosDbContext>());
-
 //register mediatr
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Category.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Customer.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Inventory.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Person.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Product.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Sales.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Supplier.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Tenant.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Shopping.Cart.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.Shared.Assembly.AssemblyReference.Assembly));
-builder.Services.AddMediatR(m => m.RegisterServicesFromAssemblies(Point.Of.Sale.User.Assembly.AssemblyReference.Assembly));
+builder.Services.AddMediatrRegistration();
 
 //scan assemblies with scrutor
-builder
-    .Services
-    .Scan(
-        selector => selector
-            .FromAssemblies(AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Persistence.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Category.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Customer.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Inventory.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Person.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Product.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Sales.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Supplier.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Tenant.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Shopping.Cart.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.User.Assembly.AssemblyReference.Assembly)
-            .FromAssemblies(Point.Of.Sale.Shared.Assembly.AssemblyReference.Assembly)
-            .AddClasses(false)
-            .AsImplementedInterfaces()
-            .WithScopedLifetime());
+builder.Services.AddScrutorRegistration();
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(s => { s.SwaggerDoc("v1", new OpenApiInfo {Title = "Kodelev8 POS Service API", Version = "v1"}); });
 
-//register repositories
-builder.Services.AddScoped<IRepository, Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Customer.Repository.IRepository, Point.Of.Sale.Customer.Repository.Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Inventory.Repository.IRepository, Point.Of.Sale.Inventory.Repository.Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Person.Repository.IRepository, Point.Of.Sale.Person.Repository.Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Product.Repository.IRepository, Point.Of.Sale.Product.Repository.Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Sales.Repository.IRepository, Point.Of.Sale.Sales.Repository.Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Shopping.Cart.Repository.IRepository, Point.Of.Sale.Shopping.Cart.Repository.Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Supplier.Repository.IRepository, Point.Of.Sale.Supplier.Repository.Repository>();
-builder.Services.AddScoped<Point.Of.Sale.Tenant.Repository.IRepository, Point.Of.Sale.Tenant.Repository.Repository>();
-
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Category")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Customer")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Inventory")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Person")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Product")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Shopping.Cart")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Supplier")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Sales")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.Tenant")));
-builder.Services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Point.Of.Sale.User")));
-
-// Setup OpenTelemetry Tracing w/ honeybcomb
-HoneycombOptions honeycombOptions = new()
+builder.Services.AddAuthentication(x =>
 {
-    ApiKey = options.Value.HoneyComb.ApiKey,
-    Dataset = options.Value.HoneyComb.Dataset,
-    ServiceName = options.Value.HoneyComb.ServiceName,
-    Endpoint = options.Value.HoneyComb.Endpoint,
-};
-
-builder.Services.AddOpenTelemetry().WithTracing(otelBuilder =>
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
 {
-    otelBuilder
-        .AddConsoleExporter()
-        .AddSource(options.Value.General.ServiceName)
-        .SetResourceBuilder(
-            ResourceBuilder.CreateDefault().AddService(options.Value.General.ServiceName, serviceVersion: "1.0.0.0")
-        )
-        .AddCommonInstrumentations()
-        .AddHttpClientInstrumentation()
-        .AddAspNetCoreInstrumentation()
-        .AddHoneycomb(honeycombOptions);
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = $"{options.Value.General.ServiceName}-{options.Value.General.ServiceName}",
+        ValidAudience = options.Value.General.ServiceName,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.General.SecretKey)),
+    };
 });
 
-builder.Services.AddSingleton(TracerProvider.Default.GetTracer(honeycombOptions.ServiceName));
+builder.Services.AddSwaggerGen(s =>
+{
+    s.SwaggerDoc("v1", new OpenApiInfo {Title = "Kodelev8 POS Service API", Version = "v1"});
+    s.AddSecurityDefinition(
+        "JWT", new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "bearer",
+            BearerFormat = "JWT",
+            In = ParameterLocation.Header,
+            Description = "JWT Authorization header using the Bearer scheme.",
+        });
 
-//TODO: there seems to be some issue with the serilog sinks...
-using var log = new LoggerConfiguration()
-    .WriteTo.HoneycombSink(options.Value.HoneyComb.ServiceName, options.Value.HoneyComb.ApiKey)
-    //.WriteTo.HoneycombSink(teamId: options.Value.HoneyComb.ServiceName, apiKey: options.Value.HoneyComb.ApiKey, batchSizeLimit: 100, period: TimeSpan.FromSeconds(5), null, options.Value.HoneyComb.Endpoint)
-    // .Enrich.FromLogContext()
-    // .WriteTo.SQLite(sqliteDbPath: "logs.db")
-    //.WriteTo.File("logs.txt")
-    .CreateLogger();
-//
-// // builder.Host.UseSerilog((ctx, lc) => lc
-// //     .WriteTo.HoneycombSink(options.Value.HoneyComb.Dataset, options.Value.HoneyComb.ApiKey)
-// //     .ReadFrom.Configuration(ctx.Configuration));
-//
-builder.Logging.AddSerilog(log);
-builder.Services.AddSingleton<ILogger>(log);
+    s.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "JWT",
+                },
+            },
+            new string[] { }
+        },
+    });
+});
+
+builder.Services.AddAuthorization(
+    options => options.FallbackPolicy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme).Build()
+);
+
+//register repositories
+builder.Services.AddRepositoriesRegistration();
+
+//register controllers
+builder.Services.AddControllersRegistration();
+
+// Setup OpenTelemetry Tracing w/ honeybcomb
+builder.AddOpenTelemetryAndLoggingRegistration(options.Value);
+
+// setup fluent email
+builder.Services.AddEmailRegistrration(options.Value.Smtp);
 
 // builder.Services.AddControllers();
+IdentityModelEventSource.ShowPII = true;
+
 var app = builder.Build();
 
 //if (app.Environment.IsDevelopment())
 //{
 app.UseSwagger();
+// app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dojo App"));
 app.UseSwaggerUI();
 //}
 
 // app.UseHttpsRedirection();
 //
+// app.UseIdentityServer();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
@@ -219,7 +171,3 @@ if (initializables is not null || initializables.Any())
 }
 
 app.Run();
-
-
-//json patch
-//https://www.thereformedprogrammer.net/pragmatic-domain-driven-design-supporting-json-patch-in-entity-framework-core/

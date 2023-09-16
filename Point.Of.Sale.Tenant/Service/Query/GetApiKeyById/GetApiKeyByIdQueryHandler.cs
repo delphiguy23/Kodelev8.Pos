@@ -13,8 +13,9 @@ public class GetApiKeyByIdQueryHandler : IQueryHandler<GetApiKeyByIdQuery, strin
         _reposity = reposity;
     }
 
-    public Task<IFluentResults<string>> Handle(GetApiKeyByIdQuery request, CancellationToken cancellationToken)
+    public async Task<IFluentResults<string>> Handle(GetApiKeyByIdQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var apiKey = await _reposity.GetApiKeyById(request.Id, cancellationToken);
+        return ResultsTo.Something(apiKey);
     }
 }

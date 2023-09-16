@@ -25,4 +25,16 @@ public class Repository : GenericRepository<Persistence.Models.Tenant>, IReposit
 
         return ResultsTo.Something(tenant.TenantApiKey);
     }
+
+    public async Task<IFluentResults<string>> UpdateApiKey(int id, CancellationToken cancellationToken = default)
+    {
+        var tenant = await _dbContext.Tenants.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+
+        if (tenant is null)
+        {
+            return ResultsTo.NotFound<string>("Tenant not found");
+        }
+
+        return ResultsTo.Something(tenant.TenantApiKey);
+    }
 }
