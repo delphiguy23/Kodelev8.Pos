@@ -51,6 +51,7 @@
         <ProjectReference Include="..\Point.Of.Sale.Abstraction\Point.Of.Sale.Abstraction.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Category\Point.Of.Sale.Category.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Customer\Point.Of.Sale.Customer.csproj"/>
+        <ProjectReference Include="..\Point.Of.Sale.Events\Point.Of.Sale.Events.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Inventory\Point.Of.Sale.Inventory.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Person\Point.Of.Sale.Person.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Product\Point.Of.Sale.Product.csproj"/>
