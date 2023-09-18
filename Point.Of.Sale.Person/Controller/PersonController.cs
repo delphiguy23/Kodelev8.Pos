@@ -1,15 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Person.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Person.Handlers.Command.RegisterPerson;
+using Point.Of.Sale.Person.Handlers.Command.Update;
+using Point.Of.Sale.Person.Handlers.Query.GetAll;
+using Point.Of.Sale.Person.Handlers.Query.GetById;
+using Point.Of.Sale.Person.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Person.Models;
-using Point.Of.Sale.Person.Service.Command.LinkToTenant;
-using Point.Of.Sale.Person.Service.Command.RegisterPerson;
-using Point.Of.Sale.Person.Service.Command.Update;
-using Point.Of.Sale.Person.Service.Query.GetAll;
-using Point.Of.Sale.Person.Service.Query.GetById;
-using Point.Of.Sale.Person.Service.Query.GetByTenantId;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Person.Controller;
 
@@ -41,7 +41,7 @@ public class PersonController : ControllerBase
             Email = request.Email,
             IsUser = request.IsUser,
             UserDetails = request.UserDetails,
-            Active = true
+            Active = true,
         }, cancellationToken);
 
         return result.ToActionResult();
@@ -109,7 +109,7 @@ public class PersonController : ControllerBase
             Email = request.Email,
             IsUser = request.IsUser,
             UserDetails = request.UserDetails,
-            Active = true
+            Active = true,
         }, cancellationToken);
 
         if (result.IsFailure() || result.IsNotFoundOrBadRequest())

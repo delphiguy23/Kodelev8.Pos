@@ -1,22 +1,22 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Sales.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Sales.Handlers.Command.Register;
+using Point.Of.Sale.Sales.Handlers.Command.Update;
+using Point.Of.Sale.Sales.Handlers.Command.UpsertLineItem;
+using Point.Of.Sale.Sales.Handlers.Query.GetAll;
+using Point.Of.Sale.Sales.Handlers.Query.GetById;
+using Point.Of.Sale.Sales.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Sales.Models;
-using Point.Of.Sale.Sales.Service.Command.LinkToTenant;
-using Point.Of.Sale.Sales.Service.Command.Register;
-using Point.Of.Sale.Sales.Service.Command.Update;
-using Point.Of.Sale.Sales.Service.Command.UpsertLineItem;
-using Point.Of.Sale.Sales.Service.Query.GetAll;
-using Point.Of.Sale.Sales.Service.Query.GetById;
-using Point.Of.Sale.Sales.Service.Query.GetByTenantId;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Sales.Controller;
 
 [ApiController]
 [Route("/api/sale/")]
-public class SaleController: ControllerBase
+public class SaleController : ControllerBase
 {
     private readonly ISender _sender;
 
@@ -92,7 +92,7 @@ public class SaleController: ControllerBase
             CustomerId = request.CustomerId,
             LineItems = request.LineItems,
             SubTotal = request.SubTotal,
-            TotalDiscounts =  request.TotalDiscounts,
+            TotalDiscounts = request.TotalDiscounts,
             TaxPercentage = request.TaxPercentage,
             SalesTax = request.SalesTax,
             TotalSales = request.TotalSales,

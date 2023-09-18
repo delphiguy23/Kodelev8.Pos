@@ -1,15 +1,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Point.Of.Sale.Category.Service.Query.GetById;
+using Point.Of.Sale.Category.Handlers.Query.GetById;
+using Point.Of.Sale.Product.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Product.Handlers.Command.Register;
+using Point.Of.Sale.Product.Handlers.Command.Update;
+using Point.Of.Sale.Product.Handlers.Query.GetAll;
+using Point.Of.Sale.Product.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Product.Models;
-using Point.Of.Sale.Product.Service.Command.LinkToTenant;
-using Point.Of.Sale.Product.Service.Command.Register;
-using Point.Of.Sale.Product.Service.Command.Update;
-using Point.Of.Sale.Product.Service.Query.GetAll;
-using Point.Of.Sale.Product.Service.Query.GetByTenantId;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Product.Controller;
 
@@ -29,7 +29,7 @@ public class ProductController : ControllerBase
     public async Task<IActionResult> Register([FromBody] UpsertProduct request, CancellationToken cancellationToken = default)
     {
         var category = _sender.Send(new GetById(request.CategoryId), cancellationToken);
-        var supplier = _sender.Send(new Supplier.Service.Query.GetById.GetById(request.SupplierId), cancellationToken);
+        var supplier = _sender.Send(new Supplier.Handlers.Query.GetById.GetById(request.SupplierId), cancellationToken);
 
         await Task.WhenAll(category, supplier);
 
@@ -71,7 +71,7 @@ public class ProductController : ControllerBase
     [Route("{id:int}")]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new Service.Query.GetById.GetById(id), cancellationToken);
+        var result = await _sender.Send(new Handlers.Query.GetById.GetById(id), cancellationToken);
         return result.ToActionResult();
     }
 

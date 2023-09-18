@@ -2,20 +2,20 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
+using Point.Of.Sale.Shopping.Cart.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Shopping.Cart.Handlers.Command.Register;
+using Point.Of.Sale.Shopping.Cart.Handlers.Command.Update;
+using Point.Of.Sale.Shopping.Cart.Handlers.Query.GetAll;
+using Point.Of.Sale.Shopping.Cart.Handlers.Query.GetById;
+using Point.Of.Sale.Shopping.Cart.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Shopping.Cart.Models;
-using Point.Of.Sale.Shopping.Cart.Service.Command.LinkToTenant;
-using Point.Of.Sale.Shopping.Cart.Service.Command.Register;
-using Point.Of.Sale.Shopping.Cart.Service.Command.Update;
-using Point.Of.Sale.Shopping.Cart.Service.Query.GetAll;
-using Point.Of.Sale.Shopping.Cart.Service.Query.GetById;
-using Point.Of.Sale.Shopping.Cart.Service.Query.GetByTenantId;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Shopping.Cart.Controller;
 
 [ApiController]
 [Route("/api/shopping-cart/")]
-public class ShoppingCartController: ControllerBase
+public class ShoppingCartController : ControllerBase
 {
     private readonly ISender _sender;
 

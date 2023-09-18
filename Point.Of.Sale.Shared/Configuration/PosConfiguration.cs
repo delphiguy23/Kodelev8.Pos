@@ -7,4 +7,5 @@ public class PosConfiguration
     public HoneyComb HoneyComb { get; set; } = new();
     public Supabase Supabase { get; set; } = new();
     public Smtp Smtp { get; set; } = new();
+    public KeyVault KeyVault { get; set; }
 }

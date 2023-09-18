@@ -27,10 +27,10 @@
           "Point.Of.Sale.Abstraction": "1.0.0",
           "Point.Of.Sale.Persistence": "1.0.0",
           "Point.Of.Sale.Shared": "1.0.0",
+          "Point.Of.Sale.Tenant": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
           "Serilog": "3.0.1",
-          "Serilog.AspNetCore": "7.0.0",
-          "Point.Of.Sale.Tenant": "1.0.0.0"
+          "Serilog.AspNetCore": "7.0.0"
         },
         "runtime": {
           "Point.Of.Sale.Auth.dll": {}
@@ -1715,12 +1715,32 @@
           "Point.Of.Sale.Shared.dll": {}
         }
       },
-      "Point.Of.Sale.Tenant/1.0.0.0": {
+      "Point.Of.Sale.Tenant/1.0.0": {
+        "dependencies": {
+          "Bogus": "34.0.2",
+          "Honeycomb.OpenTelemetry": "1.3.1",
+          "Honeycomb.OpenTelemetry.CommonInstrumentations": "0.27.1-beta",
+          "Honeycomb.Serilog.Sink": "2.2.0",
+          "MediatR": "12.1.1",
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "7.0.10",
+          "Microsoft.AspNetCore.OpenApi": "7.0.10",
+          "Microsoft.AspNetCore.ResponseCompression": "2.2.0",
+          "Microsoft.EntityFrameworkCore": "7.0.10",
+          "Microsoft.EntityFrameworkCore.InMemory": "7.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.10",
+          "Microsoft.EntityFrameworkCore.Sqlite": "7.0.10",
+          "Microsoft.Extensions.Configuration.Json": "7.0.0",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4",
+          "OpenTelemetry.Extensions.Hosting": "1.6.0",
+          "Point.Of.Sale.Abstraction": "1.0.0",
+          "Point.Of.Sale.Persistence": "1.0.0",
+          "Point.Of.Sale.Shared": "1.0.0",
+          "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
+          "Serilog": "3.0.1",
+          "Serilog.AspNetCore": "7.0.0"
+        },
         "runtime": {
-          "Point.Of.Sale.Tenant.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
+          "Point.Of.Sale.Tenant.dll": {}
         }
       }
     }
@@ -2831,8 +2851,8 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Point.Of.Sale.Tenant/1.0.0.0": {
-      "type": "reference",
+    "Point.Of.Sale.Tenant/1.0.0": {
+      "type": "project",
       "serviceable": false,
       "sha512": ""
     }

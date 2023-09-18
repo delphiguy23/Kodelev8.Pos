@@ -23,6 +23,11 @@ public class Repository : GenericRepository<Persistence.Models.Tenant>, IReposit
             return ResultsTo.NotFound<string>("Tenant not found");
         }
 
+        if (string.IsNullOrWhiteSpace(tenant.TenantApiKey))
+        {
+            return ResultsTo.NotFound<string>("Api not found");
+        }
+
         return ResultsTo.Something(tenant.TenantApiKey);
     }
 

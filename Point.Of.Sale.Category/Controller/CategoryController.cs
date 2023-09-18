@@ -1,21 +1,21 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Category.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Category.Handlers.Command.Register;
+using Point.Of.Sale.Category.Handlers.Command.Update;
+using Point.Of.Sale.Category.Handlers.Query.GetAll;
+using Point.Of.Sale.Category.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Category.Models;
-using Point.Of.Sale.Category.Service.Command.LinkToTenant;
-using Point.Of.Sale.Category.Service.Command.Register;
-using Point.Of.Sale.Category.Service.Command.Update;
-using Point.Of.Sale.Category.Service.Query.GetAll;
-using Point.Of.Sale.Category.Service.Query.GetByTenantId;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Category.Controller;
 
 [ApiController]
 // [Route("[controller]")]
 [Route("/api/category/")]
-public class CategoryController: ControllerBase
+public class CategoryController : ControllerBase
 {
     private readonly ISender _sender;
 

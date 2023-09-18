@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Point.Of.Sale.Auth")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+617142e5220ae2079bd040c38f09d9efcf8b2d46")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c828776ac4225e5843b993021592a2f88acfe322")]
 [assembly: System.Reflection.AssemblyProductAttribute("Point.Of.Sale.Auth")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Point.Of.Sale.Auth")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

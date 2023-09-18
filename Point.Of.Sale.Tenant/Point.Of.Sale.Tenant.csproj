@@ -46,6 +46,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Service\"/>
+        <Folder Include="Handlers\"/>
     </ItemGroup>
 </Project>

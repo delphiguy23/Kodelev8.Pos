@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jPClRolHDBs/20gaqcxFz0hpkYpV67xXYI28ISrxW3N0cZ6yCcAkGR9yU0rZswjMCnYwuL6JkGubGzji/Zo2Mg==",
+  "dgSpecHash": "Am7Tymn/0Fsly9ZqIlJYI8HApnTj621H83cgpwECtKctQ4dAn4tCBP6WHQy1Frg1+znzezM25NmfhWtTEot60Q==",
   "success": true,
-  "projectFilePath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.User/Point.Of.Sale.User.csproj",
+  "projectFilePath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/Point.Of.Sale.Auth.csproj",
   "expectedPackageFiles": [
     "/Users/delphiguy/.nuget/packages/azure.core/1.24.0/azure.core.1.24.0.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/azure.identity/1.6.0/azure.identity.1.6.0.nupkg.sha512",

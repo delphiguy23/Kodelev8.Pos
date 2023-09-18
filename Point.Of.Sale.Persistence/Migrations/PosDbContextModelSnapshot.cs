@@ -190,6 +190,53 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Inventories");
                 });
 
+            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.OutBoxedEvents", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<List<string>>("BatchErrors")
+                        .IsRequired()
+                        .HasColumnType("jsonb");
+
+                    b.Property<int>("CompletedTask")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DomainEvent")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("FinalizedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Payload")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("PublishedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("ScheduledOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("StartedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TotalTask")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id", "PublishedOn", "Status");
+
+                    b.ToTable("OutBoxedEvents");
+                });
+
             modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Person", b =>
                 {
                     b.Property<int>("Id")

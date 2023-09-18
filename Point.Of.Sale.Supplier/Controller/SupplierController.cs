@@ -2,20 +2,20 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
+using Point.Of.Sale.Supplier.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Supplier.Handlers.Command.Register;
+using Point.Of.Sale.Supplier.Handlers.Command.Update;
+using Point.Of.Sale.Supplier.Handlers.Query.GetAll;
+using Point.Of.Sale.Supplier.Handlers.Query.GetById;
+using Point.Of.Sale.Supplier.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Supplier.Models;
-using Point.Of.Sale.Supplier.Service.Command.LinkToTenant;
-using Point.Of.Sale.Supplier.Service.Command.Register;
-using Point.Of.Sale.Supplier.Service.Command.Update;
-using Point.Of.Sale.Supplier.Service.Query.GetAll;
-using Point.Of.Sale.Supplier.Service.Query.GetById;
-using Point.Of.Sale.Supplier.Service.Query.GetByTenantId;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Supplier.Controller;
 
 [ApiController]
 [Route("/api/supplier/")]
-public class SupplierController: ControllerBase
+public class SupplierController : ControllerBase
 {
     private readonly ISender _sender;
 

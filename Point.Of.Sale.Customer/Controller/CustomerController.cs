@@ -1,21 +1,21 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Customer.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Customer.Handlers.Command.Register;
+using Point.Of.Sale.Customer.Handlers.Command.Update;
+using Point.Of.Sale.Customer.Handlers.Query.GetAll;
+using Point.Of.Sale.Customer.Handlers.Query.GetById;
+using Point.Of.Sale.Customer.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Customer.Models;
-using Point.Of.Sale.Customer.Service.Command.LinkToTenant;
-using Point.Of.Sale.Customer.Service.Command.Update;
-using Point.Of.Sale.Customer.Service.Query.GetAll;
-using Point.Of.Sale.Customer.Service.Query.GetById;
-using Point.Of.Sale.Customer.Service.Query.GetByTenantId;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
-using RegisterCommand = Point.Of.Sale.Customer.Service.Command.Register.RegisterCommand;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Customer.Controller;
 
 [ApiController]
 [Route("/api/customer/")]
-public class CustomerController: ControllerBase
+public class CustomerController : ControllerBase
 {
     private readonly ISender _sender;
 
@@ -96,7 +96,7 @@ public class CustomerController: ControllerBase
             Address = request.Address,
             PhoneNumber = request.PhoneNumber,
             Email = request.Email,
-            Active = request.Active
+            Active = request.Active,
         }, cancellationToken);
 
         if (result.IsFailure() || result.IsNotFoundOrBadRequest())

@@ -1,21 +1,21 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Inventory.Handlers.Command.LinkToTenant;
+using Point.Of.Sale.Inventory.Handlers.Command.Register;
+using Point.Of.Sale.Inventory.Handlers.Command.Update;
+using Point.Of.Sale.Inventory.Handlers.Query.GetAll;
+using Point.Of.Sale.Inventory.Handlers.Query.GetById;
+using Point.Of.Sale.Inventory.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Inventory.Models;
-using Point.Of.Sale.Inventory.Service.Command.LinkToTenant;
-using Point.Of.Sale.Inventory.Service.Command.Register;
-using Point.Of.Sale.Inventory.Service.Command.Update;
-using Point.Of.Sale.Inventory.Service.Query.GetAll;
-using Point.Of.Sale.Inventory.Service.Query.GetById;
-using Point.Of.Sale.Inventory.Service.Query.GetByTenantId;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Inventory.Controller;
 
 [ApiController]
 [Route("/api/inventory/")]
-public class InventoryController: ControllerBase
+public class InventoryController : ControllerBase
 {
     private readonly ISender _sender;
 
@@ -33,7 +33,7 @@ public class InventoryController: ControllerBase
             TenantId = newInventory.TenantId,
             CategoryId = newInventory.CategoryId,
             ProductId = newInventory.ProductId,
-            Quantity = newInventory.Quantity
+            Quantity = newInventory.Quantity,
         }, cancellationToken);
 
         return result.ToActionResult();
@@ -87,14 +87,14 @@ public class InventoryController: ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpsertInventory request, CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new UpdateCommand()
+        var result = await _sender.Send(new UpdateCommand
         {
             Id = request.Id,
             TenantId = request.TenantId,
             ProductId = request.ProductId,
             CategoryId = request.CategoryId,
             Quantity = request.Quantity,
-            Active = request.Active
+            Active = request.Active,
         }, cancellationToken);
 
         if (result.IsFailure() || result.IsNotFoundOrBadRequest())

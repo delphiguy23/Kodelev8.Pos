@@ -6,12 +6,12 @@ using Microsoft.Extensions.Options;
 using Point.Of.Sale.Shared.Configuration;
 using Point.Of.Sale.Shared.Enums;
 using Point.Of.Sale.Shared.FluentResults;
+using Point.Of.Sale.Tenant.Handlers.Command.Patch;
+using Point.Of.Sale.Tenant.Handlers.Command.RegisterTenant;
+using Point.Of.Sale.Tenant.Handlers.Command.Update;
+using Point.Of.Sale.Tenant.Handlers.Query.GetAllTenants;
+using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 using Point.Of.Sale.Tenant.Models;
-using Point.Of.Sale.Tenant.Service.Command.Patch;
-using Point.Of.Sale.Tenant.Service.Command.RegisterTenant;
-using Point.Of.Sale.Tenant.Service.Command.Update;
-using Point.Of.Sale.Tenant.Service.Query.GetAllTenants;
-using Point.Of.Sale.Tenant.Service.Query.GetTenantById;
 
 namespace Point.Of.Sale.Tenant.Controller;
 

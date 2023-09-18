@@ -26,6 +26,22 @@ builder.Services.AddOptions();
 builder.Services.Configure<PosConfiguration>(builder.Configuration.GetSection("PosConfiguration"));
 var options = builder.Services.BuildServiceProvider().GetRequiredService<IOptions<PosConfiguration>>();
 
+//setup keyvault
+// var credentials = new ClientSecretCredential(
+//     options.Value.KeyVault.DirectoryId,
+//     options.Value.KeyVault.ClientId,
+//     options.Value.KeyVault.ClientSecret);
+//
+// builder.Configuration.AddAzureKeyVault(options.Value.KeyVault.KeyVaultUrl,
+//     options.Value.KeyVault.ClientId,
+//     options.Value.KeyVault.ClientSecret,
+//     new DefaultKeyVaultSecretManager());
+//
+// var client = new SecretClient(new Uri(options.Value.KeyVault.KeyVaultUrl), credentials);
+//
+// https://www.youtube.com/watch?v=ZXfuxisC0IA
+
+
 //setup dynamic ef providers
 builder.Services.AddDbProvidersRegistration(options.Value);
 
@@ -130,6 +146,7 @@ builder.AddOpenTelemetryAndLoggingRegistration(options.Value);
 builder.Services.AddEmailRegistrration(options.Value.Smtp);
 
 // builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 IdentityModelEventSource.ShowPII = true;
 
 var app = builder.Build();

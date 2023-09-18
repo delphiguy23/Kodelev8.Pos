@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Point.Of.Sale.Persistence.Models;
@@ -10,7 +11,7 @@ public static class TrackerHelpers
     private static List<EntityEntry> GetChangedEntries(DbContext context)
     {
         var entries = context.ChangeTracker?.Entries()
-            .Where(e => e.Entity.GetType().Name != "AuditLog")
+            .Where(e => e.Entity.GetType().Name.ToLower() != "auditlog")
             .Where(e => e.State is EntityState.Added or EntityState.Modified or EntityState.Deleted)
             .ToList();
 
@@ -42,7 +43,7 @@ public static class TrackerHelpers
         return logs != null && logs.Any() ? new ChangesModel(entry?.Metadata?.GetTableName() ?? string.Empty, string.Join(", ", modifiedIds), EntityState.Modified, logs) : null;
     }
 
-    public static IEnumerable<AuditLog> ToAuditLogs(this List<ChangesModel> changes)
+    public static IEnumerable<AuditLog> ToAuditLogs(this List<ChangesModel>? changes, string user)
     {
         if (changes != null && changes.Any())
         {
@@ -61,7 +62,7 @@ public static class TrackerHelpers
                 },
                 Changes = JsonSerializer.Serialize(change.Changes, new JsonSerializerOptions {WriteIndented = true}),
                 CreatedOn = DateTime.UtcNow,
-                UpdatedBy = "User",
+                UpdatedBy = user,
             })
             .ToList();
     }
