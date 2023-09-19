@@ -55,6 +55,13 @@
       <Content Include="bin\Debug\net7.0\Point.Of.Sale.Tenant.pdb" />
       <Content Include="bin\Debug\net7.0\Point.Of.Sale.User.deps.json" />
       <Content Include="bin\Debug\net7.0\Point.Of.Sale.User.runtimeconfig.json" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Auth.AssemblyInfoInputs.cache" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Auth.csproj.AssemblyReference.cache" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Auth.dll" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Auth.pdb" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Auth.sourcelink.json" />
+      <Content Include="obj\Debug\net7.0\ref\Point.Of.Sale.Auth.dll" />
+      <Content Include="obj\Debug\net7.0\ref\Point.Of.Sale.User.dll" />
     </ItemGroup>
 
 </Project>
