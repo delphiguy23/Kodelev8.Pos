@@ -23,6 +23,22 @@
       <Content Include="bin\Debug\net7.0\Point.Of.Sale.Events.pdb" />
       <Content Include="bin\Debug\net7.0\Point.Of.Sale.Shared.dll" />
       <Content Include="bin\Debug\net7.0\Point.Of.Sale.Shared.pdb" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.AssemblyInfoInputs.cache" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.assets.cache" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.csproj.AssemblyReference.cache" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.csproj.CopyComplete" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.csproj.CoreCompileInputs.cache" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.csproj.FileListAbsolute.txt" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.dll" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.pdb" />
+      <Content Include="obj\Debug\net7.0\Point.Of.Sale.Events.sourcelink.json" />
+      <Content Include="obj\Debug\net7.0\refint\Point.Of.Sale.Events.dll" />
+      <Content Include="obj\Debug\net7.0\ref\Point.Of.Sale.Events.dll" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <Compile Include="obj\Debug\net7.0\.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" />
     </ItemGroup>
 
 </Project>
