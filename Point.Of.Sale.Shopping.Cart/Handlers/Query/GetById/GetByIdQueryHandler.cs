@@ -27,7 +27,6 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, CartResponse>
             {
                 Id = result.Value.Id,
                 CustomerId = result.Value.CustomerId,
-                ProductId = result.Value.ProductId,
                 ItemCount = result.Value.ItemCount,
                 Active = result.Value.Active,
                 CreatedOn = result.Value.CreatedOn,

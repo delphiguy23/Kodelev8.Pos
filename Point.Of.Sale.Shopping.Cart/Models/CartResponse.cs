@@ -4,7 +4,6 @@ public record CartResponse
 {
     public int Id { get; set; }
     public int CustomerId { get; set; }
-    public int ProductId { get; set; }
     public int ItemCount { get; set; }
     public bool Active { get; set; }
     public int TenantId { get; set; }

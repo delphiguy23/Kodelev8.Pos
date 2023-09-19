@@ -53,6 +53,21 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+        <Compile Remove="obj\**"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <EmbeddedResource Remove="obj\**"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <None Remove="obj\**"/>
+    </ItemGroup>
+
+
     <!--    <ItemGroup>-->
     <!--      <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">-->
     <!--      </Reference>-->

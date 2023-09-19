@@ -27,7 +27,6 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<CartRes
                 {
                     Id = r.Id,
                     CustomerId = r.CustomerId,
-                    ProductId = r.ProductId,
                     ItemCount = r.ItemCount,
                     Active = r.Active,
                     CreatedOn = r.CreatedOn,

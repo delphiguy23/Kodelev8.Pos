@@ -25,8 +25,6 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             Id = request.Id,
             TenantId = request.TenantId,
             CustomerId = request.CustomerId,
-            ProductId = request.ProductId,
-            ItemCount = request.ItemCount,
             Active = request.Active,
             UpdatedOn = DateTime.UtcNow,
             UpdatedBy = "User",

@@ -44,8 +44,6 @@ public class Repository : GenericRepository<Persistence.Models.Sale>, IRepositor
 
     public async Task<IFluentResults<CrudResult<Persistence.Models.Sale>>> UpsertLineItem(UpsertSaleLineItem request, CancellationToken cancellationToken = default)
     {
-        var newLine = NewLine(request);
-
         var result = await _dbContext.Sales.FirstOrDefaultAsync(t => t.Id == request.SaleId, cancellationToken);
 
         if (result is null)
@@ -53,30 +51,22 @@ public class Repository : GenericRepository<Persistence.Models.Sale>, IRepositor
             return ResultsTo.NotFound<CrudResult<Persistence.Models.Sale>>($"No Sale found with Id {request.SaleId}.");
         }
 
-        if (!result.LineItems.Any())
-        {
-            result.LineItems.Add(newLine);
-        }
-
         var lineItem = result.LineItems.FirstOrDefault(t => t.LineId == request.LineId);
 
-        if (lineItem is null)
+        if (!result.LineItems.Any() || lineItem is null)
         {
-            result.LineItems.Add(newLine);
+            request.LineId = (result.LineItems.Any() ? result.LineItems.Max(l => l.LineId) : 0) + 1;
+            result.LineItems.Add(NewLine(request));
+
+            return ResultsTo.Something(new CrudResult<Persistence.Models.Sale>
+            {
+                Count = await _dbContext.SaveChangesAsync(cancellationToken),
+                Entity = result,
+            });
         }
-        else
-        {
-            lineItem.TenantId = request.TenantId;
-            lineItem.ProductId = request.ProductId;
-            lineItem.ProductName = request.ProductName;
-            lineItem.ProductDescription = request.ProductDescription;
-            lineItem.Quantity = request.Quantity;
-            lineItem.UnitPrice = request.UnitPrice;
-            lineItem.LineDiscount = request.LineDiscount;
-            lineItem.LineTax = request.LineTax;
-            lineItem.LineTotal = request.LineTotal;
-            lineItem.Active = request.Active;
-        }
+
+        result.LineItems.Remove(lineItem);
+        result.LineItems.Add(NewLine(request));
 
         return ResultsTo.Something(new CrudResult<Persistence.Models.Sale>
         {
