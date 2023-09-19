@@ -16,4 +16,13 @@
         <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj"/>
     </ItemGroup>
 
+
+    <ItemGroup>
+      <Content Include="bin\Debug\net7.0\Point.Of.Sale.Events.deps.json" />
+      <Content Include="bin\Debug\net7.0\Point.Of.Sale.Events.dll" />
+      <Content Include="bin\Debug\net7.0\Point.Of.Sale.Events.pdb" />
+      <Content Include="bin\Debug\net7.0\Point.Of.Sale.Shared.dll" />
+      <Content Include="bin\Debug\net7.0\Point.Of.Sale.Shared.pdb" />
+    </ItemGroup>
+
 </Project>
