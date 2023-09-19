@@ -23,7 +23,6 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
         {
             TenantId = request.TenantId,
             CustomerId = request.CustomerId,
-            ProductId = request.ProductId,
             ItemCount = request.ItemCount,
             Active = true,
             CreatedOn = DateTime.UtcNow,

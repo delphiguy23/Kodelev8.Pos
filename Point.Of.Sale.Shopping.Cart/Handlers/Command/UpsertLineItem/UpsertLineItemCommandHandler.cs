@@ -1,10 +1,9 @@
 using Point.Of.Sale.Abstraction.Message;
-using Point.Of.Sale.Sales.Models;
-using Point.Of.Sale.Sales.Repository;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
+using Point.Of.Sale.Shopping.Cart.Repository;
 
-namespace Point.Of.Sale.Sales.Handlers.Command.UpsertLineItem;
+namespace Point.Of.Sale.Shopping.Cart.Handlers.Command.UpsertLineItem;
 
 public class UpsertLineItemCommandHandler : ICommandHandler<UpsertLineItemCommand>
 {
@@ -17,30 +16,27 @@ public class UpsertLineItemCommandHandler : ICommandHandler<UpsertLineItemComman
 
     public async Task<IFluentResults> Handle(UpsertLineItemCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.UpsertLineItem(new UpsertSaleLineItem
+        var result = await _repository.UpsertLineItem(new Models.UpsertLineItem
         {
-            SaleId = request.SaleId,
+            CartId = request.CartId,
             LineId = request.LineId,
             TenantId = request.TenantId,
             ProductId = request.ProductId,
             ProductName = request.ProductName,
+            ProductDescription = request.ProductDescription,
             Quantity = request.Quantity,
             UnitPrice = request.UnitPrice,
-            LineDiscount = request.LineDiscount,
-            Active = true,
-            LineTax = request.LineTax,
-            ProductDescription = request.ProductDescription,
-            LineTotal = request.LineTax + request.UnitPrice * request.Quantity - request.LineDiscount,
+            LineTotal = request.LineTotal,
         }, cancellationToken);
 
         if (result.IsNotFound())
         {
-            return ResultsTo.NotFound().WithMessage("Sales Not Found");
+            return ResultsTo.NotFound().WithMessage("Shopping Cart Not Found");
         }
 
         if (result.Value.Count == 0)
         {
-            return ResultsTo.NotFound().WithMessage("Sales not updated");
+            return ResultsTo.NotFound().WithMessage("Shopping Cart line item not upserted");
         }
 
         return ResultsTo.Something(result.Value.Entity);

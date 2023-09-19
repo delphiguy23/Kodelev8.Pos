@@ -18,16 +18,15 @@ public sealed class GetByTenantIdQueryHandler : IQueryHandler<GetByTenantIdQuery
     {
         var result = await _repository.GetByTenantId(request.id, cancellationToken);
 
-        return result.Status switch
+        return result switch
         {
-            FluentResultsStatus.NotFound => ResultsTo.NotFound<List<CartResponse>>().WithMessage("Shopping Cart Not Found"),
-            FluentResultsStatus.BadRequest => ResultsTo.BadRequest<List<CartResponse>>().WithMessage("Bad Request"),
-            FluentResultsStatus.Failure => ResultsTo.Failure<List<CartResponse>>().FromResults(result),
+            {Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound<List<CartResponse>>().WithMessage("Shopping Cart Not Found"),
+            {Status: FluentResultsStatus.BadRequest} => ResultsTo.BadRequest<List<CartResponse>>().WithMessage("Bad Request"),
+            {Status: FluentResultsStatus.Failure} => ResultsTo.Failure<List<CartResponse>>().FromResults(result),
             _ => ResultsTo.Success(result.Value.Select(r => new CartResponse
                 {
                     Id = r.Id,
                     CustomerId = r.CustomerId,
-                    ProductId = r.ProductId,
                     ItemCount = r.ItemCount,
                     Active = r.Active,
                     CreatedOn = r.CreatedOn,

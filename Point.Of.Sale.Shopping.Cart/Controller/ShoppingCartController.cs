@@ -5,6 +5,7 @@ using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Shopping.Cart.Handlers.Command.LinkToTenant;
 using Point.Of.Sale.Shopping.Cart.Handlers.Command.Register;
 using Point.Of.Sale.Shopping.Cart.Handlers.Command.Update;
+using Point.Of.Sale.Shopping.Cart.Handlers.Command.UpsertLineItem;
 using Point.Of.Sale.Shopping.Cart.Handlers.Query.GetAll;
 using Point.Of.Sale.Shopping.Cart.Handlers.Query.GetById;
 using Point.Of.Sale.Shopping.Cart.Handlers.Query.GetByTenantId;
@@ -32,8 +33,6 @@ public class ShoppingCartController : ControllerBase
         {
             TenantId = request.TenantId,
             CustomerId = request.CustomerId,
-            ProductId = request.ProductId,
-            ItemCount = request.ItemCount,
         }, cancellationToken);
 
         return result.ToActionResult();
@@ -85,15 +84,33 @@ public class ShoppingCartController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Upsert([FromBody] UpsertCart request, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Updaate([FromBody] UpsertCart request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand
         {
             Id = request.Id,
             TenantId = request.TenantId,
             CustomerId = request.CustomerId,
+            Active = request.Active,
+        }, cancellationToken);
+        return result.ToActionResult();
+    }
+
+    [HttpPost]
+    [Route("{id:int}")]
+    public async Task<IActionResult> UpsertLineItem([FromBody] UpsertLineItem request, CancellationToken cancellationToken = default)
+    {
+        var result = await _sender.Send(new UpsertLineItemCommand
+        {
+            CartId = request.CartId,
+            LineId = request.LineId,
+            TenantId = request.TenantId,
             ProductId = request.ProductId,
-            ItemCount = request.ItemCount,
+            ProductName = request.ProductName,
+            ProductDescription = request.ProductDescription,
+            Quantity = request.Quantity,
+            UnitPrice = request.UnitPrice,
+            LineTotal = request.LineTotal,
         }, cancellationToken);
         return result.ToActionResult();
     }

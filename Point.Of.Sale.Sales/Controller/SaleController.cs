@@ -115,6 +115,7 @@ public class SaleController : ControllerBase
     {
         var result = await _sender.Send(new UpsertLineItemCommand
         {
+            SaleId = request.SaleId,
             LineId = request.LineId,
             TenantId = request.TenantId,
             ProductId = request.ProductId,

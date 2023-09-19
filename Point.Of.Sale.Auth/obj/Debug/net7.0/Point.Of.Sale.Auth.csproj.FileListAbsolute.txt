@@ -1,4 +1,5 @@
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/bin/Debug/net7.0/Point.Of.Sale.Auth.deps.json
+/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/bin/Debug/net7.0/Point.Of.Sale.Auth.runtimeconfig.json
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/bin/Debug/net7.0/Point.Of.Sale.Auth.dll
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/bin/Debug/net7.0/Point.Of.Sale.Auth.pdb
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/bin/Debug/net7.0/Point.Of.Sale.Abstraction.dll
@@ -19,6 +20,5 @@
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/obj/Debug/net7.0/Point.Of.Sale.Auth.dll
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/obj/Debug/net7.0/refint/Point.Of.Sale.Auth.dll
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/obj/Debug/net7.0/Point.Of.Sale.Auth.pdb
-/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/obj/Debug/net7.0/ref/Point.Of.Sale.Auth.dll
-/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/bin/Debug/net7.0/Point.Of.Sale.Auth.runtimeconfig.json
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/obj/Debug/net7.0/Point.Of.Sale.Auth.genruntimeconfig.cache
+/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/obj/Debug/net7.0/ref/Point.Of.Sale.Auth.dll
