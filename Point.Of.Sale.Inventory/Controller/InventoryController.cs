@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Inventory.Handlers.Command.LinkToTenant;
 using Point.Of.Sale.Inventory.Handlers.Command.Register;
 using Point.Of.Sale.Inventory.Handlers.Command.Update;
@@ -26,6 +27,7 @@ public class InventoryController : ControllerBase
 
     [HttpPost]
     [Route("register")]
+    [LogAuditAction]
     public async Task<IActionResult> Register([FromBody] UpsertInventory newInventory, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
@@ -40,6 +42,7 @@ public class InventoryController : ControllerBase
     }
 
     [HttpGet]
+    [LogAuditAction]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -48,6 +51,7 @@ public class InventoryController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetById(id), cancellationToken);
@@ -56,6 +60,7 @@ public class InventoryController : ControllerBase
 
     [HttpPost]
     [Route("{entityId:int}/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> LinkToTenant(int entityId, int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -71,6 +76,7 @@ public class InventoryController : ControllerBase
 
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -85,6 +91,7 @@ public class InventoryController : ControllerBase
     }
 
     [HttpPut]
+    [LogAuditAction]
     public async Task<IActionResult> Update([FromBody] UpsertInventory request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand

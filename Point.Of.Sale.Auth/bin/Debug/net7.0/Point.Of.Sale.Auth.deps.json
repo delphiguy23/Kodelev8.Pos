@@ -1665,6 +1665,16 @@
           "Point.Of.Sale.Abstraction.dll": {}
         }
       },
+      "Point.Of.Sale.Events/1.0.0": {
+        "dependencies": {
+          "MediatR": "12.1.1",
+          "Point.Of.Sale.Persistence": "1.0.0",
+          "Point.Of.Sale.Shared": "1.0.0"
+        },
+        "runtime": {
+          "Point.Of.Sale.Events.dll": {}
+        }
+      },
       "Point.Of.Sale.Persistence/1.0.0": {
         "dependencies": {
           "Bogus": "34.0.2",
@@ -1733,6 +1743,7 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4",
           "OpenTelemetry.Extensions.Hosting": "1.6.0",
           "Point.Of.Sale.Abstraction": "1.0.0",
+          "Point.Of.Sale.Events": "1.0.0",
           "Point.Of.Sale.Persistence": "1.0.0",
           "Point.Of.Sale.Shared": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
@@ -2837,6 +2848,11 @@
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
     },
     "Point.Of.Sale.Abstraction/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Point.Of.Sale.Events/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

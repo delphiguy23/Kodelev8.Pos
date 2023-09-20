@@ -22,6 +22,7 @@ public static class ScrutorRegistration
                 .FromAssemblies(Shopping.Cart.Assembly.AssemblyReference.Assembly)
                 .FromAssemblies(Auth.Assembly.AssemblyReference.Assembly)
                 .FromAssemblies(Shared.Assembly.AssemblyReference.Assembly)
+                .FromAssemblies(Events.Assembly.AssemblyReference.Assembly)
                 .AddClasses(false)
                 .AsImplementedInterfaces()
                 .WithScopedLifetime());

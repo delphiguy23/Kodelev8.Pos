@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Shopping.Cart.Handlers.Command.LinkToTenant;
@@ -27,6 +28,7 @@ public class ShoppingCartController : ControllerBase
 
     [HttpPost]
     [Route("register")]
+    [LogAuditAction]
     public async Task<IActionResult> Register([FromBody] UpsertCart request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
@@ -39,6 +41,7 @@ public class ShoppingCartController : ControllerBase
     }
 
     [HttpGet]
+    [LogAuditAction]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -47,6 +50,7 @@ public class ShoppingCartController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetById(id), cancellationToken);
@@ -55,6 +59,7 @@ public class ShoppingCartController : ControllerBase
 
     [HttpPost]
     [Route("{entityId:int}/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> LinkToTenant(int entityId, int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -70,6 +75,7 @@ public class ShoppingCartController : ControllerBase
 
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -84,6 +90,7 @@ public class ShoppingCartController : ControllerBase
     }
 
     [HttpPut]
+    [LogAuditAction]
     public async Task<IActionResult> Updaate([FromBody] UpsertCart request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand
@@ -98,6 +105,7 @@ public class ShoppingCartController : ControllerBase
 
     [HttpPost]
     [Route("{id:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> UpsertLineItem([FromBody] UpsertLineItem request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpsertLineItemCommand

@@ -7,6 +7,7 @@ using Point.Of.Sale.Customer.Handlers.Query.GetAll;
 using Point.Of.Sale.Customer.Handlers.Query.GetById;
 using Point.Of.Sale.Customer.Handlers.Query.GetByTenantId;
 using Point.Of.Sale.Customer.Models;
+using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
@@ -26,6 +27,7 @@ public class CustomerController : ControllerBase
 
     [HttpPost]
     [Route("register")]
+    [LogAuditAction]
     public async Task<IActionResult> Register([FromBody] AddCustomer newCategory, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
@@ -41,6 +43,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpGet]
+    [LogAuditAction]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -49,6 +52,7 @@ public class CustomerController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetById(id), cancellationToken);
@@ -57,6 +61,7 @@ public class CustomerController : ControllerBase
 
     [HttpPost]
     [Route("{entityId:int}/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> LinkToTenant(int entityId, int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -72,6 +77,7 @@ public class CustomerController : ControllerBase
 
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -86,6 +92,7 @@ public class CustomerController : ControllerBase
     }
 
     [HttpPut]
+    [LogAuditAction]
     public async Task<IActionResult> Update([FromBody] UpdateCustomer request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand

@@ -16,5 +16,6 @@ public static class epositoriesRegistration
         services.AddScoped<Shopping.Cart.Repository.IRepository, Shopping.Cart.Repository.Repository>();
         services.AddScoped<Supplier.Repository.IRepository, Supplier.Repository.Repository>();
         services.AddScoped<Tenant.Repository.IRepository, Tenant.Repository.Repository>();
+        services.AddScoped<Events.Repository.IRepository, Events.Repository.Repository>();
     }
 }
