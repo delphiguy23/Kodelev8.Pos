@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Category.Handlers.Query.GetById;
+using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Product.Handlers.Command.LinkToTenant;
 using Point.Of.Sale.Product.Handlers.Command.Register;
 using Point.Of.Sale.Product.Handlers.Command.Update;
@@ -26,6 +27,7 @@ public class ProductController : ControllerBase
 
     [HttpPost]
     [Route("register")]
+    [LogAuditAction]
     public async Task<IActionResult> Register([FromBody] UpsertProduct request, CancellationToken cancellationToken = default)
     {
         var category = _sender.Send(new GetById(request.CategoryId), cancellationToken);
@@ -61,6 +63,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet]
+    [LogAuditAction]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -69,6 +72,7 @@ public class ProductController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new Handlers.Query.GetById.GetById(id), cancellationToken);
@@ -77,6 +81,7 @@ public class ProductController : ControllerBase
 
     [HttpPost]
     [Route("{entityId:int}/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> LinkToTenant(int entityId, int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -92,6 +97,7 @@ public class ProductController : ControllerBase
 
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -106,6 +112,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPut]
+    [LogAuditAction]
     public async Task<IActionResult> Update([FromBody] UpsertProduct request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand

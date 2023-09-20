@@ -32,6 +32,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Point.Of.Sale.Abstraction\Point.Of.Sale.Abstraction.csproj"/>
+        <ProjectReference Include="..\Point.Of.Sale.Events\Point.Of.Sale.Events.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Persistence\Point.Of.Sale.Persistence.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj"/>
     </ItemGroup>

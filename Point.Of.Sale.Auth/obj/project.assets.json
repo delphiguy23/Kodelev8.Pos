@@ -2743,6 +2743,21 @@
           "bin/placeholder/Point.Of.Sale.Abstraction.dll": {}
         }
       },
+      "Point.Of.Sale.Events/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "MediatR": "12.1.1",
+          "Point.Of.Sale.Persistence": "1.0.0",
+          "Point.Of.Sale.Shared": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Point.Of.Sale.Events.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Point.Of.Sale.Events.dll": {}
+        }
+      },
       "Point.Of.Sale.Persistence/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -2823,6 +2838,7 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.4",
           "OpenTelemetry.Extensions.Hosting": "1.6.0",
           "Point.Of.Sale.Abstraction": "1.0.0",
+          "Point.Of.Sale.Events": "1.0.0",
           "Point.Of.Sale.Persistence": "1.0.0",
           "Point.Of.Sale.Shared": "1.0.0",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
@@ -7021,6 +7037,11 @@
       "type": "project",
       "path": "../Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj",
       "msbuildProject": "../Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+    },
+    "Point.Of.Sale.Events/1.0.0": {
+      "type": "project",
+      "path": "../Point.Of.Sale.Events/Point.Of.Sale.Events.csproj",
+      "msbuildProject": "../Point.Of.Sale.Events/Point.Of.Sale.Events.csproj"
     },
     "Point.Of.Sale.Persistence/1.0.0": {
       "type": "project",

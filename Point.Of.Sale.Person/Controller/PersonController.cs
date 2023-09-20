@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Person.Handlers.Command.LinkToTenant;
 using Point.Of.Sale.Person.Handlers.Command.RegisterPerson;
 using Point.Of.Sale.Person.Handlers.Command.Update;
@@ -26,6 +27,7 @@ public class PersonController : ControllerBase
 
     [HttpPost]
     [Route("register")]
+    [LogAuditAction]
     public async Task<IActionResult> Register([FromBody] UpsertPerson request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
@@ -49,6 +51,7 @@ public class PersonController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetPersonById(id), cancellationToken);
@@ -56,6 +59,7 @@ public class PersonController : ControllerBase
     }
 
     [HttpGet]
+    [LogAuditAction]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -64,6 +68,7 @@ public class PersonController : ControllerBase
 
     [HttpPost]
     [Route("{entityId:int}/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> LinkToTenant(int entityId, int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -79,6 +84,7 @@ public class PersonController : ControllerBase
 
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -93,6 +99,7 @@ public class PersonController : ControllerBase
     }
 
     [HttpPut]
+    [LogAuditAction]
     public async Task<IActionResult> Update([FromBody] UpsertPerson request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand

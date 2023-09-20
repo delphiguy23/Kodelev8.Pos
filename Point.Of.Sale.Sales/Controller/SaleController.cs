@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Sales.Handlers.Command.LinkToTenant;
 using Point.Of.Sale.Sales.Handlers.Command.Register;
 using Point.Of.Sale.Sales.Handlers.Command.Update;
@@ -27,6 +28,7 @@ public class SaleController : ControllerBase
 
     [HttpPost]
     [Route("register")]
+    [LogAuditAction]
     public async Task<IActionResult> Register([FromBody] UpsertSale newSale, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
@@ -38,6 +40,7 @@ public class SaleController : ControllerBase
     }
 
     [HttpGet]
+    [LogAuditAction]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -46,6 +49,7 @@ public class SaleController : ControllerBase
 
     [HttpGet]
     [Route("{id:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetById(id), cancellationToken);
@@ -54,6 +58,7 @@ public class SaleController : ControllerBase
 
     [HttpPost]
     [Route("{entityId:int}/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> LinkToTenant(int entityId, int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -69,6 +74,7 @@ public class SaleController : ControllerBase
 
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -83,6 +89,7 @@ public class SaleController : ControllerBase
     }
 
     [HttpPut]
+    [LogAuditAction]
     public async Task<IActionResult> Update([FromBody] UpsertSale request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand
@@ -111,6 +118,7 @@ public class SaleController : ControllerBase
 
     [HttpPut]
     [Route("line-item/")]
+    [LogAuditAction]
     public async Task<IActionResult> UpsertLineItem([FromBody] UpsertSaleLineItem request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpsertLineItemCommand

@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Supplier.Handlers.Command.LinkToTenant;
@@ -26,6 +27,7 @@ public class SupplierController : ControllerBase
 
     [HttpPost]
     [Route("register")]
+    [LogAuditAction]
     public async Task<IActionResult> Register([FromBody] UpsertSupplier request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
@@ -43,6 +45,7 @@ public class SupplierController : ControllerBase
     }
 
     [HttpGet]
+    [LogAuditAction]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -59,6 +62,7 @@ public class SupplierController : ControllerBase
 
     [HttpPost]
     [Route("{entityId:int}/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> LinkToTenant(int entityId, int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -74,6 +78,7 @@ public class SupplierController : ControllerBase
 
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
+    [LogAuditAction]
     public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
@@ -88,6 +93,7 @@ public class SupplierController : ControllerBase
     }
 
     [HttpPut]
+    [LogAuditAction]
     public async Task<IActionResult> Upsert([FromBody] UpsertSupplier request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand

@@ -21,6 +21,7 @@ public static class MediatrRegistration
         services.AddMediatR(m => m.RegisterServicesFromAssemblies(Shopping.Cart.Assembly.AssemblyReference.Assembly));
         services.AddMediatR(m => m.RegisterServicesFromAssemblies(Shared.Assembly.AssemblyReference.Assembly));
         services.AddMediatR(m => m.RegisterServicesFromAssemblies(Auth.Assembly.AssemblyReference.Assembly));
+        services.AddMediatR(m => m.RegisterServicesFromAssemblies(Events.Assembly.AssemblyReference.Assembly));
 
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
     }
