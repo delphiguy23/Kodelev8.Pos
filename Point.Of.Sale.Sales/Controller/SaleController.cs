@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Sales.Handlers.Command.LinkToTenant;
@@ -17,6 +18,7 @@ namespace Point.Of.Sale.Sales.Controller;
 
 [ApiController]
 [Route("/api/sale/")]
+[Authorize]
 public class SaleController : ControllerBase
 {
     private readonly ISender _sender;

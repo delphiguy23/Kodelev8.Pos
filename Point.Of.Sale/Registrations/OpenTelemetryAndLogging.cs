@@ -52,7 +52,7 @@ public static class OpenTelemetryAndLogging
             .WriteTo.HoneycombSink(configuration.HoneyComb.Dataset, configuration.HoneyComb.ApiKey)
             .ReadFrom.Configuration(ctx.Configuration));
 
-        builder.Logging.AddSerilog(log);
-        builder.Services.AddSingleton<ILogger>(log);
+        // builder.Logging.AddSerilog(log);
+        // builder.Services.AddSingleton<ILogger>(log);
     }
 }

@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Shared.FluentResults;
@@ -17,6 +18,7 @@ namespace Point.Of.Sale.Shopping.Cart.Controller;
 
 [ApiController]
 [Route("/api/shopping-cart/")]
+[Authorize]
 public class ShoppingCartController : ControllerBase
 {
     private readonly ISender _sender;

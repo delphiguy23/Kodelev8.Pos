@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Inventory.Handlers.Command.LinkToTenant;
@@ -16,6 +17,7 @@ namespace Point.Of.Sale.Inventory.Controller;
 
 [ApiController]
 [Route("/api/inventory/")]
+[Authorize]
 public class InventoryController : ControllerBase
 {
     private readonly ISender _sender;

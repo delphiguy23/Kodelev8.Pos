@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Category.Handlers.Query.GetById;
 using Point.Of.Sale.Events.Attributes;
@@ -16,6 +17,7 @@ namespace Point.Of.Sale.Product.Controller;
 
 [ApiController]
 [Route("/api/product/")]
+[Authorize]
 public class ProductController : ControllerBase
 {
     private readonly ISender _sender;

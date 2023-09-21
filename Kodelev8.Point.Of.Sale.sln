@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Tenant", "Poi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Persistence", "Point.Of.Sale.Persistence\Point.Of.Sale.Persistence.csproj", "{374560B3-1624-4A5A-A5A4-DBA4F44914D8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{DD6335C4-6384-43CD-B516-D1F59786FE8B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DD6335C4-6384-43CD-B516-D1F59786FE8B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceDomains", "ServiceDomains", "{094B1A2C-1E96-4D1E-A3A4-982377D90E35}"
 EndProject
@@ -35,6 +35,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Events", "Point.Of.Sale.Events\Point.Of.Sale.Events.csproj", "{F145FE47-653A-40ED-B967-FFD3F0517137}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Email", "Point.Of.Sale.Email\Point.Of.Sale.Email.csproj", "{899766F8-2981-4268-8EB5-15709AA661E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Retries", "Point.Of.Sale.Retries\Point.Of.Sale.Retries.csproj", "{06892E5B-A775-4AE0-88DF-680AC6387745}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +108,10 @@ Global
 		{899766F8-2981-4268-8EB5-15709AA661E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{899766F8-2981-4268-8EB5-15709AA661E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{899766F8-2981-4268-8EB5-15709AA661E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06892E5B-A775-4AE0-88DF-680AC6387745}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06892E5B-A775-4AE0-88DF-680AC6387745}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06892E5B-A775-4AE0-88DF-680AC6387745}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06892E5B-A775-4AE0-88DF-680AC6387745}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1AE8C797-8DD5-41BF-8C71-5DB463095660} = {DD6335C4-6384-43CD-B516-D1F59786FE8B}
@@ -123,5 +129,6 @@ Global
 		{6D711C7D-2304-4AC4-A77D-065D06915B31} = {094B1A2C-1E96-4D1E-A3A4-982377D90E35}
 		{F145FE47-653A-40ED-B967-FFD3F0517137} = {DD6335C4-6384-43CD-B516-D1F59786FE8B}
 		{899766F8-2981-4268-8EB5-15709AA661E4} = {DD6335C4-6384-43CD-B516-D1F59786FE8B}
+		{06892E5B-A775-4AE0-88DF-680AC6387745} = {DD6335C4-6384-43CD-B516-D1F59786FE8B}
 	EndGlobalSection
 EndGlobal

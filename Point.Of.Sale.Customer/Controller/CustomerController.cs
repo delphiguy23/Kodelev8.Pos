@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Customer.Handlers.Command.LinkToTenant;
 using Point.Of.Sale.Customer.Handlers.Command.Register;
@@ -16,6 +17,7 @@ namespace Point.Of.Sale.Customer.Controller;
 
 [ApiController]
 [Route("/api/customer/")]
+[Authorize]
 public class CustomerController : ControllerBase
 {
     private readonly ISender _sender;

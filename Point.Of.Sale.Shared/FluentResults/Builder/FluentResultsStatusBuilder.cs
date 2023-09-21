@@ -87,6 +87,7 @@ public class FluentResultsStatusBuilder<T> : ValueResults<T>
 
     public FluentResultsStatusBuilder<T> FromException(Exception exception)
     {
+        Messages.Add(exception.Message);
         Messages.Add(exception.ToString());
         return this;
     }

@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Category.Handlers.Command.LinkToTenant;
 using Point.Of.Sale.Category.Handlers.Command.Register;
@@ -15,6 +16,7 @@ namespace Point.Of.Sale.Category.Controller;
 
 [ApiController]
 [Route("/api/category/")]
+[Authorize]
 public class CategoryController : ControllerBase
 {
     private readonly ISender _sender;

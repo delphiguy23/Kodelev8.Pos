@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "aP+1Py97WyC6Zgm/z1/+VIkmjW6RkIzo7efCniJMmSBAy4j+EPTE+kpnUoChnN1ZQfF1j4IHXkXPFofr7xAMsw==",
+  "dgSpecHash": "143ybrDkwgIiN1UtXBtrfReY6L+2QW/bwFDkky/nxthWJblFR8dAPc2naBwZCZInkZ/dMTui6fBIBxwZbxS6SA==",
   "success": true,
   "projectFilePath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj",
   "expectedPackageFiles": [
@@ -101,6 +101,8 @@
     "/Users/delphiguy/.nuget/packages/opentelemetry.instrumentation.stackexchangeredis/1.0.0-rc9.8/opentelemetry.instrumentation.stackexchangeredis.1.0.0-rc9.8.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/opentelemetry.instrumentation.wcf/1.0.0-rc.9/opentelemetry.instrumentation.wcf.1.0.0-rc.9.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/pipelines.sockets.unofficial/2.1.16/pipelines.sockets.unofficial.2.1.16.nupkg.sha512",
+    "/Users/delphiguy/.nuget/packages/polly/7.2.4/polly.7.2.4.nupkg.sha512",
+    "/Users/delphiguy/.nuget/packages/polly.contrib.waitandretry/1.1.1/polly.contrib.waitandretry.1.1.1.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/pomelo.entityframeworkcore.mysql/7.0.0/pomelo.entityframeworkcore.mysql.7.0.0.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/serilog/3.0.1/serilog.3.0.1.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/serilog.aspnetcore/7.0.0/serilog.aspnetcore.7.0.0.nupkg.sha512",

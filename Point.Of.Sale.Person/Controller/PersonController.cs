@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Person.Handlers.Command.LinkToTenant;
@@ -16,6 +17,7 @@ namespace Point.Of.Sale.Person.Controller;
 
 [ApiController]
 [Route("/api/person/")]
+[Authorize]
 public class PersonController : ControllerBase
 {
     private readonly ISender _sender;

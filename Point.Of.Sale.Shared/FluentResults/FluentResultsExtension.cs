@@ -28,9 +28,7 @@ public static class ResultsExtension
 
         if (result.Status == FluentResultsStatus.Failure)
         {
-            response.StatusCode = HttpStatusCode.InternalServerError;
-            response.ReasonPhrase = message.ContainsNewLineCharacter() ? string.Empty : message;
-            return new InternalServerErrorObjectResult(response);
+            return new InternalServerErrorObjectResult(result);
         }
 
         if (result.Status == FluentResultsStatus.BadRequest)
@@ -124,13 +122,14 @@ public static class ResultsExtension
 
     private static bool ContainsNewLineCharacter(this string value)
     {
-        foreach (char character in value)
+        foreach (var character in value)
         {
-            if ((character == (char)13) || (character == (char)10))
+            if (character == (char) 13 || character == (char) 10)
             {
                 return true;
             }
         }
+
         return false;
     }
 }
