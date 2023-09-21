@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -19,6 +20,7 @@ namespace Point.Of.Sale.Tenant.Controller;
 
 [ApiController]
 [Route("/api/tenant/")]
+[Authorize]
 public sealed class TenantController : ControllerBase
 {
     private static ActivitySource _activitySource;
@@ -62,8 +64,6 @@ public sealed class TenantController : ControllerBase
     [LogAuditAction]
     public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
     {
-        var a = _options.Value;
-        _logger.LogInformation("Retrieving all Tenants");
         var result = await _sender.Send(new GetAll(), cancellationToken);
         return result.ToActionResult();
     }

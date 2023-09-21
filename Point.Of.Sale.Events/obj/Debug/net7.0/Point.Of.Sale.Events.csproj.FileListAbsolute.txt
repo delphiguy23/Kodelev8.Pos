@@ -16,3 +16,5 @@
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/obj/Debug/net7.0/refint/Point.Of.Sale.Events.dll
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/obj/Debug/net7.0/Point.Of.Sale.Events.pdb
 /Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/obj/Debug/net7.0/ref/Point.Of.Sale.Events.dll
+/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/bin/Debug/net7.0/Point.Of.Sale.Retries.dll
+/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/bin/Debug/net7.0/Point.Of.Sale.Retries.pdb

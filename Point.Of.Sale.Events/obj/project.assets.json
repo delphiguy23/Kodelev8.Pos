@@ -1687,6 +1687,32 @@
           }
         }
       },
+      "Polly/7.2.4": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Polly.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Polly.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
+      "Polly.Contrib.WaitAndRetry/1.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Polly.Contrib.WaitAndRetry.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Polly.Contrib.WaitAndRetry.dll": {
+            "related": ".pdb;.xml"
+          }
+        }
+      },
       "Pomelo.EntityFrameworkCore.MySql/7.0.0": {
         "type": "package",
         "dependencies": {
@@ -2686,6 +2712,21 @@
         },
         "runtime": {
           "bin/placeholder/Point.Of.Sale.Persistence.dll": {}
+        }
+      },
+      "Point.Of.Sale.Retries/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "Point.Of.Sale.Shared": "1.0.0",
+          "Polly": "7.2.4",
+          "Polly.Contrib.WaitAndRetry": "1.1.1"
+        },
+        "compile": {
+          "bin/placeholder/Point.Of.Sale.Retries.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Point.Of.Sale.Retries.dll": {}
         }
       },
       "Point.Of.Sale.Shared/1.0.0": {
@@ -4809,6 +4850,54 @@
         "pipelines.sockets.unofficial.nuspec"
       ]
     },
+    "Polly/7.2.4": {
+      "sha512": "bw00Ck5sh6ekduDE3mnCo1ohzuad946uslCDEENu3091+6UKnBuKLo4e+yaNcCzXxOZCXWY2gV4a35+K1d4LDA==",
+      "type": "package",
+      "path": "polly/7.2.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net461/Polly.dll",
+        "lib/net461/Polly.pdb",
+        "lib/net461/Polly.xml",
+        "lib/net472/Polly.dll",
+        "lib/net472/Polly.pdb",
+        "lib/net472/Polly.xml",
+        "lib/netstandard1.1/Polly.dll",
+        "lib/netstandard1.1/Polly.pdb",
+        "lib/netstandard1.1/Polly.xml",
+        "lib/netstandard2.0/Polly.dll",
+        "lib/netstandard2.0/Polly.pdb",
+        "lib/netstandard2.0/Polly.xml",
+        "package-icon.png",
+        "polly.7.2.4.nupkg.sha512",
+        "polly.nuspec"
+      ]
+    },
+    "Polly.Contrib.WaitAndRetry/1.1.1": {
+      "sha512": "1MUQLiSo4KDkQe6nzQRhIU05lm9jlexX5BVsbuw0SL82ynZ+GzAHQxJVDPVBboxV37Po3SG077aX8DuSy8TkaA==",
+      "type": "package",
+      "path": "polly.contrib.waitandretry/1.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Polly.Contrib.WaitAndRetry.dll",
+        "lib/net461/Polly.Contrib.WaitAndRetry.pdb",
+        "lib/net461/Polly.Contrib.WaitAndRetry.xml",
+        "lib/net472/Polly.Contrib.WaitAndRetry.dll",
+        "lib/net472/Polly.Contrib.WaitAndRetry.pdb",
+        "lib/net472/Polly.Contrib.WaitAndRetry.xml",
+        "lib/netstandard1.1/Polly.Contrib.WaitAndRetry.dll",
+        "lib/netstandard1.1/Polly.Contrib.WaitAndRetry.pdb",
+        "lib/netstandard1.1/Polly.Contrib.WaitAndRetry.xml",
+        "lib/netstandard2.0/Polly.Contrib.WaitAndRetry.dll",
+        "lib/netstandard2.0/Polly.Contrib.WaitAndRetry.pdb",
+        "lib/netstandard2.0/Polly.Contrib.WaitAndRetry.xml",
+        "polly.contrib.waitandretry.1.1.1.nupkg.sha512",
+        "polly.contrib.waitandretry.nuspec"
+      ]
+    },
     "Pomelo.EntityFrameworkCore.MySql/7.0.0": {
       "sha512": "Qk5WB/skSZet5Yrz6AN2ywjZaB1pxfAmvQ+5I4khTkLwwIamI4QJoH2NphCWLFQL+2ar8HvsNCTmwYk0qhqL0w==",
       "type": "package",
@@ -6835,6 +6924,11 @@
       "path": "../Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj",
       "msbuildProject": "../Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
     },
+    "Point.Of.Sale.Retries/1.0.0": {
+      "type": "project",
+      "path": "../Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj",
+      "msbuildProject": "../Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj"
+    },
     "Point.Of.Sale.Shared/1.0.0": {
       "type": "project",
       "path": "../Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj",
@@ -6845,6 +6939,7 @@
     "net7.0": [
       "MediatR >= 12.1.1",
       "Point.Of.Sale.Persistence >= 1.0.0",
+      "Point.Of.Sale.Retries >= 1.0.0",
       "Point.Of.Sale.Shared >= 1.0.0"
     ]
   },
@@ -6875,6 +6970,9 @@
           "projectReferences": {
             "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
               "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+            },
+            "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj": {
+              "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj"
             },
             "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
               "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"

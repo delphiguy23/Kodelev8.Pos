@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Shared.FluentResults;
@@ -16,6 +17,7 @@ namespace Point.Of.Sale.Supplier.Controller;
 
 [ApiController]
 [Route("/api/supplier/")]
+[Authorize]
 public class SupplierController : ControllerBase
 {
     private readonly ISender _sender;

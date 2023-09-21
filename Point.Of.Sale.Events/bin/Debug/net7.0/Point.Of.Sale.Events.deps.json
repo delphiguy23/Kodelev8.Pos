@@ -10,6 +10,7 @@
         "dependencies": {
           "MediatR": "12.1.1",
           "Point.Of.Sale.Persistence": "1.0.0",
+          "Point.Of.Sale.Retries": "1.0.0",
           "Point.Of.Sale.Shared": "1.0.0"
         },
         "runtime": {
@@ -996,6 +997,22 @@
           }
         }
       },
+      "Polly/7.2.4": {
+        "runtime": {
+          "lib/netstandard2.0/Polly.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.2.4.982"
+          }
+        }
+      },
+      "Polly.Contrib.WaitAndRetry/1.1.1": {
+        "runtime": {
+          "lib/netstandard2.0/Polly.Contrib.WaitAndRetry.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.1.1.0"
+          }
+        }
+      },
       "Pomelo.EntityFrameworkCore.MySql/7.0.0": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Relational": "7.0.10",
@@ -1605,6 +1622,16 @@
         },
         "runtime": {
           "Point.Of.Sale.Persistence.dll": {}
+        }
+      },
+      "Point.Of.Sale.Retries/1.0.0": {
+        "dependencies": {
+          "Point.Of.Sale.Shared": "1.0.0",
+          "Polly": "7.2.4",
+          "Polly.Contrib.WaitAndRetry": "1.1.1"
+        },
+        "runtime": {
+          "Point.Of.Sale.Retries.dll": {}
         }
       },
       "Point.Of.Sale.Shared/1.0.0": {
@@ -2317,6 +2344,20 @@
       "path": "pipelines.sockets.unofficial/2.1.16",
       "hashPath": "pipelines.sockets.unofficial.2.1.16.nupkg.sha512"
     },
+    "Polly/7.2.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bw00Ck5sh6ekduDE3mnCo1ohzuad946uslCDEENu3091+6UKnBuKLo4e+yaNcCzXxOZCXWY2gV4a35+K1d4LDA==",
+      "path": "polly/7.2.4",
+      "hashPath": "polly.7.2.4.nupkg.sha512"
+    },
+    "Polly.Contrib.WaitAndRetry/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1MUQLiSo4KDkQe6nzQRhIU05lm9jlexX5BVsbuw0SL82ynZ+GzAHQxJVDPVBboxV37Po3SG077aX8DuSy8TkaA==",
+      "path": "polly.contrib.waitandretry/1.1.1",
+      "hashPath": "polly.contrib.waitandretry.1.1.1.nupkg.sha512"
+    },
     "Pomelo.EntityFrameworkCore.MySql/7.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2696,6 +2737,11 @@
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
     },
     "Point.Of.Sale.Persistence/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Point.Of.Sale.Retries/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
