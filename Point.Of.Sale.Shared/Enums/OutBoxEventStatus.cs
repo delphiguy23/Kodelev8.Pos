@@ -1,10 +1,12 @@
+using System.ComponentModel;
+
 namespace Point.Of.Sale.Shared.Enums;
 
 public enum OutBoxEventStatus
 {
-    Cancelled = -1,
-    ReadyForProcessing,
-    CurrentlyProcessing,
-    CompletedSuccessful,
-    CompletedWithFailure,
+    [Description("Cancelled")] Cancelled = -1,
+    [Description("ReadyForProcessing")] ReadyForProcessing,
+    [Description("CurrentlyProcessing")] CurrentlyProcessing,
+    [Description("CompletedSuccessful")] CompletedSuccessful,
+    [Description("CompletedWithFailure")] CompletedWithFailure,
 }
