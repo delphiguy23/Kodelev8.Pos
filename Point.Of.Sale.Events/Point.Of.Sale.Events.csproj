@@ -21,6 +21,7 @@
 
     <ItemGroup>
         <Folder Include="Handlers\Query\"/>
+        <Folder Include="Models\" />
     </ItemGroup>
 
 
