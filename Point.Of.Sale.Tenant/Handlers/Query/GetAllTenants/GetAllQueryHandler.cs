@@ -25,7 +25,7 @@ internal sealed class GetAllQueryHandler : IQueryHandler<GetAll, List<TenantResp
 
         return result switch
         {
-            {Result: null, Outcome: OutcomeType.Failure} => ResultsTo.Failure<List<TenantResponse>>().FromException(result.FinalException),
+            {Result: null} or {Outcome: OutcomeType.Failure} => ResultsTo.Failure<List<TenantResponse>>().FromException(result.FinalException),
             {Result.Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound<List<TenantResponse>>().WithMessage("Tenant Not Found"),
             {Result.Status: FluentResultsStatus.BadRequest} => ResultsTo.BadRequest<List<TenantResponse>>().WithMessage("Bad Request"),
             {Result.Status: FluentResultsStatus.Failure} => ResultsTo.Failure<List<TenantResponse>>().FromResults(result.Result),

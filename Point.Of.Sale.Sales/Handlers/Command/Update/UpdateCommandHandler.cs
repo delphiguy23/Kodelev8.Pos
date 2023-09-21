@@ -1,22 +1,26 @@
+using Microsoft.Extensions.Logging;
 using Point.Of.Sale.Abstraction.Message;
+using Point.Of.Sale.Retries.RetryPolicies;
 using Point.Of.Sale.Sales.Repository;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
+using Polly;
 
 namespace Point.Of.Sale.Sales.Handlers.Command.Update;
 
 public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
 {
+    private readonly ILogger<UpdateCommandHandler> _logger;
     private readonly IRepository _repository;
 
-    public UpdateCommandHandler(IRepository repository)
+    public UpdateCommandHandler(IRepository repository, ILogger<UpdateCommandHandler> logger)
     {
         _repository = repository;
+        _logger = logger;
     }
 
     public async Task<IFluentResults> Handle(UpdateCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.Update(new Persistence.Models.Sale
+        var result = await PosPolicies.ExecuteThenCaptureResult(() => _repository.Update(new Persistence.Models.Sale
         {
             Id = request.Id,
             TenantId = request.TenantId,
@@ -30,18 +34,14 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
             SaleDate = DateTime.UtcNow,
             Active = request.Active,
             Status = request.Status,
-        });
+        }, cancellationToken), _logger);
 
-        if (result.IsNotFound())
+        return result switch
         {
-            return ResultsTo.NotFound().WithMessage("Sales Not Found");
-        }
-
-        if (result.Value.Count == 0)
-        {
-            return ResultsTo.NotFound().WithMessage("Sales not updated");
-        }
-
-        return ResultsTo.Something(result.Value.Entity);
+            {Result: null} or {Outcome: OutcomeType.Failure} => ResultsTo.Failure().FromException(result.FinalException),
+            {Result.Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound().WithMessage("Sales Not Found"),
+            {Result.Value.Count: 0} => ResultsTo.NotFound().WithMessage("Sales not updated"),
+            _ => ResultsTo.Something(result.Result.Value.Count > 0),
+        };
     }
 }
