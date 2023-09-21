@@ -38,7 +38,7 @@ public class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 
         return result switch
         {
-            {Result: null, Outcome: OutcomeType.Failure} => ResultsTo.Failure<string>().FromException(result.FinalException),
+            {Result: null} or {Outcome: OutcomeType.Failure} => ResultsTo.Failure<string>().FromException(result.FinalException),
             _ => ResultsTo.Something(result.Result!.Value),
         };
     }

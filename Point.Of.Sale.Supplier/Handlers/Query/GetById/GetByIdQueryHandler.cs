@@ -25,8 +25,7 @@ internal sealed class GetByIdQueryHandler : IQueryHandler<GetById, SupplierRespo
 
         return result switch
         {
-            {Result: null, Outcome: OutcomeType.Failure} => ResultsTo.Failure<SupplierResponse>().FromException(result.FinalException),
-
+            {Result: null} or {Outcome: OutcomeType.Failure} => ResultsTo.Failure<SupplierResponse>().FromException(result.FinalException),
             {Result.Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound<SupplierResponse>().WithMessage("Supplier Not Found"),
             {Result.Status: FluentResultsStatus.BadRequest} => ResultsTo.BadRequest<SupplierResponse>().WithMessage("Bad Request"),
             {Result.Status: FluentResultsStatus.Failure} => ResultsTo.Failure<SupplierResponse>().FromResults(result.Result),

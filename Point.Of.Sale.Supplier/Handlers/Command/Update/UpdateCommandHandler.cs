@@ -41,7 +41,7 @@ public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
 
         return result switch
         {
-            {Result: null, Outcome: OutcomeType.Failure} => ResultsTo.Failure<string>().FromException(result.FinalException),
+            {Result: null} or {Outcome: OutcomeType.Failure} => ResultsTo.Failure<string>().FromException(result.FinalException),
             {Result.Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound().WithMessage("Supplier Not Found"),
             {Result.Value.Count: 0} => ResultsTo.NotFound().WithMessage("Supplier not updated"),
             _ => ResultsTo.Something(result.Result!.Value.Count > 0),

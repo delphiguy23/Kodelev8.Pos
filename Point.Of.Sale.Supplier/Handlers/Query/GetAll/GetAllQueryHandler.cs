@@ -25,7 +25,7 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAllQuery, List<Supplie
 
         return result switch
         {
-            {Result: null, Outcome: OutcomeType.Failure} => ResultsTo.Failure<List<SupplierResponse>>().FromException(result.FinalException),
+            {Result: null} or {Outcome: OutcomeType.Failure}=> ResultsTo.Failure<List<SupplierResponse>>().FromException(result.FinalException),
             {Result.Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound<List<SupplierResponse>>().WithMessage("Supplier Not Found"),
             {Result.Status: FluentResultsStatus.BadRequest} => ResultsTo.BadRequest<List<SupplierResponse>>().WithMessage("Bad Request"),
             {Result.Status: FluentResultsStatus.Failure} => ResultsTo.Failure<List<SupplierResponse>>().FromResults(result.Result),
