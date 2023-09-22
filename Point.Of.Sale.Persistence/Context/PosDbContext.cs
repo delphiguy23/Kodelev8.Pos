@@ -22,7 +22,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Customer> Customers { get; set; }
     public virtual DbSet<Inventory> Inventories { get; set; }
-    public virtual DbSet<Person> Persons { get; set; }
+    // public virtual DbSet<Person> Persons { get; set; }
     public virtual DbSet<Product> Products { get; set; }
     public virtual DbSet<Models.Sale> Sales { get; set; }
     public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
@@ -85,16 +85,16 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             });
         });
 
-        modelBuilder.Entity<Person>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
-            entity.Property(e => e.UserDetails).HasColumnType("jsonb");
-            entity.HasIndex(e => new
-            {
-                e.Id, e.TenantId, e.LastName,
-            });
-        });
+        // modelBuilder.Entity<Person>(entity =>
+        // {
+        //     entity.HasKey(e => e.Id);
+        //     entity.Property(e => e.Id).ValueGeneratedOnAdd();
+        //     entity.Property(e => e.UserDetails).HasColumnType("jsonb");
+        //     entity.HasIndex(e => new
+        //     {
+        //         e.Id, e.TenantId, e.LastName,
+        //     });
+        // });
 
         modelBuilder.Entity<Product>(entity =>
         {
