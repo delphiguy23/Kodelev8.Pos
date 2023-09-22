@@ -1,8 +1,10 @@
+using System.ComponentModel;
+
 namespace Point.Of.Sale.Shared.Enums;
 
 public enum Gender
 {
-    Undefined =1,
-    Male,
-    Female
+    [Description("Undefined")] Undefined = 1,
+    [Description("Male")] Male,
+    [Description("Female")] Female,
 }

@@ -1,21 +1,23 @@
+using System.ComponentModel;
+
 namespace Point.Of.Sale.Shared.Enums;
 
 public enum BarCodes
 {
-    None = 0,
-    Code39 = 1,
-    Code128,
-    Interleaved2of5,
-    EAN13,
-    EAN8,
-    UPC,
-    UPCA,
-    UPCE,
-    ITF14,
-    Codabar,
-    PostNet,
-    Bookland,
-    PDF417,
-    DataMatrix,
-    QRCode,
+    [Description("None")] None = 0,
+    [Description("Code39")] Code39 = 1,
+    [Description("Code128")] Code128,
+    [Description("Interleaved2of5")] Interleaved2of5,
+    [Description("EAN13")] EAN13,
+    [Description("EAN8")] EAN8,
+    [Description("UPC")] UPC,
+    [Description("UPCA")] UPCA,
+    [Description("UPCE")] UPCE,
+    [Description("ITF14")] ITF14,
+    [Description("Codabar")] Codabar,
+    [Description("PostNet")] PostNet,
+    [Description("Bookland")] Bookland,
+    [Description("PDF417")] PDF417,
+    [Description("DataMatrix")] DataMatrix,
+    [Description("QRCode")] QRCode,
 }

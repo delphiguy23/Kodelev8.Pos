@@ -1,22 +1,26 @@
+using Microsoft.Extensions.Logging;
 using Point.Of.Sale.Abstraction.Message;
+using Point.Of.Sale.Retries.RetryPolicies;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Shopping.Cart.Repository;
+using Polly;
 
 namespace Point.Of.Sale.Shopping.Cart.Handlers.Command.UpsertLineItem;
 
 public class UpsertLineItemCommandHandler : ICommandHandler<UpsertLineItemCommand>
 {
+    private readonly ILogger<UpsertLineItemCommandHandler> _logger;
     private readonly IRepository _repository;
 
-    public UpsertLineItemCommandHandler(IRepository repository)
+    public UpsertLineItemCommandHandler(IRepository repository, ILogger<UpsertLineItemCommandHandler> logger)
     {
         _repository = repository;
+        _logger = logger;
     }
 
     public async Task<IFluentResults> Handle(UpsertLineItemCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repository.UpsertLineItem(new Models.UpsertLineItem
+        var result = await PosPolicies.ExecuteThenCaptureResult(() => _repository.UpsertLineItem(new Models.UpsertLineItem
         {
             CartId = request.CartId,
             LineId = request.LineId,
@@ -27,18 +31,14 @@ public class UpsertLineItemCommandHandler : ICommandHandler<UpsertLineItemComman
             Quantity = request.Quantity,
             UnitPrice = request.UnitPrice,
             LineTotal = request.LineTotal,
-        }, cancellationToken);
+        }, cancellationToken), _logger);
 
-        if (result.IsNotFound())
+        return result switch
         {
-            return ResultsTo.NotFound().WithMessage("Shopping Cart Not Found");
-        }
-
-        if (result.Value.Count == 0)
-        {
-            return ResultsTo.NotFound().WithMessage("Shopping Cart line item not upserted");
-        }
-
-        return ResultsTo.Something(result.Value.Entity);
+            {Result: null} or {Outcome: OutcomeType.Failure} => ResultsTo.Failure().FromException(result.FinalException),
+            {Result.Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound().WithMessage("Shopping Cart Not Found"),
+            {Result.Value.Count: 0} => ResultsTo.NotFound().WithMessage("Shopping Cart line item not upserted"),
+            _ => ResultsTo.Something(result.Result!.Value.Count > 0),
+        };
     }
 }
