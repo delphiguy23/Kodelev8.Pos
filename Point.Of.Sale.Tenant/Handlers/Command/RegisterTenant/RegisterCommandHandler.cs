@@ -14,10 +14,10 @@ namespace Point.Of.Sale.Tenant.Handlers.Command.RegisterTenant;
 internal sealed class RegisterCommandHandler : ICommandHandler<RegisterCommand>
 {
     private readonly IOptions<PosConfiguration> _configuration;
-    private readonly ILogger _logger;
+    private readonly ILogger<RegisterCommandHandler> _logger;
     private readonly IRepository _repository;
 
-    public RegisterCommandHandler(IRepository repository, IOptions<PosConfiguration> configuration, ILogger logger)
+    public RegisterCommandHandler(IRepository repository, IOptions<PosConfiguration> configuration, ILogger<RegisterCommandHandler> logger)
     {
         _repository = repository;
         _configuration = configuration;
