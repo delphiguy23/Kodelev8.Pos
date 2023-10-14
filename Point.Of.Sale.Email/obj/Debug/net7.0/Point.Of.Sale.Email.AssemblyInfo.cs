@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Point.Of.Sale.Email")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b4af2cb017ccce906a443a1f10602fe2a12676b6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Point.Of.Sale.Email")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Point.Of.Sale.Email")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

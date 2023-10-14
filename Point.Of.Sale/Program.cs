@@ -70,11 +70,6 @@ builder.Services.AddResponseCompression(options =>
 builder.Services.Configure<BrotliCompressionProviderOptions>(options => { options.Level = CompressionLevel.Fastest; });
 builder.Services.Configure<GzipCompressionProviderOptions>(options => { options.Level = CompressionLevel.Optimal; });
 
-//register mediatr
-builder.Services.AddMediatrRegistration();
-
-//scan assemblies with scrutor
-builder.Services.AddScrutorRegistration();
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
@@ -135,6 +130,12 @@ builder.Services.AddAuthorization(
 
 //register repositories
 builder.Services.AddRepositoriesRegistration();
+
+//scan assemblies with scrutor
+builder.Services.AddScrutorRegistration();
+
+//register mediatr
+builder.Services.AddMediatrRegistration();
 
 //register controllers
 builder.Services.AddControllersRegistration();

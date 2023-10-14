@@ -1,12 +1,10 @@
 using Honeycomb.OpenTelemetry;
-using Honeycomb.Serilog.Sink;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Point.Of.Sale.Shared.Configuration;
-using Serilog;
 
 namespace Point.Of.Sale.Registrations;
 
@@ -42,15 +40,15 @@ public static class OpenTelemetryAndLogging
 
         builder.Services.AddSingleton(TracerProvider.Default.GetTracer(honeycombOptions.ServiceName));
 
-        using var log = new LoggerConfiguration()
-            .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey)
-            .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey, 100, TimeSpan.FromSeconds(5), null, configuration.HoneyComb.Endpoint)
-            .Enrich.FromLogContext()
-            .CreateLogger();
-
-        builder.Host.UseSerilog((ctx, lc) => lc
-            .WriteTo.HoneycombSink(configuration.HoneyComb.Dataset, configuration.HoneyComb.ApiKey)
-            .ReadFrom.Configuration(ctx.Configuration));
+        // using var log = new LoggerConfiguration()
+        //     .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey)
+        //     .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey, 100, TimeSpan.FromSeconds(5), null, configuration.HoneyComb.Endpoint)
+        //     .Enrich.FromLogContext()
+        //     .CreateLogger();
+        //
+        // builder.Host.UseSerilog((ctx, lc) => lc
+        //     .WriteTo.HoneycombSink(configuration.HoneyComb.Dataset, configuration.HoneyComb.ApiKey)
+        //     .ReadFrom.Configuration(ctx.Configuration));
 
         // builder.Logging.AddSerilog(log);
         // builder.Services.AddSingleton<ILogger>(log);
