@@ -21,6 +21,7 @@ internal sealed class GetAllQueryHandler : IQueryHandler<GetAll, List<TenantResp
 
     public async Task<IFluentResults<List<TenantResponse>>> Handle(GetAll request, CancellationToken cancellationToken)
     {
+        var a = _repository.GetAll(cancellationToken);
         var result = await PosPolicies.ExecuteThenCaptureResult(() => _repository.GetAll(cancellationToken), _logger);
 
         return result switch

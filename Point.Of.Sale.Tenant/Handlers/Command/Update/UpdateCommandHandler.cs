@@ -9,10 +9,10 @@ namespace Point.Of.Sale.Tenant.Handlers.Command.Update;
 
 public class UpdateCommandHandler : ICommandHandler<UpdateCommand>
 {
-    private readonly ILogger _logger;
+    private readonly ILogger<UpdateCommandHandler> _logger;
     private readonly IRepository _repository;
 
-    public UpdateCommandHandler(IRepository repository, ILogger logger)
+    public UpdateCommandHandler(IRepository repository, ILogger<UpdateCommandHandler> logger)
     {
         _repository = repository;
         _logger = logger;

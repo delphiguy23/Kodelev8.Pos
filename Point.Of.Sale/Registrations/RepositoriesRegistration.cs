@@ -3,7 +3,7 @@ using Point.Of.Sale.Category.Repository;
 
 namespace Point.Of.Sale.Registrations;
 
-public static class epositoriesRegistration
+public static class RepositoriesRegistration
 {
     public static void AddRepositoriesRegistration(this IServiceCollection services)
     {
