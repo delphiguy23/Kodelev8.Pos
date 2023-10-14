@@ -10,11 +10,11 @@ namespace Point.Of.Sale.Supplier.Handlers.Command.LinkToTenant;
 
 public class LinkToTenantCommandHandler : ICommandHandler<LinkToTenantCommand>
 {
+    private readonly ILogger<LinkToTenantCommandHandler> _logger;
     private readonly IRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger _logger;
 
-    public LinkToTenantCommandHandler(IRepository repository, IUnitOfWork unitOfWork, ILogger logger)
+    public LinkToTenantCommandHandler(IRepository repository, IUnitOfWork unitOfWork, ILogger<LinkToTenantCommandHandler> logger)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;

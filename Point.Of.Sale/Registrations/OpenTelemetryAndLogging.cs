@@ -42,15 +42,15 @@ public static class OpenTelemetryAndLogging
 
         builder.Services.AddSingleton(TracerProvider.Default.GetTracer(honeycombOptions.ServiceName));
 
-        using var log = new LoggerConfiguration()
-            .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey)
-            .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey, 100, TimeSpan.FromSeconds(5), null, configuration.HoneyComb.Endpoint)
-            .Enrich.FromLogContext()
-            .CreateLogger();
-
-        builder.Host.UseSerilog((ctx, lc) => lc
-            .WriteTo.HoneycombSink(configuration.HoneyComb.Dataset, configuration.HoneyComb.ApiKey)
-            .ReadFrom.Configuration(ctx.Configuration));
+        // using var log = new LoggerConfiguration()
+        //     .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey)
+        //     .WriteTo.HoneycombSink(configuration.HoneyComb.ServiceName, configuration.HoneyComb.ApiKey, 100, TimeSpan.FromSeconds(5), null, configuration.HoneyComb.Endpoint)
+        //     .Enrich.FromLogContext()
+        //     .CreateLogger();
+        //
+        // builder.Host.UseSerilog((ctx, lc) => lc
+        //     .WriteTo.HoneycombSink(configuration.HoneyComb.Dataset, configuration.HoneyComb.ApiKey)
+        //     .ReadFrom.Configuration(ctx.Configuration));
 
         // builder.Logging.AddSerilog(log);
         // builder.Services.AddSingleton<ILogger>(log);

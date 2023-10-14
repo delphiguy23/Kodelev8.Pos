@@ -1,21 +1,22 @@
 using Microsoft.Extensions.Logging;
 using Polly;
+using Polly.Retry;
 
 namespace Point.Of.Sale.Retries.RetryPolicies;
 
 public static class PosPolicies
 {
-    public static Polly.Retry.RetryPolicy? RetryXTimes(int retries = 1)
+    public static RetryPolicy? RetryXTimes(int retries = 1)
     {
         return Policy.Handle<Exception>().Retry(retries);
     }
 
-    public static Polly.Retry.RetryPolicy? RetryForever()
+    public static RetryPolicy? RetryForever()
     {
         return Policy.Handle<Exception>().RetryForever();
     }
 
-    public static Polly.Retry.RetryPolicy? RetryActionDelegate(Action? action, int retries = 3)
+    public static RetryPolicy? RetryActionDelegate(Action? action, int retries = 3)
     {
         if (action is null)
         {
@@ -25,7 +26,7 @@ public static class PosPolicies
         return Policy.Handle<Exception>().Retry(3, (exception, retryCount, context) => { action(); });
     }
 
-    private static Polly.Retry.RetryPolicy? WaitAndRetry(int retries = 3)
+    private static RetryPolicy? WaitAndRetry(int retries = 3)
     {
         return Policy
             .Handle<Exception>()
@@ -71,6 +72,19 @@ public static class PosPolicies
         {
             logger.LogError(execute.FinalException, execute.FinalException.Message);
         }
+
+        return execute;
+    }
+
+    public static async Task<PolicyResult<TResult>> ExecuteThenCaptureResult<TResult>(Func<Task<TResult>> action, int retries = 5)
+    {
+        var execute = await Policy
+            .Handle<Exception>()
+            .WaitAndRetryAsync(
+                retries,
+                retryAttempt => TimeSpan.FromMilliseconds(1000) * retryAttempt,
+                (exception, timeSpan, context) => { Console.WriteLine(exception.Message); }
+            ).ExecuteAndCaptureAsync(async () => await action());
 
         return execute;
     }
