@@ -1,14 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "YQhchBz5jdxdDzzwLVv3eDb9RmGmCaGMRnugP2j+HPgJlnPyhBEvpRcE6pgSzg6F+uUrtDazzt51BU8jycnv0Q==",
+  "dgSpecHash": "+ffIhBxikhckzx5wvQhkWnyrn0fOXPlGBKzUIHRGDZI8DVN9uuwKhRT95vKmMTQBYPB08I84dRRa0NY6fBwmuA==",
   "success": true,
-  "projectFilePath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Email/Point.Of.Sale.Email.csproj",
+  "projectFilePath": "F:\\Workspace\\Kodelev8.Pos\\Point.Of.Sale.Email\\Point.Of.Sale.Email.csproj",
   "expectedPackageFiles": [
-    "/Users/delphiguy/.nuget/packages/fluentemail.core/3.0.2/fluentemail.core.3.0.2.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/fluentemail.smtp/3.0.2/fluentemail.smtp.3.0.2.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/5.0.0/microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/microsoft.netcore.app.ref/7.0.9/microsoft.netcore.app.ref.7.0.9.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.9/microsoft.aspnetcore.app.ref.7.0.9.nupkg.sha512"
+    "C:\\Users\\Serveradmin\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",
+    "C:\\Users\\Serveradmin\\.nuget\\packages\\fluentemail.smtp\\3.0.2\\fluentemail.smtp.3.0.2.nupkg.sha512",
+    "C:\\Users\\Serveradmin\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

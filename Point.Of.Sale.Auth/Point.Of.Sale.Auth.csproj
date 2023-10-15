@@ -42,21 +42,18 @@
     <ItemGroup>
         <Compile Remove="bin\**"/>
         <Compile Remove="obj\**"/>
-        <Compile Remove="Handlers\Command\GenerateTokenCommand\**"/>
     </ItemGroup>
 
 
     <ItemGroup>
         <EmbeddedResource Remove="bin\**"/>
         <EmbeddedResource Remove="obj\**"/>
-        <EmbeddedResource Remove="Handlers\Command\GenerateTokenCommand\**"/>
     </ItemGroup>
 
 
     <ItemGroup>
         <None Remove="bin\**"/>
         <None Remove="obj\**"/>
-        <None Remove="Handlers\Command\GenerateTokenCommand\**"/>
     </ItemGroup>
 
 

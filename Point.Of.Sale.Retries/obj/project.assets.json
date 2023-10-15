@@ -6673,32 +6673,40 @@
     ]
   },
   "packageFolders": {
-    "/Users/delphiguy/.nuget/packages/": {}
+    "C:\\Users\\Serveradmin\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj",
+      "projectUniqueName": "F:\\Workspace\\Kodelev8.Pos\\Point.Of.Sale.Retries\\Point.Of.Sale.Retries.csproj",
       "projectName": "Point.Of.Sale.Retries",
-      "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj",
-      "packagesPath": "/Users/delphiguy/.nuget/packages/",
-      "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/obj/",
+      "projectPath": "F:\\Workspace\\Kodelev8.Pos\\Point.Of.Sale.Retries\\Point.Of.Sale.Retries.csproj",
+      "packagesPath": "C:\\Users\\Serveradmin\\.nuget\\packages\\",
+      "outputPath": "F:\\Workspace\\Kodelev8.Pos\\Point.Of.Sale.Retries\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Serveradmin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
-              "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+            "F:\\Workspace\\Kodelev8.Pos\\Point.Of.Sale.Shared\\Point.Of.Sale.Shared.csproj": {
+              "projectPath": "F:\\Workspace\\Kodelev8.Pos\\Point.Of.Sale.Shared\\Point.Of.Sale.Shared.csproj"
             }
           }
         }
@@ -6707,9 +6715,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "default"
       }
     },
     "frameworks": {
@@ -6736,22 +6741,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.9, 7.0.9]"
-          },
-          {
-            "name": "Microsoft.NETCore.App.Ref",
-            "version": "[7.0.9, 7.0.9]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
