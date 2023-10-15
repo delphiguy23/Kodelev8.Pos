@@ -36,7 +36,7 @@ public static class DbProviders
                 break;
         }
 
-        services.AddScoped<IPosDbContext>(c => c.GetRequiredService<PosDbContext>());
+        //services.AddScoped<IPosDbContext>(c => c.GetRequiredService<PosDbContext>());
         services.AddScoped<IUnitOfWork>(c => c.GetRequiredService<PosDbContext>());
     }
 }

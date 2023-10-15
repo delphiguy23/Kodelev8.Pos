@@ -45,6 +45,8 @@ var options = builder.Services.BuildServiceProvider().GetRequiredService<IOption
 //setup dynamic ef providers
 builder.Services.AddDbProvidersRegistration(options.Value);
 
+//register repositories
+builder.Services.AddRepositoriesRegistration();
 
 builder.Services.AddIdentity<ServiceUser, IdentityRole>()
     .AddEntityFrameworkStores<UsersDbContext>()
@@ -134,8 +136,7 @@ builder.Services.AddAuthorization(
         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme).Build()
 );
 
-//register repositories
-builder.Services.AddRepositoriesRegistration();
+
 
 //register controllers
 builder.Services.AddControllersRegistration();
