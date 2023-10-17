@@ -18,7 +18,6 @@
         <PackageReference Include="Honeycomb.OpenTelemetry.CommonInstrumentations" Version="0.27.1-beta"/>
         <PackageReference Include="Honeycomb.Serilog.Sink" Version="2.2.0"/>
         <PackageReference Include="MediatR" Version="12.1.1"/>
-        <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.11"/>
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10"/>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10"/>
@@ -50,8 +49,9 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Point.Of.Sale.Abstraction\Point.Of.Sale.Abstraction.csproj"/>
-        <ProjectReference Include="..\Point.Of.Sale.Category\Point.Of.Sale.Category.csproj"/>
+        <ProjectReference Include="..\Point.Of.Sale.Auth\Point.Of.Sale.Auth.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Customer\Point.Of.Sale.Customer.csproj"/>
+        <ProjectReference Include="..\Point.Of.Sale.Email\Point.Of.Sale.Email.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Events\Point.Of.Sale.Events.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Inventory\Point.Of.Sale.Inventory.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Person\Point.Of.Sale.Person.csproj"/>
@@ -61,7 +61,6 @@
         <ProjectReference Include="..\Point.Of.Sale.Shopping.Cart\Point.Of.Sale.Shopping.Cart.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Supplier\Point.Of.Sale.Supplier.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Tenant\Point.Of.Sale.Tenant.csproj"/>
-        <ProjectReference Include="..\Point.Of.Sale.Auth\Point.Of.Sale.Auth.csproj"/>
     </ItemGroup>
 
 

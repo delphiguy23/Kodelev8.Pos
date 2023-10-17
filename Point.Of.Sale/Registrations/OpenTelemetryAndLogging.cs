@@ -1,10 +1,12 @@
 using Honeycomb.OpenTelemetry;
+using Honeycomb.Serilog.Sink;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Instrumentation.AspNetCore;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Point.Of.Sale.Shared.Configuration;
+using Serilog;
 
 namespace Point.Of.Sale.Registrations;
 

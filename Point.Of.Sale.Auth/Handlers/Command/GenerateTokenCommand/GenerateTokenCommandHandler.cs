@@ -13,10 +13,10 @@ namespace Point.Of.Sale.Auth.Handlers.Command.GenerateTokenCommand;
 public class GenerateTokenCommandHandler : ICommandHandler<GenerateTokenCommand, string>
 {
     private readonly IOptions<PosConfiguration> _configuration;
-    private readonly Logger<GenerateTokenCommandHandler> _logger;
+    private readonly ILogger<GenerateTokenCommandHandler> _logger;
     private readonly ISender _sender;
 
-    public GenerateTokenCommandHandler(Logger<GenerateTokenCommandHandler> logger, ISender sender, IOptions<PosConfiguration> configuration)
+    public GenerateTokenCommandHandler(ILogger<GenerateTokenCommandHandler> logger, ISender sender, IOptions<PosConfiguration> configuration)
     {
         _logger = logger;
         _sender = sender;

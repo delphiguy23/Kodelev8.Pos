@@ -45,6 +45,8 @@ var options = builder.Services.BuildServiceProvider().GetRequiredService<IOption
 //setup dynamic ef providers
 builder.Services.AddDbProvidersRegistration(options.Value);
 
+//register repositories
+builder.Services.AddRepositoriesRegistration();
 
 builder.Services.AddIdentity<ServiceUser, IdentityRole>()
     .AddEntityFrameworkStores<UsersDbContext>()
@@ -69,6 +71,12 @@ builder.Services.AddResponseCompression(options =>
 
 builder.Services.Configure<BrotliCompressionProviderOptions>(options => { options.Level = CompressionLevel.Fastest; });
 builder.Services.Configure<GzipCompressionProviderOptions>(options => { options.Level = CompressionLevel.Optimal; });
+
+//scan assemblies with scrutor
+// builder.Services.AddScrutorRegistration();
+
+//register mediatr
+builder.Services.AddMediatrRegistration();
 
 
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -128,14 +136,7 @@ builder.Services.AddAuthorization(
         .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme).Build()
 );
 
-//register repositories
-builder.Services.AddRepositoriesRegistration();
 
-//scan assemblies with scrutor
-builder.Services.AddScrutorRegistration();
-
-//register mediatr
-builder.Services.AddMediatrRegistration();
 
 //register controllers
 builder.Services.AddControllersRegistration();
@@ -172,20 +173,20 @@ app.Map("/exception", () => { throw new InvalidOperationException("Sample Except
 //initialize and apply database migrations
 var initializables = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(y => typeof(IInitializable).IsAssignableFrom(y) && !y.IsInterface);
 
-if (initializables is not null || initializables.Any())
-{
-    foreach (var init in initializables)
-    {
-        try
-        {
-            var instance = (IInitializable) Activator.CreateInstance(init)!;
-            Task.Run(() => instance.Initialize()).Wait();
-        }
-        catch
-        {
-            //ignore errors
-        }
-    }
-}
+// if (initializables is not null || initializables.Any())
+// {
+//     foreach (var init in initializables)
+//     {
+//         try
+//         {
+//             var instance = (IInitializable) Activator.CreateInstance(init)!;
+//             Task.Run(() => instance.Initialize()).Wait();
+//         }
+//         catch
+//         {
+//             //ignore errors
+//         }
+//     }
+// }
 
 app.Run();

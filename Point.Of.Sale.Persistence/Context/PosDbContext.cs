@@ -19,7 +19,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public virtual DbSet<Person> Persons { get; set; }
+    // public virtual DbSet<Person> Persons { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Customer> Customers { get; set; }
