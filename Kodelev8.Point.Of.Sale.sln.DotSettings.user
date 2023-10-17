@@ -1,4 +1,16 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=48cbf345_002Daa67_002D4990_002Dadf1_002D20e72149f199/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Handler_Should_Return_Not_Found" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::6F241CC5-9927-4AF7-A301-BD1A87FDDF94::net7.0::Point.Of.Sale.Tenant.Test.Handlers.Query.GetAllTenants.GetAllTenantsTests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=781affe4_002Dd92e_002D452c_002D9c8d_002De7b690ba7e4a/@EntryIndexedValue">&lt;SessionState ContinuousTestingIsOn="True" ContinuousTestingMode="1" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::6F241CC5-9927-4AF7-A301-BD1A87FDDF94::net7.0::Point.Of.Sale.Tenant.Test.UnitTest1.Test1&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::6F241CC5-9927-4AF7-A301-BD1A87FDDF94::net7.0::Point.Of.Sale.Tenant.Test.Handlers.Query.GetAllTenants.GetAllTenantsTests.Handler_Should_Return_All_Tenants&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::6F241CC5-9927-4AF7-A301-BD1A87FDDF94::net7.0::Point.Of.Sale.Tenant.Test.Handlers.Query.GetAllTenants.GetAllTenantsTests.Handler_Should_Return_Exception&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=b47e439b_002Df706_002D4c0a_002D97ac_002D792759b1529c_0023Point_002EOf_002ESale_002EPerson/@EntryIndexedValue">True</s:Boolean>
 	
 	

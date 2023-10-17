@@ -57,4 +57,9 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+        <Content Include="obj\project.assets.json"/>
+    </ItemGroup>
+
+
 </Project>

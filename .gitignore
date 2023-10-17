@@ -34,6 +34,8 @@
 /Point.Of.Sale.Supplier/obj/*
 /Point.Of.Sale.Tenant/bin/*
 /Point.Of.Sale.Tenant/obj/*
+/Point.Of.Sale.Tenant.Test/bin/*
+/Point.Of.Sale.Tenant.Test/obj/*
 
 
 /.githvs/slnx.sqlite
