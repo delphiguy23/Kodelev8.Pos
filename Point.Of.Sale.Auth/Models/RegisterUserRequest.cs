@@ -1,3 +1,4 @@
+using System;
 using Point.Of.Sale.Shared.Enums;
 
 namespace Point.Of.Sale.Auth.Models;
