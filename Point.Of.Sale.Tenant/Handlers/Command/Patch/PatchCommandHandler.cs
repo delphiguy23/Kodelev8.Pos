@@ -25,6 +25,7 @@ public sealed class PatchCommandHandler : ICommandHandler<PatchCommand>
         return result switch
         {
             {Result: null, Outcome: OutcomeType.Failure} => ResultsTo.Failure<string>().FromException(result.FinalException),
+            {Result.Status: FluentResultsStatus.NotFound} => ResultsTo.NotFound().WithMessage("Tenant Not Found"),
             _ => ResultsTo.Something(result.Result!.Value),
         };
     }

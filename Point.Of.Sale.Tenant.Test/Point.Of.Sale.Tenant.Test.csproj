@@ -30,8 +30,4 @@
         <ProjectReference Include="..\Point.Of.Sale.Tenant\Point.Of.Sale.Tenant.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Handlers\Command\"/>
-    </ItemGroup>
-
 </Project>
