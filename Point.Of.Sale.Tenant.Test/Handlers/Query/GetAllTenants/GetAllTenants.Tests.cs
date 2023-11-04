@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -41,6 +37,7 @@ public class GetAllTenantsTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetAll(default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.Success);
     }
 
@@ -58,6 +55,7 @@ public class GetAllTenantsTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetAll(default), Times.AtLeast(5));
         result.Status.Should().Be(FluentResultsStatus.Failure);
     }
 
@@ -75,6 +73,7 @@ public class GetAllTenantsTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetAll(default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.NotFound);
     }
 
@@ -92,6 +91,7 @@ public class GetAllTenantsTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetAll(default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.BadRequest);
     }
 
@@ -109,6 +109,7 @@ public class GetAllTenantsTests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetAll(default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.Failure);
     }
 }

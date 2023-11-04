@@ -37,6 +37,7 @@ public class GetTenantByIdQuery_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetById(It.IsAny<int>(), default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.Success);
     }
 
@@ -55,6 +56,7 @@ public class GetTenantByIdQuery_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetById(It.IsAny<int>(), default), Times.AtLeast(5));
         result.Status.Should().Be(FluentResultsStatus.Failure);
     }
 
@@ -73,6 +75,7 @@ public class GetTenantByIdQuery_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetById(It.IsAny<int>(), default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.NotFound);
     }
 
@@ -90,6 +93,7 @@ public class GetTenantByIdQuery_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetById(It.IsAny<int>(), default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.BadRequest);
     }
 
@@ -107,6 +111,7 @@ public class GetTenantByIdQuery_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetById(It.IsAny<int>(), default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.Failure);
     }
 }

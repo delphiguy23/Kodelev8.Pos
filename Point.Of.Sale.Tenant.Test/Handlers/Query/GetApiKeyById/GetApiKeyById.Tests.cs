@@ -38,6 +38,7 @@ public class GetApiKeyById_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetApiKeyById(It.IsAny<int>(), default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.Success);
     }
 
@@ -55,6 +56,7 @@ public class GetApiKeyById_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetApiKeyById(It.IsAny<int>(), default), Times.AtLeast(5));
         result.Status.Should().Be(FluentResultsStatus.Failure);
     }
 
@@ -72,6 +74,7 @@ public class GetApiKeyById_Tests
         var result = await handler.Handle(query, CancellationToken.None);
 
         // Assert
+        _mockTenantRepository.Verify(v => v.GetApiKeyById(It.IsAny<int>(), default), Times.Once);
         result.Status.Should().Be(FluentResultsStatus.NotFound);
     }
 }
