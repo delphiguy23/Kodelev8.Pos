@@ -1,5 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/Users/delphiguy/Library/Caches/JetBrains/Rider2023.2/resharper-host/temp/Rider/vAny/CoverageData/_Kodelev8.Point.Of.Sale.1854925991/Snapshot/snapshot.utdcvr</s:String>
+	
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5004ae14_002Dfa96_002D4b9c_002Da2e1_002D181ce9e0dfad/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Or&gt;
     &lt;And&gt;
@@ -23,7 +23,7 @@
 	
 	
 	
-	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=b47e439b_002Df706_002D4c0a_002D97ac_002D792759b1529c_0023Point_002EOf_002ESale_002EPerson/@EntryIndexedValue">True</s:Boolean>
+	
 	
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=initializables/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

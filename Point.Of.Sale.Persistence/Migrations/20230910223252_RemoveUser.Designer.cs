@@ -28,7 +28,7 @@ namespace Point.Of.Sale.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.AuditLog", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.AuditLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,7 +67,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("AuditLogs");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Category", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +106,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Customer", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -150,7 +150,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Inventory", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Inventory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,7 +193,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Inventories");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Person", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Person", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,7 +261,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Product", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -328,7 +328,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Sale", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Sale", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -377,7 +377,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Sales");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.ShoppingCart", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -417,7 +417,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Supplier", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Supplier", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -476,7 +476,7 @@ namespace Point.Of.Sale.Persistence.Migrations
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.Tenant", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.Tenant", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

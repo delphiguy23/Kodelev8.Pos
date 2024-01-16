@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Point.Of.Sale.Shared.Configuration;
 
-namespace Point.Of.Sale.Registrations;
+namespace Service.Point.Of.Sale.Registrations;
 
 public static class EmailRegistration
 {

@@ -6,18 +6,19 @@ using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Point.Of.Sale.Shared.Configuration;
 
-namespace Point.Of.Sale.Registrations;
+namespace Service.Point.Of.Sale.Registrations;
 
 public static class OpenTelemetryAndLogging
 {
-    public static void AddOpenTelemetryAndLoggingRegistration(this WebApplicationBuilder builder, PosConfiguration configuration)
+    public static void AddOpenTelemetryAndLoggingRegistration(this WebApplicationBuilder builder,
+        PosConfiguration configuration)
     {
         HoneycombOptions honeycombOptions = new()
         {
             ApiKey = configuration.HoneyComb.ApiKey,
             Dataset = configuration.HoneyComb.Dataset,
             ServiceName = configuration.HoneyComb.ServiceName,
-            Endpoint = configuration.HoneyComb.Endpoint,
+            Endpoint = configuration.HoneyComb.Endpoint
         };
 
         builder.Services.AddOpenTelemetry().WithTracing(otelBuilder =>
@@ -26,7 +27,8 @@ public static class OpenTelemetryAndLogging
                 // .AddConsoleExporter()
                 .AddSource(configuration.General.ServiceName)
                 .SetResourceBuilder(
-                    ResourceBuilder.CreateDefault().AddService(configuration.General.ServiceName, serviceVersion: configuration.General.ServiceVersion)
+                    ResourceBuilder.CreateDefault().AddService(configuration.General.ServiceName,
+                        serviceVersion: configuration.General.ServiceVersion)
                 )
                 .AddCommonInstrumentations()
                 .AddHttpClientInstrumentation()

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale", "Point.Of.Sale\Point.Of.Sale.csproj", "{8A9F4EBF-CC85-4863-A3A3-0593BBA897D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Point.Of.Sale", "Service.Point.Of.Sale\Service.Point.Of.Sale.csproj", "{8A9F4EBF-CC85-4863-A3A3-0593BBA897D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Category", "Point.Of.Sale.Category\Point.Of.Sale.Category.csproj", "{A43EFD95-3515-4CA0-8255-0EB186639839}"
 EndProject

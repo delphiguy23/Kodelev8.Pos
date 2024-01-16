@@ -1,13 +1,14 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Point.Of.Sale.Domains.User.Models;
+using Service.Point.Of.Sale.Domains.User.Models;
+using Supabase;
 
-namespace Point.Of.Sale.Domains.User.Controller;
+namespace Service.Point.Of.Sale.Domains.User.Controller;
 
 public static class UserManagement
 {
-    public static void RegisterUserManagementEndpoints(this IEndpointRouteBuilder  endpoints, Supabase.Client client)
+    public static void RegisterUserManagementEndpoints(this IEndpointRouteBuilder endpoints, Client client)
     {
         endpoints.MapGet("/api/user/{id}", (int id) => Results.Ok(id));
 
@@ -19,6 +20,6 @@ public static class UserManagement
 
         endpoints.MapPost("/api/user/signout", async () => await client.Auth.SignOut());
 
-        endpoints.MapPost("/api/user/session",  () =>  client.Auth.CurrentSession);
+        endpoints.MapPost("/api/user/session", () => client.Auth.CurrentSession);
     }
 }

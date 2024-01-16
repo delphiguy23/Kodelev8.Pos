@@ -15,8 +15,8 @@ using Microsoft.OpenApi.Models;
 using Point.Of.Sale.Auth.IdentityContext;
 using Point.Of.Sale.Persistence.Initializable;
 using Point.Of.Sale.Persistence.Models;
-using Point.Of.Sale.Registrations;
 using Point.Of.Sale.Shared.Configuration;
+using Service.Point.Of.Sale.Registrations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -88,13 +88,13 @@ builder.Services.AddAuthentication(x =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = $"{options.Value.General.ServiceName}-{options.Value.General.ServiceName}",
         ValidAudience = options.Value.General.ServiceName,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.General.SecretKey)),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.General.SecretKey))
     };
 });
 
 builder.Services.AddSwaggerGen(s =>
 {
-    s.SwaggerDoc("v1", new OpenApiInfo {Title = "Kodelev8 POS Service API", Version = "v1"});
+    s.SwaggerDoc("v1", new OpenApiInfo { Title = "Kodelev8 POS Service API", Version = "v1" });
     s.AddSecurityDefinition(
         "JWT", new OpenApiSecurityScheme
         {
@@ -103,7 +103,7 @@ builder.Services.AddSwaggerGen(s =>
             Scheme = "bearer",
             BearerFormat = "JWT",
             In = ParameterLocation.Header,
-            Description = "JWT Authorization header using the Bearer scheme.",
+            Description = "JWT Authorization header using the Bearer scheme."
         });
 
     s.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -114,11 +114,11 @@ builder.Services.AddSwaggerGen(s =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "JWT",
-                },
+                    Id = "JWT"
+                }
             },
             new string[] { }
-        },
+        }
     });
 });
 
@@ -170,22 +170,19 @@ app.MapControllers();
 app.Map("/exception", () => { throw new InvalidOperationException("Sample Exception"); });
 
 //initialize and apply database migrations
-var initializables = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(y => typeof(IInitializable).IsAssignableFrom(y) && !y.IsInterface);
+var initializables = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+    .Where(y => typeof(IInitializable).IsAssignableFrom(y) && !y.IsInterface);
 
 if (initializables is not null || initializables.Any())
-{
     foreach (var init in initializables)
-    {
         try
         {
-            var instance = (IInitializable) Activator.CreateInstance(init)!;
+            var instance = (IInitializable)Activator.CreateInstance(init)!;
             Task.Run(() => instance.Initialize()).Wait();
         }
         catch
         {
             //ignore errors
         }
-    }
-}
 
 app.Run();

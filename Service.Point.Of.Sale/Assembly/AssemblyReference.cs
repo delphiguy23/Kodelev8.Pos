@@ -1,4 +1,4 @@
-﻿namespace Point.Of.Sale.Assembly;
+﻿namespace Service.Point.Of.Sale.Assembly;
 
 public static class AssemblyReference
 {
