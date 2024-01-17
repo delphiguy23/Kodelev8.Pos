@@ -16,8 +16,8 @@ public static class MediatrRegistration
             m.RegisterServicesFromAssemblies(global::Point.Of.Sale.Customer.Assembly.AssemblyReference.Assembly));
         services.AddMediatR(m =>
             m.RegisterServicesFromAssemblies(global::Point.Of.Sale.Inventory.Assembly.AssemblyReference.Assembly));
-        services.AddMediatR(m =>
-            m.RegisterServicesFromAssemblies(global::Point.Of.Sale.Person.Assembly.AssemblyReference.Assembly));
+        // services.AddMediatR(m =>
+        //     m.RegisterServicesFromAssemblies(global::Point.Of.Sale.Person.Assembly.AssemblyReference.Assembly));
         services.AddMediatR(m =>
             m.RegisterServicesFromAssemblies(global::Point.Of.Sale.Product.Assembly.AssemblyReference.Assembly));
         services.AddMediatR(m =>

@@ -66,7 +66,7 @@ public static class DbProviders
                 break;
         }
 
-        services.AddScoped<IPosDbContext>(c => c.GetRequiredService<PosDbContext>());
-        services.AddScoped<IUnitOfWork>(c => c.GetRequiredService<PosDbContext>());
+        services.AddSingleton<IPosDbContext>(c => c.GetRequiredService<PosDbContext>());
+        services.AddSingleton<IUnitOfWork>(c => c.GetRequiredService<PosDbContext>());
     }
 }

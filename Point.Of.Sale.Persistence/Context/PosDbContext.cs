@@ -14,12 +14,13 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
     {
     }
 
-    public PosDbContext(DbContextOptions<PosDbContext> options, IHttpContextAccessor httpContextAccessor) : base(options)
+    public PosDbContext(DbContextOptions<PosDbContext> options, IHttpContextAccessor httpContextAccessor) :
+        base(options)
     {
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public virtual DbSet<Person> Persons { get; set; }
+    // public virtual DbSet<Person> Persons { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
     public virtual DbSet<Customer> Customers { get; set; }
@@ -46,7 +47,8 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
 
         if (changedTracker.Any())
         {
-            var auditLogs = changedTracker.ToAuditLogs(_httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? string.Empty);
+            var auditLogs =
+                changedTracker.ToAuditLogs(_httpContextAccessor?.HttpContext?.User?.Identity?.Name ?? string.Empty);
             await AuditLogs.AddRangeAsync(auditLogs, cancellationToken);
         }
 
@@ -62,7 +64,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.HasIndex(e => new
             {
-                e.Id, e.TenantId,
+                e.Id, e.TenantId
             });
         });
 
@@ -72,7 +74,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.HasIndex(e => new
             {
-                e.Id, e.TenantId,
+                e.Id, e.TenantId
             });
         });
 
@@ -82,7 +84,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.HasIndex(e => new
             {
-                e.Id, e.TenantId,
+                e.Id, e.TenantId
             });
         });
 
@@ -103,7 +105,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.HasIndex(e => new
             {
-                e.Id, e.TenantId,
+                e.Id, e.TenantId
             });
         });
 
@@ -114,7 +116,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.LineItems).HasColumnType("jsonb");
             entity.HasIndex(e => new
             {
-                e.Id, e.TenantId,
+                e.Id, e.TenantId
             });
         });
 
@@ -125,7 +127,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.LineItems).HasColumnType("jsonb");
             entity.HasIndex(e => new
             {
-                e.Id, e.TenantId,
+                e.Id, e.TenantId
             });
         });
 
@@ -135,7 +137,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.HasIndex(e => new
             {
-                e.Id, e.TenantId,
+                e.Id, e.TenantId
             });
         });
 
@@ -145,7 +147,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.HasIndex(e => new
             {
-                e.Id, e.Code, e.Name,
+                e.Id, e.Code, e.Name
             });
         });
 
@@ -155,7 +157,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.Id).ValueGeneratedOnAdd();
             entity.HasIndex(e => new
                 {
-                    e.CreatedOn, e.Id,
+                    e.CreatedOn, e.Id
                 })
                 .IsDescending(true, false);
         });
@@ -167,7 +169,7 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
             entity.Property(e => e.BatchErrors).HasColumnType("jsonb");
             entity.HasIndex(e => new
             {
-                e.Id, e.PublishedOn, e.Status,
+                e.Id, e.PublishedOn, e.Status
             });
         });
     }
@@ -175,7 +177,8 @@ public class PosDbContext : DbContext, IPosDbContext, IUnitOfWork //, IdentityDb
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         // connect to postgres with connection string from app settings during migrations
-        options.UseNpgsql("User Id=postgres;Password=xqdOSyXTk69227f5;Server=db.ykoorfkswtiuzwokviis.supabase.co;Port=5432;Database=postgres");
+        // options.UseNpgsql("User Id=postgres;Password=xqdOSyXTk69227f5;Server=db.ykoorfkswtiuzwokviis.supabase.co;Port=5432;Database=postgres");
+        options.UseNpgsql("User Id=dbuser;Password=pass1234;Server=10.10.10.10;Port=5432;Database=KodElev8-POS");
 
         //
         // var builder = new ConfigurationBuilder()

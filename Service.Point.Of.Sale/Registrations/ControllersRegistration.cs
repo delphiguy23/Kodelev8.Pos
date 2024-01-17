@@ -8,25 +8,25 @@ public static class ControllersRegistration
     public static void AddControllersRegistration(this IServiceCollection services)
     {
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Category")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Category")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Customer")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Customer")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Inventory")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Inventory")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Person")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Person")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Product")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Product")));
         services.AddMvc()
             .AddApplicationPart(
-                System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Shopping.Cart")));
+                System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Shopping.Cart")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Supplier")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Supplier")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Sales")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Sales")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Tenant")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Tenant")));
         services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Service.Point.Of.Sale.Auth")));
+            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Auth")));
     }
 }

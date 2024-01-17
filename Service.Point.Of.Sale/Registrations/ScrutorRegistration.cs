@@ -14,7 +14,7 @@ public static class ScrutorRegistration
                 .FromAssemblies(global::Point.Of.Sale.Category.Assembly.AssemblyReference.Assembly)
                 .FromAssemblies(global::Point.Of.Sale.Customer.Assembly.AssemblyReference.Assembly)
                 .FromAssemblies(global::Point.Of.Sale.Inventory.Assembly.AssemblyReference.Assembly)
-                .FromAssemblies(global::Point.Of.Sale.Person.Assembly.AssemblyReference.Assembly)
+                // .FromAssemblies(global::Point.Of.Sale.Person.Assembly.AssemblyReference.Assembly)
                 .FromAssemblies(global::Point.Of.Sale.Product.Assembly.AssemblyReference.Assembly)
                 .FromAssemblies(global::Point.Of.Sale.Sales.Assembly.AssemblyReference.Assembly)
                 .FromAssemblies(global::Point.Of.Sale.Supplier.Assembly.AssemblyReference.Assembly)
