@@ -1,0 +1,2398 @@
+{
+  "format": 1,
+  "restore": {
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Service.Point.Of.Sale/Service.Point.Of.Sale.csproj": {}
+  },
+  "projects": {
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj",
+        "projectName": "Point.Of.Sale.Abstraction",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/Point.Of.Sale.Auth.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/Point.Of.Sale.Auth.csproj",
+        "projectName": "Point.Of.Sale.Auth",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/Point.Of.Sale.Auth.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj",
+        "projectName": "Point.Of.Sale.Category",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Customer/Point.Of.Sale.Customer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Customer/Point.Of.Sale.Customer.csproj",
+        "projectName": "Point.Of.Sale.Customer",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Customer/Point.Of.Sale.Customer.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Customer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj",
+        "projectName": "Point.Of.Sale.Events",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Inventory/Point.Of.Sale.Inventory.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Inventory/Point.Of.Sale.Inventory.csproj",
+        "projectName": "Point.Of.Sale.Inventory",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Inventory/Point.Of.Sale.Inventory.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Inventory/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/Point.Of.Sale.Product.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/Point.Of.Sale.Product.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj",
+        "projectName": "Point.Of.Sale.Persistence",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Person/Point.Of.Sale.Person.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Person/Point.Of.Sale.Person.csproj",
+        "projectName": "Point.Of.Sale.Person",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Person/Point.Of.Sale.Person.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Person/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/Point.Of.Sale.Product.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/Point.Of.Sale.Product.csproj",
+        "projectName": "Point.Of.Sale.Product",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/Point.Of.Sale.Product.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj",
+        "projectName": "Point.Of.Sale.Retries",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Polly": {
+              "target": "Package",
+              "version": "[7.2.4, )"
+            },
+            "Polly.Contrib.WaitAndRetry": {
+              "target": "Package",
+              "version": "[1.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Sales/Point.Of.Sale.Sales.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Sales/Point.Of.Sale.Sales.csproj",
+        "projectName": "Point.Of.Sale.Sales",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Sales/Point.Of.Sale.Sales.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Sales/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj",
+        "projectName": "Point.Of.Sale.Shared",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shopping.Cart/Point.Of.Sale.Shopping.Cart.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shopping.Cart/Point.Of.Sale.Shopping.Cart.csproj",
+        "projectName": "Point.Of.Sale.Shopping.Cart",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shopping.Cart/Point.Of.Sale.Shopping.Cart.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shopping.Cart/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj",
+        "projectName": "Point.Of.Sale.Supplier",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj",
+        "projectName": "Point.Of.Sale.Tenant",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Persistence/Point.Of.Sale.Persistence.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Retries/Point.Of.Sale.Retries.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Service.Point.Of.Sale/Service.Point.Of.Sale.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Service.Point.Of.Sale/Service.Point.Of.Sale.csproj",
+        "projectName": "Service.Point.Of.Sale",
+        "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Service.Point.Of.Sale/Service.Point.Of.Sale.csproj",
+        "packagesPath": "/Users/delphiguy/.nuget/packages/",
+        "outputPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Service.Point.Of.Sale/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/delphiguy/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Abstraction/Point.Of.Sale.Abstraction.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/Point.Of.Sale.Auth.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Auth/Point.Of.Sale.Auth.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Category/Point.Of.Sale.Category.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Customer/Point.Of.Sale.Customer.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Customer/Point.Of.Sale.Customer.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Inventory/Point.Of.Sale.Inventory.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Inventory/Point.Of.Sale.Inventory.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Person/Point.Of.Sale.Person.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Person/Point.Of.Sale.Person.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/Point.Of.Sale.Product.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Product/Point.Of.Sale.Product.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Sales/Point.Of.Sale.Sales.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Sales/Point.Of.Sale.Sales.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shared/Point.Of.Sale.Shared.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shopping.Cart/Point.Of.Sale.Shopping.Cart.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Shopping.Cart/Point.Of.Sale.Shopping.Cart.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Supplier/Point.Of.Sale.Supplier.csproj"
+              },
+              "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj": {
+                "projectPath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Tenant/Point.Of.Sale.Tenant.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Azure.Identity": {
+              "target": "Package",
+              "version": "[1.10.1, )"
+            },
+            "Azure.Security.KeyVault.Secrets": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.2, )"
+            },
+            "FluentEmail.Core": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "FluentEmail.Smtp": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
+            "Honeycomb.OpenTelemetry": {
+              "target": "Package",
+              "version": "[1.3.1, )"
+            },
+            "Honeycomb.OpenTelemetry.CommonInstrumentations": {
+              "target": "Package",
+              "version": "[0.27.1-beta, )"
+            },
+            "Honeycomb.Serilog.Sink": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[12.1.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.11, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.AspNetCore.ResponseCompression": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[7.0.10, )"
+            },
+            "Microsoft.Extensions.Configuration.AzureKeyVault": {
+              "target": "Package",
+              "version": "[3.1.24, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            },
+            "OpenTelemetry.Exporter.Console": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Scrutor": {
+              "target": "Package",
+              "version": "[4.2.2, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Serilog.Sinks.SQLite": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            },
+            "supabase-csharp": {
+              "target": "Package",
+              "version": "[0.12.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-arm64",
+              "version": "[7.0.9, 7.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[7.0.9, 7.0.9]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.100-preview.7.23376.3/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

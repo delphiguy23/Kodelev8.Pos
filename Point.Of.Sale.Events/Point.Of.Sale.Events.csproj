@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
 
@@ -21,7 +22,7 @@
 
     <ItemGroup>
         <Folder Include="Handlers\Query\"/>
-        <Folder Include="Models\" />
+        <Folder Include="Models\"/>
     </ItemGroup>
 
 
@@ -37,6 +38,11 @@
 
     <ItemGroup>
         <None Remove="obj\**"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Content Include="obj\project.assets.json"/>
     </ItemGroup>
 
 

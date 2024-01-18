@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Point.Of.Sale.Abstraction.Message;
 
 namespace Point.Of.Sale.Auth.Handlers.Query.GetUserRoles;

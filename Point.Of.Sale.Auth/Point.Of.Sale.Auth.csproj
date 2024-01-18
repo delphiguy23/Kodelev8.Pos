@@ -1,10 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>Point.Of.Sale.Auth</RootNamespace>
+        <LangVersion>12</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -54,6 +55,11 @@
     <ItemGroup>
         <None Remove="bin\**"/>
         <None Remove="obj\**"/>
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <Content Include="obj\project.assets.json"/>
     </ItemGroup>
 
 

@@ -173,7 +173,7 @@ namespace Point.Of.Sale.User.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Point.Of.Sale.Persistence.Models.ServiceUser", b =>
+            modelBuilder.Entity("Service.Point.Of.Sale.Persistence.Models.ServiceUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -298,7 +298,7 @@ namespace Point.Of.Sale.User.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Point.Of.Sale.Persistence.Models.ServiceUser", null)
+                    b.HasOne("Service.Point.Of.Sale.Persistence.Models.ServiceUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -307,7 +307,7 @@ namespace Point.Of.Sale.User.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Point.Of.Sale.Persistence.Models.ServiceUser", null)
+                    b.HasOne("Service.Point.Of.Sale.Persistence.Models.ServiceUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -322,7 +322,7 @@ namespace Point.Of.Sale.User.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Point.Of.Sale.Persistence.Models.ServiceUser", null)
+                    b.HasOne("Service.Point.Of.Sale.Persistence.Models.ServiceUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -331,7 +331,7 @@ namespace Point.Of.Sale.User.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Point.Of.Sale.Persistence.Models.ServiceUser", null)
+                    b.HasOne("Service.Point.Of.Sale.Persistence.Models.ServiceUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

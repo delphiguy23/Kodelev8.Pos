@@ -8,7 +8,7 @@ using Polly;
 
 namespace Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
-internal sealed class GetTenantByIdQueryHandler : IQueryHandler<GetTenantById, TenantResponse>
+public sealed class GetTenantByIdQueryHandler : IQueryHandler<GetTenantById, TenantResponse>
 {
     private readonly ILogger<GetTenantByIdQueryHandler> _logger;
     private readonly IRepository _repository;

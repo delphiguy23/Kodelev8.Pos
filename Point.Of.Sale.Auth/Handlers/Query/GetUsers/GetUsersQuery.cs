@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Point.Of.Sale.Abstraction.Message;
 using Point.Of.Sale.Auth.Models;
 
