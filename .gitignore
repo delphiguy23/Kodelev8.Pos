@@ -77,6 +77,10 @@ Point.Of.Sale.Tenant/obj/*
 Point.Of.Sale.Tenant.Test/bin/*
 Point.Of.Sale.Tenant.Test/obj/*
 
+Web.Point.Of.Sale/bin/*
+Web.Point.Of.Sale/obj/*
+
+
 
 /.githvs/slnx.sqlite
 /.vs/Kodelev8.Point.Of.Sale/v17/.suo
