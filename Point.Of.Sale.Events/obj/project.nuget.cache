@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "143ybrDkwgIiN1UtXBtrfReY6L+2QW/bwFDkky/nxthWJblFR8dAPc2naBwZCZInkZ/dMTui6fBIBxwZbxS6SA==",
+  "dgSpecHash": "ueDoZMWRtbCL+s5ADvPJi4bOtkikchmk9yjx4+tT8Y9vN3edMJD0qRNbFWbWyimG0HHagLHh7p6uc6TrYTf4iw==",
   "success": true,
   "projectFilePath": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Point.Of.Sale.Events/Point.Of.Sale.Events.csproj",
   "expectedPackageFiles": [
@@ -156,9 +156,7 @@
     "/Users/delphiguy/.nuget/packages/system.threading.channels/4.7.1/system.threading.channels.4.7.1.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/system.threading.tasks/4.3.0/system.threading.tasks.4.3.0.nupkg.sha512",
     "/Users/delphiguy/.nuget/packages/system.threading.tasks.extensions/4.5.4/system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/system.windows.extensions/5.0.0/system.windows.extensions.5.0.0.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/microsoft.netcore.app.ref/7.0.9/microsoft.netcore.app.ref.7.0.9.nupkg.sha512",
-    "/Users/delphiguy/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.9/microsoft.aspnetcore.app.ref.7.0.9.nupkg.sha512"
+    "/Users/delphiguy/.nuget/packages/system.windows.extensions/5.0.0/system.windows.extensions.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }
