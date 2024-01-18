@@ -8,26 +8,34 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-      <Content Remove="obj\**" />
-      <Content Remove="obj\Debug\**" />
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
+        <Content Remove="obj\**"/>
+        <Content Remove="obj\Debug\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="obj\**" />
-      <Compile Remove="obj\Debug\**" />
+        <Compile Remove="obj\**"/>
+        <Compile Remove="obj\Debug\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Remove="obj\**" />
-      <EmbeddedResource Remove="obj\Debug\**" />
+        <EmbeddedResource Remove="obj\**"/>
+        <EmbeddedResource Remove="obj\Debug\**"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="obj\**" />
-      <None Remove="obj\Debug\**" />
+        <None Remove="obj\**"/>
+        <None Remove="obj\Debug\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Services\Tenant\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj"/>
     </ItemGroup>
 
 </Project>

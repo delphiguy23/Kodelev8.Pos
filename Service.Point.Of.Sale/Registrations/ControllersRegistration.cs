@@ -13,8 +13,8 @@ public static class ControllersRegistration
             .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Customer")));
         services.AddMvc()
             .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Inventory")));
-        services.AddMvc()
-            .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Person")));
+        // services.AddMvc()
+        //     .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Person")));
         services.AddMvc()
             .AddApplicationPart(System.Reflection.Assembly.Load(new AssemblyName("Point.Of.Sale.Product")));
         services.AddMvc()
