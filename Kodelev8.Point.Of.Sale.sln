@@ -26,9 +26,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Tenant", "Poi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Persistence", "Point.Of.Sale.Persistence\Point.Of.Sale.Persistence.csproj", "{374560B3-1624-4A5A-A5A4-DBA4F44914D8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DD6335C4-6384-43CD-B516-D1F59786FE8B}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Infrastructure", "Service.Infrastructure", "{DD6335C4-6384-43CD-B516-D1F59786FE8B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ServiceDomains", "ServiceDomains", "{094B1A2C-1E96-4D1E-A3A4-982377D90E35}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Domains", "Service.Domains", "{094B1A2C-1E96-4D1E-A3A4-982377D90E35}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Auth", "Point.Of.Sale.Auth\Point.Of.Sale.Auth.csproj", "{6D711C7D-2304-4AC4-A77D-065D06915B31}"
 EndProject
@@ -39,6 +39,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Retries", "Point.Of.Sale.Retries\Point.Of.Sale.Retries.csproj", "{06892E5B-A775-4AE0-88DF-680AC6387745}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Point.Of.Sale.Tenant.Test", "Point.Of.Sale.Tenant.Test\Point.Of.Sale.Tenant.Test.csproj", "{6F241CC5-9927-4AF7-A301-BD1A87FDDF94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI.Web.App", "UI.Web.App", "{AF6804F0-37D5-4C79-BB58-051BDA56908C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service.Point.Of.Sale", "Service.Point.Of.Sale", "{E6BD8A20-B354-4B06-A54D-A6DA9B5DC18E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,5 +141,6 @@ Global
 		{899766F8-2981-4268-8EB5-15709AA661E4} = {DD6335C4-6384-43CD-B516-D1F59786FE8B}
 		{06892E5B-A775-4AE0-88DF-680AC6387745} = {DD6335C4-6384-43CD-B516-D1F59786FE8B}
 		{6F241CC5-9927-4AF7-A301-BD1A87FDDF94} = {094B1A2C-1E96-4D1E-A3A4-982377D90E35}
+		{8A9F4EBF-CC85-4863-A3A3-0593BBA897D4} = {E6BD8A20-B354-4B06-A54D-A6DA9B5DC18E}
 	EndGlobalSection
 EndGlobal
