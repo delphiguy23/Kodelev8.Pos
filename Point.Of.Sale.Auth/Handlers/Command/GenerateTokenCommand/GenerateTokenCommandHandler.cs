@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -19,7 +16,8 @@ public class GenerateTokenCommandHandler : ICommandHandler<GenerateTokenCommand,
     private readonly ILogger<GenerateTokenCommandHandler> _logger;
     private readonly ISender _sender;
 
-    public GenerateTokenCommandHandler(ILogger<GenerateTokenCommandHandler> logger, ISender sender, IOptions<PosConfiguration> configuration)
+    public GenerateTokenCommandHandler(ILogger<GenerateTokenCommandHandler> logger, ISender sender,
+        IOptions<PosConfiguration> configuration)
     {
         _logger = logger;
         _sender = sender;
@@ -30,16 +28,16 @@ public class GenerateTokenCommandHandler : ICommandHandler<GenerateTokenCommand,
     {
         try
         {
-            if (await _sender.Send(new UserExistQuery(request.UserName, request.Email, request.TenantId), cancellationToken) is not {Status: FluentResultsStatus.Success} user)
-            {
+            if (await _sender.Send(new UserExistQuery(request.UserName, request.Email, request.TenantId),
+                    cancellationToken) is not
+                { Status: FluentResultsStatus.Success } user)
                 return ResultsTo.NotFound<string>().WithMessage("User not found");
-            }
 
             var parameters = new TokenBuilderParameters
             {
                 Claims = user.Value.CreateClaims(),
                 Configuration = _configuration.Value,
-                ExpiresIn = TimeSpan.FromHours(1),
+                ExpiresIn = TimeSpan.FromMinutes(5)
             };
 
             var token = parameters.GenerateToken();

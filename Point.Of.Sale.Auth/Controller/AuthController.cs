@@ -7,6 +7,7 @@ using Point.Of.Sale.Auth.Handlers.Command.AddRoleCommand;
 using Point.Of.Sale.Auth.Handlers.Command.AddUserRoleCommand;
 using Point.Of.Sale.Auth.Handlers.Command.DeleteRoleCommand;
 using Point.Of.Sale.Auth.Handlers.Command.DeleteUserCommand;
+using Point.Of.Sale.Auth.Handlers.Command.GenerateTokenCommand;
 using Point.Of.Sale.Auth.Handlers.Command.RegisterUser;
 using Point.Of.Sale.Auth.Handlers.Command.RemoveUserRoleCommand;
 using Point.Of.Sale.Auth.Handlers.Command.UpdateRoleCommand;
@@ -80,6 +81,19 @@ public sealed class AuthController : ControllerBase
         return result.ToActionResult();
     }
 
+    [AllowAnonymous]
+    [Route("users/token/refresh")]
+    [HttpPost]
+    public async Task<ActionResult> RefreshToken([FromBody] RefreshTokenRequest request,
+        CancellationToken cancellationToken = default)
+    {
+        var result =
+            await _sender.Send(
+                new GenerateTokenCommand(request.UserName, request.Email, request.TenantId),
+                cancellationToken);
+
+        return result.ToActionResult();
+    }
 
     [Route("users/all")]
     [HttpGet]

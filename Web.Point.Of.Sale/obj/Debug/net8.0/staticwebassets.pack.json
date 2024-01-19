@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Web.Point.Of.Sale/obj/Debug/net8.0/scopedcss/projectbundle/Web.Point.Of.Sale.bundle.scp.css",
+      "PackagePath": "staticwebassets/Web.Point.Of.Sale.bundle.scp.css"
+    },
+    {
+      "Id": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Web.Point.Of.Sale/wwwroot/app.css",
+      "PackagePath": "staticwebassets/app.css"
+    },
+    {
+      "Id": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Web.Point.Of.Sale/wwwroot/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Web.Point.Of.Sale/wwwroot/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Volumes/KingstonSSD/Working Directory/KodElev8/Repo/POS/Web.Point.Of.Sale/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.Web.Point.Of.Sale.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.Web.Point.Of.Sale.props",
+      "PackagePath": "build\\Web.Point.Of.Sale.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.Web.Point.Of.Sale.props",
+      "PackagePath": "buildMultiTargeting\\Web.Point.Of.Sale.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.Web.Point.Of.Sale.props",
+      "PackagePath": "buildTransitive\\Web.Point.Of.Sale.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

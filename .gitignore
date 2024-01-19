@@ -77,8 +77,10 @@ Point.Of.Sale.Tenant/obj/*
 Point.Of.Sale.Tenant.Test/bin/*
 Point.Of.Sale.Tenant.Test/obj/*
 
-Web.Point.Of.Sale/bin/*
-Web.Point.Of.Sale/obj/*
+/Web.Point.Of.Sale/bin/*
+/Web.Point.Of.Sale/bin/Debug/*
+/Web.Point.Of.Sale/obj/*
+/Web.Point.Of.Sale/obj/Debug/net8.0/*
 
 
 
@@ -172,3 +174,7 @@ Web.Point.Of.Sale/obj/*
 /Point.Of.Sale.Email/bin/Release/net7.0/Point.Of.Sale.Email.dll
 /Point.Of.Sale.Email/bin/Release/net7.0/Point.Of.Sale.Email.pdb
 /Point.Of.Sale.Email/obj/Release/net7.0/ref/Point.Of.Sale.Email.dll
+/Web.Point.Of.Sale/obj/Debug/net8.0/
+*.dll
+*.info
+/Web.Point.Of.Sale/obj/Debug/net8.0/scopedcss/bundle/**
