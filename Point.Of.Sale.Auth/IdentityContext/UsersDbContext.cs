@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -52,7 +50,7 @@ public class UsersDbContext : IdentityDbContext<ServiceUser>, IUsersDbContext
             Name = "SuperAdmin",
             NormalizedName = "SUPERADMIN",
             Id = roleId,
-            ConcurrencyStamp = roleId,
+            ConcurrencyStamp = roleId
         });
 
         var appUser = new ServiceUser
@@ -68,7 +66,7 @@ public class UsersDbContext : IdentityDbContext<ServiceUser>, IUsersDbContext
             ApiToken = "JH+C1Fnv72VIXbmM8aS8+UXJ6ci8Bgtn5R1MeOksvdWz11qmVKNvVQrSsbYivtzBkBikwz6s3ycyY4nyf34i/Q==",
             RefreshToken = "dMQa7YJBXc0rgNQeBeeJnabu+mpChoi4NAkO+1WnhqS+A+fRESDU2svYGdWPTH+1OkpzeHeVBPw8TbJ9p/LKXg==",
             TenantId = 0,
-            Active = true,
+            Active = true
         };
 
         //set user password
@@ -83,12 +81,12 @@ public class UsersDbContext : IdentityDbContext<ServiceUser>, IUsersDbContext
         {
             entity.HasKey(e => new
             {
-                e.RoleId, e.UserId,
+                e.RoleId, e.UserId
             });
             entity.HasData(new IdentityUserRole<string>
             {
                 RoleId = roleId,
-                UserId = adminId,
+                UserId = adminId
             });
         });
 
@@ -102,6 +100,7 @@ public class UsersDbContext : IdentityDbContext<ServiceUser>, IUsersDbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         // connect to postgres with connection string from app settings during migrations
-        options.UseNpgsql("User Id=postgres;Password=xqdOSyXTk69227f5;Server=db.ykoorfkswtiuzwokviis.supabase.co;Port=5432;Database=postgres");
+        // options.UseNpgsql("User Id=postgres;Password=xqdOSyXTk69227f5;Server=db.ykoorfkswtiuzwokviis.supabase.co;Port=5432;Database=postgres");
+        options.UseNpgsql("User Id=dbuser;Password=pass1234;Server=10.10.10.10;Port=5432;Database=KodElev8-POS");
     }
 }

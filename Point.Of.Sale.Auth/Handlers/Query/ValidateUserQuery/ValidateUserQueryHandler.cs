@@ -1,6 +1,3 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -20,7 +17,8 @@ public class ValidateUserQueryHandler : IQueryHandler<ValidateUserQuery, string>
     private readonly ISender _sender;
     private readonly UserManager<ServiceUser> _userManager;
 
-    public ValidateUserQueryHandler(ILogger<ValidateUserQueryHandler> logger, UserManager<ServiceUser> userManager, ISender sender, IOptions<PosConfiguration> configuration)
+    public ValidateUserQueryHandler(ILogger<ValidateUserQueryHandler> logger, UserManager<ServiceUser> userManager,
+        ISender sender, IOptions<PosConfiguration> configuration)
     {
         _logger = logger;
         _userManager = userManager;
@@ -32,8 +30,21 @@ public class ValidateUserQueryHandler : IQueryHandler<ValidateUserQuery, string>
     {
         try
         {
-            var user = await _sender.Send(new UserExistQuery.UserExistQuery(request.UserName, request.Email, request.TenantId), cancellationToken);
+            var user = await _sender.Send(
+                new UserExistQuery.UserExistQuery(request.UserName, request.Email, request.TenantId),
+                cancellationToken);
+
+            if (user.Status != FluentResultsStatus.Success)
+                return user.Status switch
+                {
+                    FluentResultsStatus.BadRequest => ResultsTo.BadRequest<string>().FromResults(user),
+                    FluentResultsStatus.Failure => ResultsTo.Failure<string>().FromResults(user),
+                    _ => ResultsTo.NotFound<string>().FromResults(user)
+                };
+
             var validated = await _userManager.CheckPasswordAsync(user.Value, request.Password);
+
+            if (validated == false) return ResultsTo.NotFound<string>().WithMessage("User not found.");
 
             var parameters = BuildParameters(user.Value, _configuration.Value);
             var token = parameters.GenerateToken();
@@ -55,7 +66,7 @@ public class ValidateUserQueryHandler : IQueryHandler<ValidateUserQuery, string>
         {
             Claims = user.CreateClaims(),
             ExpiresIn = TimeSpan.FromHours(configuration.General.Environment == "Development" ? 24 : 2), // 2 Hours
-            Configuration = configuration,
+            Configuration = configuration
         };
     }
 }

@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Point.Of.Sale.Events.Attributes;
 using Point.Of.Sale.Shared.Configuration;
-using Point.Of.Sale.Shared.Enums;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Tenant.Handlers.Command.Patch;
 using Point.Of.Sale.Tenant.Handlers.Command.RegisterTenant;
@@ -20,7 +19,7 @@ namespace Point.Of.Sale.Tenant.Controller;
 
 [ApiController]
 [Route("/api/tenant/")]
-[Authorize]
+// [Authorize]
 public sealed class TenantController : ControllerBase
 {
     private static ActivitySource _activitySource;
@@ -28,7 +27,8 @@ public sealed class TenantController : ControllerBase
     private readonly IOptions<PosConfiguration> _options;
     private readonly ISender _sender;
 
-    public TenantController(ISender sender, ILogger<TenantController> logger, IOptions<PosConfiguration> options, ActivitySource activitySource)
+    public TenantController(ISender sender, ILogger<TenantController> logger, IOptions<PosConfiguration> options,
+        ActivitySource activitySource)
     {
         _sender = sender;
         _logger = logger;
@@ -36,17 +36,20 @@ public sealed class TenantController : ControllerBase
         _activitySource = activitySource;
     }
 
+    [AllowAnonymous]
     [HttpPost]
     [Route("register")]
     [LogAuditAction]
-    public async Task<IActionResult> Register([FromBody] UpsertTenant request, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Register([FromBody] UpsertTenant request,
+        CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
         {
             Code = request.Code,
             Name = request.Name,
-            Type = TenantType.NonSpecific,
-            Active = false,
+            Type = request.Type,
+            Email = request.Email,
+            Active = false
         }, cancellationToken);
         return result.ToActionResult();
     }
@@ -62,6 +65,7 @@ public sealed class TenantController : ControllerBase
 
     [HttpGet]
     [LogAuditAction]
+    [AllowAnonymous]
     public async Task<IActionResult> Get(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAll(), cancellationToken);
@@ -70,7 +74,8 @@ public sealed class TenantController : ControllerBase
 
     [HttpPut]
     [LogAuditAction]
-    public async Task<IActionResult> Upsert([FromBody] UpsertTenant request, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Upsert([FromBody] UpsertTenant request,
+        CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand
         {
@@ -78,7 +83,7 @@ public sealed class TenantController : ControllerBase
             Code = request.Code,
             Name = request.Name,
             Type = request.Type,
-            Active = request.Active,
+            Active = request.Active
         }, cancellationToken);
         return result.ToActionResult();
     }
@@ -86,12 +91,13 @@ public sealed class TenantController : ControllerBase
     [HttpPatch]
     [Route("{id:int}")]
     [LogAuditAction]
-    public async Task<IActionResult> Patch(int id, JsonPatchDocument<Persistence.Models.Tenant> patch, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> Patch(int id, JsonPatchDocument<Persistence.Models.Tenant> patch,
+        CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new PatchCommand
         {
             Id = id,
-            Patch = patch,
+            Patch = patch
         }, cancellationToken);
         return result.ToActionResult();
     }

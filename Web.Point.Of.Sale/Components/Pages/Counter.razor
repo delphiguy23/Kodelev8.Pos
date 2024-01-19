@@ -1,5 +1,7 @@
 ﻿@page "/counter"
+@using Web.Point.Of.Sale.Services.Tenant
 @rendermode InteractiveServer
+@inject ITenantService TenantService
 
 <PageTitle>Counter</PageTitle>
 
@@ -10,11 +12,13 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int currentCount = 0;
+    private int currentCount;
 
-    private void IncrementCount()
+    private async Task IncrementCount()
     {
         currentCount++;
+
+        await TenantService.Get(CancellationToken.None);
     }
 
 }

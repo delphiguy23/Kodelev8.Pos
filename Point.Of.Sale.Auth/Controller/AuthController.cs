@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -40,9 +38,11 @@ public sealed class AuthController : ControllerBase
     }
 
     //users
+    [AllowAnonymous]
     [Route("users/register")]
     [HttpPost]
-    public async Task<ActionResult> RegisterUser([FromBody] RegisterUserRequest request, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> RegisterUser([FromBody] RegisterUserRequest request,
+        CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterUserCommand
         {
@@ -53,7 +53,7 @@ public sealed class AuthController : ControllerBase
             MiddleName = request.MiddleName,
             LastName = request.LastName,
             Phone = request.Phone,
-            TenantId = request.TenantId,
+            TenantId = request.TenantId
         }, cancellationToken);
         return result.ToActionResult();
     }
@@ -69,9 +69,13 @@ public sealed class AuthController : ControllerBase
     [AllowAnonymous]
     [Route("users/login")]
     [HttpPost]
-    public async Task<ActionResult> ValidateUser([FromBody] ValidateUserRequest request, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> ValidateUser([FromBody] ValidateUserRequest request,
+        CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new ValidateUserQuery(request.UserName, request.Password, request.Email, request.TenantId), cancellationToken);
+        var result =
+            await _sender.Send(
+                new ValidateUserQuery(request.UserName, request.Password, request.Email, request.TenantId),
+                cancellationToken);
 
         return result.ToActionResult();
     }
@@ -87,9 +91,11 @@ public sealed class AuthController : ControllerBase
 
     [Route("users/exist")]
     [HttpPost]
-    public async Task<ActionResult> UserExist([FromBody] UserExistRequest request, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> UserExist([FromBody] UserExistRequest request,
+        CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new UserExistQuery(request.UserName, request.Email, request.TenantId), cancellationToken);
+        var result = await _sender.Send(new UserExistQuery(request.UserName, request.Email, request.TenantId),
+            cancellationToken);
         return result.ToActionResult();
     }
 
@@ -112,9 +118,11 @@ public sealed class AuthController : ControllerBase
 
     [Route("roles")]
     [HttpPut]
-    public async Task<ActionResult> DeleteUserRole([FromBody] UpdateRoleRequest request, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> DeleteUserRole([FromBody] UpdateRoleRequest request,
+        CancellationToken cancellationToken = default)
     {
-        var result = await _sender.Send(new UpdateRoleCommand(request.RoleName, request.RoleNormalizeName), cancellationToken);
+        var result = await _sender.Send(new UpdateRoleCommand(request.RoleName, request.RoleNormalizeName),
+            cancellationToken);
         return result.ToActionResult();
     }
 
@@ -145,7 +153,8 @@ public sealed class AuthController : ControllerBase
 
     [Route("user-role/{user}")]
     [HttpDelete]
-    public async Task<ActionResult> DeleteUserRole([FromBody] string[] roles, string user, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> DeleteUserRole([FromBody] string[] roles, string user,
+        CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RemoveUserRoleCommand(user, roles), cancellationToken);
         return result.ToActionResult();
