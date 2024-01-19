@@ -1,8 +1,11 @@
 @page "/account/login"
 @using Web.Point.Of.Sale.Services.Auth
 @using Web.Point.Of.Sale.Services.Auth.Models
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+
 @rendermode InteractiveServer
 @inject IAuthService AuthService
+@inject ProtectedSessionStorage ProtectedSessionStore
 
 <PageTitle>Login</PageTitle>
 
@@ -59,12 +62,19 @@
             TenantId = 4
         });
 
+        await ProtectedSessionStore.SetAsync("token", token);
+
         var test = await AuthService.GetUserDetails(new UserExistRequest
         {
             UserName = "User1",
             Email = "user1@user.com",
             TenantId = 4
-        }, token);
+        });
+
+        await ProtectedSessionStore.SetAsync("user", "User1");
+        await ProtectedSessionStore.SetAsync("email", "user1@user.com");
+        await ProtectedSessionStore.SetAsync("tenant", 4);
+
         // {
         //     "userName": "User1",
         //     "password": "UserPass&1",

@@ -10,6 +10,6 @@ public interface IAuthService
     Task<string> ValidateUser(ValidateUserRequest request,
         CancellationToken cancellationToken = default);
 
-    Task<LoggedUser> GetUserDetails(UserExistRequest request, string token,
+    Task<LoggedUser> GetUserDetails(UserExistRequest request,
         CancellationToken cancellationToken = default);
 }
