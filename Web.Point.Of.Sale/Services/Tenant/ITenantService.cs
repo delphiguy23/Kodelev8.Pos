@@ -1,6 +1,8 @@
+using Point.Of.Sale.Shared.FluentResults;
+
 namespace Web.Point.Of.Sale.Services.Tenant;
 
 public interface ITenantService
 {
-    Task<HttpResponseMessage> Get(CancellationToken cancellationToken = default);
+    Task<IFluentResults<List<Models.Tenant>>> GetAll(CancellationToken cancellationToken = default);
 }

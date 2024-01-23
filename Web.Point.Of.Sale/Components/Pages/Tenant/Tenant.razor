@@ -1,0 +1,139 @@
+@page "/tenant"
+@using global::Point.Of.Sale.Shared.Enums
+@using System.Globalization
+@using Web.Point.Of.Sale.Services.Tenant
+@using System.Text.Json
+@inject ITenantService TenantService
+
+
+<PageTitle>Tenant</PageTitle>
+
+<h1>Tenant</h1>
+
+<MudGrid Class="d-flex flex-column flex-grow-1 gap-4">
+    <MudItem>
+        <MudPaper Elevation="15">
+            <MudDataGrid
+                T="Services.Tenant.Models.Tenant"
+                ReadOnly="false"
+                Items="@tenants"
+                EditMode="DataGridEditMode.Form"
+                StartedEditingItem="@StartedEditingItem"
+                CanceledEditingItem="@CanceledEditingItem"
+                CommittedItemChanges="@CommittedItemChanges"
+                EditTrigger="DataGridEditTrigger.Manual">
+                <Columns>
+                    <PropertyColumn Property="x => x.Id" Title="Id"/>
+                    <PropertyColumn Property="x => x.Type"/>
+                    <PropertyColumn Property="x => x.Code"/>
+                    <PropertyColumn Property="x => x.Name"/>
+                    <PropertyColumn Property="x => x.Active"/>
+                    <PropertyColumn Property="x => x.Active"/>
+                    <TemplateColumn CellClass="d-flex justify-end" Title="Edit">
+                        <CellTemplate>
+                            <MudIconButton Size="@Size.Small" Icon="@Icons.Material.Outlined.Edit" OnClick="@(() => context.Actions.StartEditingItemAsync())"/>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    @* <TemplateColumn CellClass="d-flex justify-end"> *@
+                    @*     <CellTemplate> *@
+                    @*         <MudStack Row> *@
+                    @*             $1$ <MudRating Size="@Size.Small" /> SelectedValue="@context.Item.Rating"/> #1# *@
+                    @*             <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary">Hire</MudButton> *@
+                    @*         </MudStack> *@
+                    @*     </CellTemplate>a *@
+                    @* </TemplateColumn> *@
+                </Columns>
+            </MudDataGrid>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+<MudExpansionPanels Style="flex:1">
+    <MudExpansionPanel Text="Show Events">
+        @foreach (var message in _events)
+        {
+            <MudText Typo="@Typo.body2">@message</MudText>
+        }
+        @if (_events.Count > 0)
+        {
+            <div class="d-flex">
+                <MudSpacer/>
+                <MudButton Class="mt-3" ButtonType="ButtonType.Button" Variant="Variant.Filled" OnClick="@(() => _events.Clear())">Clear</MudButton>
+            </div>
+        }
+    </MudExpansionPanel>
+</MudExpansionPanels>
+
+@* <MudSelect @bind-Value="tenantType" Label="Coffee" AnchorOrigin="Origin.BottomCenter"> *@
+@*     @foreach (TenantType item in Enum.GetValues(typeof(TenantType))) *@
+@*     { *@
+@*         Console.WriteLine(item); *@
+@*         <MudSelectItem Value="@item">@item</MudSelectItem> *@
+@*     } *@
+@* </MudSelect> *@
+
+@* <MudSelect @bind-Value="enumValue" Label="Select drink" HelperText="Enum" OpenIcon="@Icons.Material.Filled.LocalDrink" AdornmentColor="Color.Secondary"> *@
+@*     @foreach (Drink item in Enum.GetValues(typeof(Drink))) *@
+@*     { *@
+@*         <MudSelectItem Value="@item">@item</MudSelectItem> *@
+@*     } *@
+@* </MudSelect> *@
+
+@code {
+
+    private TenantType tenantType { get; set; } = TenantType.NonSpecific;
+
+    private string stringValue { get; set; }
+    private Drink enumValue { get; set; } = Drink.HotWater;
+
+
+    public enum Drink
+    {
+        Tea,
+        SparklingWater,
+        SoftDrink,
+        Cider,
+        Beer,
+        Wine,
+        Moonshine,
+        Wodka,
+        Cola,
+        GreeTea,
+        FruitJuice,
+        Lemonade,
+        HotWater,
+        SpringWater,
+        IceWater
+    }
+
+    private CultureInfo cultureValue { get; set; }
+    private Func<CultureInfo, string> convertFunc = ci => ci?.DisplayName;
+    private IEnumerable<Services.Tenant.Models.Tenant> tenants = new List<Services.Tenant.Models.Tenant>();
+    private readonly List<string> _events = new();
+
+    // private IEnumerable<Element> Elements = new List<Element>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var results = await TenantService.GetAll();
+        tenants = results.Value;
+        // Elements = await httpClient.GetFromJsonAsync<List<Element>>("webapi/periodictable");
+    }
+
+    // events
+    void StartedEditingItem(Services.Tenant.Models.Tenant item)
+    {
+        _events.Insert(0, $"Event = StartedEditingItem, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    void CanceledEditingItem(Services.Tenant.Models.Tenant item)
+    {
+        _events.Insert(0, $"Event = CanceledEditingItem, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    void CommittedItemChanges(Services.Tenant.Models.Tenant item)
+    {
+        _events.Insert(0, $"Event = CommittedItemChanges, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+}

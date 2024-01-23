@@ -36,11 +36,6 @@ public static class ResultsTo
         return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound);
     }
 
-    public static FluentResultsStatusBuilder<object> NotFound(object value)
-    {
-        return new FluentResultsStatusBuilder<object>(FluentResultsStatus.NotFound).WithValue(value);
-    }
-
     public static FluentResultsStatusBuilder<TValue> NotFound<TValue>(TValue value)
     {
         return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound).WithValue(value);
@@ -49,6 +44,32 @@ public static class ResultsTo
     public static FluentResultsStatusBuilder<TValue> NotFound<TValue>(string value)
     {
         return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound).WithMessage(value);
+    }
+
+    //Not UnAuthorized
+    public static FluentResultsStatusBuilder<object> UnAuthorized()
+    {
+        return new FluentResultsStatusBuilder<object>(FluentResultsStatus.UnAuthorized);
+    }
+
+    public static FluentResultsStatusBuilder<TValue> UnAuthorized<TValue>()
+    {
+        return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.UnAuthorized);
+    }
+
+    public static FluentResultsStatusBuilder<TValue> UnAuthorized<TValue>(TValue value)
+    {
+        return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.UnAuthorized).WithValue(value);
+    }
+
+    public static FluentResultsStatusBuilder<object> UnAuthorized(object value)
+    {
+        return new FluentResultsStatusBuilder<object>(FluentResultsStatus.UnAuthorized).WithValue(value);
+    }
+
+    public static FluentResultsStatusBuilder<TValue> UnAuthorized<TValue>(string value)
+    {
+        return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.UnAuthorized).WithMessage(value);
     }
 
     //Failure
@@ -107,20 +128,14 @@ public static class ResultsTo
 
     public static FluentResultsStatusBuilder<TValue> Something<TValue>(TValue value)
     {
-        if (value == null)
-        {
-            return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound);
-        }
+        if (value == null) return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound);
 
         return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.Success).WithValue(value);
     }
 
     public static FluentResultsStatusBuilder<TValue> Something<TValue>(IFluentResults<TValue> value)
     {
-        if (value == null)
-        {
-            return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound);
-        }
+        if (value == null) return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound);
 
         // if (typeof(TValue) == typeof(int) && value.Value is typeof(int) == 0)
         // {
@@ -128,24 +143,16 @@ public static class ResultsTo
         // }
 
         if (value.Status == FluentResultsStatus.Success)
-        {
             return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.Success).FromResults(value);
-        }
 
         if (value.Status == FluentResultsStatus.NotFound)
-        {
             return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.NotFound).FromResults(value);
-        }
 
         if (value.Status == FluentResultsStatus.BadRequest)
-        {
             return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.BadRequest).FromResults(value);
-        }
 
         if (value.Status == FluentResultsStatus.Failure)
-        {
             return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.Failure).FromResults(value);
-        }
 
         return new FluentResultsStatusBuilder<TValue>(FluentResultsStatus.Success).FromResults(value);
     }

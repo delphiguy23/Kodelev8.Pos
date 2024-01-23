@@ -4,6 +4,7 @@ public enum FluentResultsStatus
 {
     Success,
     NotFound,
+    UnAuthorized,
     Failure,
-    BadRequest,
+    BadRequest
 }

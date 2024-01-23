@@ -1,7 +1,5 @@
 ﻿@page "/counter"
-@using Web.Point.Of.Sale.Services.Tenant
 @rendermode InteractiveServer
-@inject ITenantService TenantService
 
 <PageTitle>Counter</PageTitle>
 
@@ -18,7 +16,7 @@
     {
         currentCount++;
 
-        await TenantService.Get(CancellationToken.None);
+        // await TenantService.Get(CancellationToken.None);
     }
 
 }

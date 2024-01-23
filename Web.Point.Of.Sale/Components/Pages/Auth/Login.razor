@@ -2,10 +2,13 @@
 @using Web.Point.Of.Sale.Services.Auth
 @using Web.Point.Of.Sale.Services.Auth.Models
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using global::Point.Of.Sale.Shared.FluentResults
 
 @rendermode InteractiveServer
 @inject IAuthService AuthService
 @inject ProtectedSessionStorage ProtectedSessionStore
+@inject ISnackbar Snackbar
+@inject NavigationManager NavManager
 
 <PageTitle>Login</PageTitle>
 
@@ -26,10 +29,16 @@
         </MudPaper>
         <MudPaper Class="pa-4 mt-4">
             <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="ValidateLogin">Login</MudButton>
-            <MudButton Variant="Variant.Filled" Color="Color.Secondary" DisableElevation="true" OnClick="@(() => form.ResetAsync())" Class="mx-2">Reset</MudButton>
+            <MudButton Variant="Variant.Filled" Color="Color.Secondary" DisableElevation="true" OnClick="Reset" Class="mx-2">Reset</MudButton>
             @* <MudButton Variant="Variant.Filled" DisableElevation="true" OnClick="@(() => form.ResetValidation())">Reset Validation</MudButton> *@
         </MudPaper>
+        @if (!success)
+        {
+            <MudAlert Severity=@severity Variant="Variant.Filled">@message</MudAlert>
+        }
     </MudItem>
+
+
     @* <MudItem xs="12" sm="5"> *@
     @*     <MudPaper Class="pa-4 mud-height-full"> *@
     @*         <MudText Typo="Typo.subtitle2">@($"Errors ({errors.Length})")</MudText> *@
@@ -44,7 +53,10 @@
 
 @code {
     bool success;
+    Severity severity;
+
     string[] errors = { };
+    string message = string.Empty;
     MudTextField<string> pwField1;
     MudForm form;
     string userName;
@@ -52,39 +64,68 @@
     string userPassWord;
     string userTenant;
 
+    private async Task OnInitializedAsync()
+    {
+        success = true;
+    }
+
     private async Task ValidateLogin()
     {
-        var token = await AuthService.ValidateUser(new ValidateUserRequest
+        try
         {
-            UserName = "User1",
-            Password = "UserPass&1",
-            Email = "user1@user.com",
-            TenantId = 4
-        });
+            var token = await AuthService.ValidateUser(new ValidateUserRequest
+            {
+                UserName = "User1",
+                Password = "UserPass&1",
+                Email = "user1@user.com",
+                TenantId = 4
+            });
 
-        await ProtectedSessionStore.SetAsync("token", token);
+            if (token is null || token.Status != FluentResultsStatus.Success)
+            {
+                severity = Severity.Error;
+                message = token?.ToMultiLine(";") ?? "Unknown error";
+                return;
+            }
 
-        var test = await AuthService.GetUserDetails(new UserExistRequest
+            await ProtectedSessionStore.SetAsync("token", token.Value);
+
+            var userDetails = await AuthService.GetUserDetails(new UserExistRequest
+            {
+                UserName = "User1",
+                Email = "user1@user.com",
+                TenantId = 4
+            });
+
+            if (userDetails is null || userDetails.Status != FluentResultsStatus.Success)
+            {
+                severity = Severity.Error;
+                message = userDetails?.ToMultiLine(";") ?? "Unknown error";
+                await AuthService.ClearSession();
+                return;
+            }
+
+            severity = Severity.Success;
+            message = "Login successful";
+            await ProtectedSessionStore.SetAsync("user", userDetails.Value.UserName);
+            await ProtectedSessionStore.SetAsync("email", "user1@user.com");
+            await ProtectedSessionStore.SetAsync("tenant", 4);
+            await ProtectedSessionStore.SetAsync("isLogged", true);
+
+            NavManager.NavigateTo("/tenant");
+            //
+            // Console.WriteLine(userName);
+            // Console.WriteLine(userEmail);
+            // Console.WriteLine(userPassWord);
+            // Console.WriteLine(userTenant);
+        }
+        catch (Exception e)
         {
-            UserName = "User1",
-            Email = "user1@user.com",
-            TenantId = 4
-        });
-
-        await ProtectedSessionStore.SetAsync("user", "User1");
-        await ProtectedSessionStore.SetAsync("email", "user1@user.com");
-        await ProtectedSessionStore.SetAsync("tenant", 4);
-
-        // {
-        //     "userName": "User1",
-        //     "password": "UserPass&1",
-        //     "email": "user1@user.com",
-        //     "tenantId": 4
-        // }
-        Console.WriteLine(userName);
-        Console.WriteLine(userEmail);
-        Console.WriteLine(userPassWord);
-        Console.WriteLine(userTenant);
+            severity = Severity.Error;
+            message = e.Message;
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     // private IEnumerable<string> PasswordStrength(string pw)
@@ -112,6 +153,13 @@
     //     return null;
     // }
 
+
+    private async Task Reset()
+    {
+        severity = Severity.Info;
+        message = string.Empty;
+        await AuthService.ClearSession();
+    }
 
 }
 

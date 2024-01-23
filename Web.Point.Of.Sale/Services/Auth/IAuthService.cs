@@ -1,3 +1,4 @@
+using Point.Of.Sale.Shared.FluentResults;
 using Web.Point.Of.Sale.Services.Auth.Models;
 
 namespace Web.Point.Of.Sale.Services.Auth;
@@ -7,9 +8,11 @@ public interface IAuthService
     Task<HttpResponseMessage> RegisterUser(RegisterUserRequest request,
         CancellationToken cancellationToken = default);
 
-    Task<string> ValidateUser(ValidateUserRequest request,
+    Task<IFluentResults<string>> ValidateUser(ValidateUserRequest request,
         CancellationToken cancellationToken = default);
 
-    Task<LoggedUser> GetUserDetails(UserExistRequest request,
+    Task<IFluentResults<LoggedUser>> GetUserDetails(UserExistRequest request,
         CancellationToken cancellationToken = default);
+
+    Task<IFluentResults<bool>> ClearSession(CancellationToken cancellationToken = default);
 }
