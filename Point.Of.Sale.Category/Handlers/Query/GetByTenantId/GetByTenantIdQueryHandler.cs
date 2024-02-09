@@ -1,6 +1,6 @@
 using Point.Of.Sale.Abstraction.Message;
-using Point.Of.Sale.Category.Models;
 using Point.Of.Sale.Category.Repository;
+using Point.Of.Sale.Models.Categories;
 using Point.Of.Sale.Shared.FluentResults;
 
 namespace Point.Of.Sale.Category.Handlers.Query.GetByTenantId;

@@ -1,6 +1,6 @@
 using MediatR;
 using Point.Of.Sale.Category.Handlers.Query.GetById;
-using Point.Of.Sale.Category.Models;
+using Point.Of.Sale.Models.Categories;
 using Point.Of.Sale.Models.Supplier;
 using Point.Of.Sale.Product.Models;
 using Point.Of.Sale.Shared.FluentResults;

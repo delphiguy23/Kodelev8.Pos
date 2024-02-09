@@ -1,4 +1,4 @@
-namespace Point.Of.Sale.Category.Models;
+namespace Point.Of.Sale.Models.Categories;
 
 public class UpdateCategory
 {
