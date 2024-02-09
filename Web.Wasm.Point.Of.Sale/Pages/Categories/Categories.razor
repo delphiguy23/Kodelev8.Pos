@@ -1,12 +1,13 @@
 @page "/categories"
 
 @using System.Text.Json
+@using global::Point.Of.Sale.Models.Categories
 @using global::Point.Of.Sale.Models.Supplier
-@using Web.Wasm.Point.Of.Sale.Services.Supplier
+@using Web.Wasm.Point.Of.Sale.Services.Categories
 @using Web.Wasm.Point.Of.Sale.Services.Tenant
 
 @inject ITenantService TenantService
-@inject ISupplierService SupplierService
+@inject ICategoriesService CategoriesService
 @inject IDialogService DialogService
 
 <PageTitle>Categories</PageTitle>
@@ -38,8 +39,8 @@
     <MudItem>
         <MudPaper Elevation="15">
             <MudDataGrid
-                T="SupplierResponse"
-                Items="@suppliers"
+                T="CategoryResponse"
+                Items="@categories"
                 EditMode="DataGridEditMode.Form"
                 StartedEditingItem="@StartedEditingItem"
                 CanceledEditingItem="@CanceledEditingItem"
@@ -51,14 +52,9 @@
                 FilterMode="DataGridFilterMode.Simple"
                 FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive">
                 <Columns>
-                    <HierarchyColumn T="SupplierResponse"  />
+                    <HierarchyColumn T="CategoryResponse"  />
                     <PropertyColumn Property="x => x.Name" Title="Name"/>
-                    @* <PropertyColumn Property="x => x.Address" Title="Address"/> *@
-                    @* <PropertyColumn Property="x => x.City" Title="City"/> *@
-                    @* <PropertyColumn Property="x => x.State" Title="State"/> *@
-                    <PropertyColumn Property="x => x.Country" Title="Country"/>
-                    @* <PropertyColumn Property="x => x.Phone" Title="Phone"/> *@
-                    <PropertyColumn Property="x => x.Email" Title="Email"/>
+                    <PropertyColumn Property="x => x.Description" Title="Description"/>
                     <PropertyColumn Property="x => x.Active" Title="Active"/>
                     <TemplateColumn Title="Edit" Filterable="false">
                         <CellTemplate>
@@ -68,58 +64,6 @@
                         </CellTemplate>
                     </TemplateColumn>
                 </Columns>
-                <ChildRowContent>
-                    <MudCard>
-                        <MudCardHeader>
-                            <CardHeaderContent>
-                                <MudText Typo="Typo.h6">Address</MudText>
-                            </CardHeaderContent>
-                        </MudCardHeader>
-                    </MudCard>
-
-                        <MudCard>
-                            <MudCardContent>
-                                <MudGrid>
-                                    <MudItem xs="12" sm="6" md="4">
-                                        <MudField Label="Address" Variant="Variant.Outlined">@context.Item.Address</MudField>
-                                    </MudItem>
-                                @* </MudGrid> *@
-                                @* <MudGrid> *@
-                                    <MudItem xs="12" sm="6" md="4">
-                                        <MudField Label="City" Variant="Variant.Outlined">@context.Item.City</MudField>
-                                    </MudItem>
-                                @* </MudGrid> *@
-                                @* <MudGrid> *@
-                                    <MudItem xs="12" sm="6" md="4">
-                                        <MudField Label="Country" Variant="Variant.Outlined">@context.Item.Country</MudField>
-                                    </MudItem>
-                                </MudGrid>
-                            </MudCardContent>
-                        </MudCard>
-
-                    <MudCard>
-                        <MudCardHeader>
-                            <CardHeaderContent>
-                                <MudText Typo="Typo.h6">Contact Details</MudText>
-                            </CardHeaderContent>
-                        </MudCardHeader>
-                    </MudCard>
-                    <MudCard>
-                             <MudCardContent>
-                                 <MudGrid>
-                                     <MudItem xs="12" sm="6" md="4">
-                                         <MudField Label="Phone" Variant="Variant.Outlined">@context.Item.Phone</MudField>
-                                     </MudItem>
-                                 @* </MudGrid> *@
-                                 @* <MudGrid> *@
-                                     <MudItem xs="12" sm="6" md="4">
-                                         <MudField Label="Email" Variant="Variant.Outlined">@context.Item.Email</MudField>
-                                     </MudItem>
-                                 </MudGrid>
-                             </MudCardContent>
-                    </MudCard>
-
-                </ChildRowContent>
             </MudDataGrid>
         </MudPaper>
     </MudItem>
@@ -130,7 +74,7 @@
 
 @code
 {
-    private IEnumerable<SupplierResponse> suppliers = new List<SupplierResponse>();
+    private IEnumerable<CategoryResponse> categories = new List<CategoryResponse>();
     private IEnumerable<Services.Tenant.Models.Tenant> tenants = new List<Services.Tenant.Models.Tenant>();
 
     private List<string> _events = new();
@@ -146,32 +90,33 @@
     }
 
     // events
-    void StartedEditingItem(SupplierResponse item)
+    void StartedEditingItem(CategoryResponse item)
     {
         _events.Insert(0, $"Event = StartedEditingItem, Data = {JsonSerializer.Serialize(item)}");
     }
 
-    void CanceledEditingItem(SupplierResponse item)
+    void CanceledEditingItem(CategoryResponse item)
     {
         _events.Insert(0, $"Event = CanceledEditingItem, Data = {JsonSerializer.Serialize(item)}");
     }
 
-    void CommittedItemChanges(SupplierResponse item)
+    void CommittedItemChanges(CategoryResponse item)
     {
         _events.Insert(0, $"Event = CommittedItemChanges, Data = {JsonSerializer.Serialize(item)}");
     }
 
-    private async Task EditRow(SupplierResponse item)
+    private async Task EditRow(CategoryResponse item)
     {
-        var parameters = new DialogParameters<UpsertDialog> { { x => x.supplier, item }, {x => x.selectedTenantId, selectedTenantId} };
+        // var parameters = new DialogParameters<UpsertDialog> { { x => x.supplier, item }, {x => x.selectedTenantId, selectedTenantId} };
 
-        var dialog = await DialogService.ShowAsync<UpsertDialog>("Upsert", parameters, options);
-        var result = await dialog.Result;
-
-        if (!result.Canceled)
-        {
-            RefreshData();
-        }
+        // var dialog = await DialogService.ShowAsync<UpsertDialog>("Upsert", parameters, options);
+        // var result = await dialog.Result;
+        //
+        // if (!result.Canceled)
+        // {
+        //     RefreshData();
+        // }
+        await Task.Delay(1);
     }
 
     private async Task AddRow()
@@ -187,7 +132,7 @@
         }
     }
 
-    private async Task DeleteRow(SupplierResponse item)
+    private async Task DeleteRow(CategoryResponse item)
     {
 
     }
@@ -200,17 +145,18 @@
 
     private async Task OnTenantSelected(string value)
     {
-        var resultsSupplier = await SupplierService.GetAll();
-        suppliers = resultsSupplier.Value.Where(s => s.TenantId == tenants.FirstOrDefault(t => t.Name == value).Id).ToList();
         selectedTenantId = tenants.FirstOrDefault(t => t.Name == value).Id;
+        var resultCategories = await CategoriesService.GetByTenantId(selectedTenantId ?? 0);
+        // categories = resultCategories.Value.Where(s => s.TenantId == tenants.FirstOrDefault(t => t.Name == value).Id).ToList();
+        // selectedTenantId = tenants.FirstOrDefault(t => t.Name == value).Id;
     }
 
     private async Task RefreshData()
     {
-        var resultsSupplier = await SupplierService.GetAll();
+        var resultCategories = await CategoriesService.GetByTenantId(selectedTenantId ?? 0);
 
-        suppliers = Enumerable.Empty<SupplierResponse>();
-        suppliers = resultsSupplier.Value.Where(s => s.TenantId == selectedTenantId).ToList();
+        categories = Enumerable.Empty<CategoryResponse>();
+        categories = resultCategories.Value.ToList();
         this.StateHasChanged();
     }
 }

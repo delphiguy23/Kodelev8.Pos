@@ -68,7 +68,8 @@ public class CategoryController : ControllerBase
     [HttpGet]
     [Route("tenant/{tenantId:int}")]
     [LogAuditAction]
-    public async Task<IActionResult> GetById(int tenantId, CancellationToken cancellationToken = default)
+    [AllowAnonymous]
+    public async Task<IActionResult> GetByTenantId(int tenantId, CancellationToken cancellationToken = default)
     {
         var tenant = await _sender.Send(new GetTenantById(tenantId), cancellationToken);
 

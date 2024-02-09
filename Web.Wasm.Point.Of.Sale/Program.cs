@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using MudExtensions.Services;
 using Web.Wasm.Point.Of.Sale;
+using Web.Wasm.Point.Of.Sale.Services.Categories;
 using Web.Wasm.Point.Of.Sale.Services.Supplier;
 using Web.Wasm.Point.Of.Sale.Services.Tenant;
 
@@ -16,6 +17,7 @@ builder.Services.AddMudExtensions();
 // builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITenantService, TenantService>();
 builder.Services.AddScoped<ISupplierService, SupplierService>();
+builder.Services.AddScoped<ICategoriesService, CategoriesService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5000") });
 
