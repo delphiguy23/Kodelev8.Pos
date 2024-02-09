@@ -1,0 +1,237 @@
+@page "/supplier"
+
+@using System.Text.Json
+@using global::Point.Of.Sale.Models.Supplier
+@using Web.Wasm.Point.Of.Sale.Services.Supplier
+@using Web.Wasm.Point.Of.Sale.Services.Tenant
+
+@inject ITenantService TenantService
+@inject ISupplierService SupplierService
+@inject IDialogService DialogService
+
+<PageTitle>Supplier</PageTitle>
+
+@* <MudSelect *@
+@*     T="string" *@
+@*     Label="Search" *@
+@*     AnchorOrigin="Origin.CenterLeft" *@
+@*     TransformOrigin="Origin.CenterRight" *@
+@*     Variant="Variant.Outlined" *@
+@*     AdornmentIcon="@Icons.Material.Filled.Search" *@
+@*     AdornmentColor="Color.Primary" *@
+@*     > *@
+@*         <MudSelectItem Value="@("foo")">Foo</MudSelectItem> *@
+@*         <MudSelectItem Value="@("bar")">Bar</MudSelectItem> *@
+@* </MudSelect> *@
+@* *@
+@* <br/> *@
+@* *@
+@* <MudSelect T="string" Label="Tenant" AnchorOrigin="Origin.BottomCenter"> *@
+@*     <MudSelectItem Value="@("Cappuccino")" /> *@
+@*     <MudSelectItem Value="@("Cafe Latte")" /> *@
+@*     <MudSelectItem Value="@("Espresso")" /> *@
+@* </MudSelect> *@
+
+<br/>
+
+<MudSelectExtended
+    T="string"
+    MultiSelection="false"
+    SearchBox="true"
+    SearchBoxAutoFocus="true"
+    Label="Tenant"
+    AnchorOrigin="Origin.BottomCenter"
+    Variant="Variant.Outlined"
+    HelperText="Search for Tenants"
+    SearchBoxClearable="true"
+    @bind-Value="@selectedTenant"
+    ItemCollection="@EnumTenantToStringArray()"
+    TextChanged="OnTenantSelected"
+/>
+
+<br/>
+
+<h1>@((selectedTenantId ?? 0) > 0 ? "Supplier Page" : $"{selectedTenant} - Suppliers")</h1>
+
+<br/>
+
+<MudGrid Class="d-flex flex-column flex-grow-1 gap-4">
+    <MudItem>
+        <MudPaper Elevation="15">
+            <MudDataGrid
+                T="SupplierResponse"
+                Items="@suppliers"
+                EditMode="DataGridEditMode.Form"
+                StartedEditingItem="@StartedEditingItem"
+                CanceledEditingItem="@CanceledEditingItem"
+                CommittedItemChanges="@CommittedItemChanges"
+                EditTrigger="DataGridEditTrigger.Manual"
+                ReadOnly="false"
+                Hover="true"
+                Filterable="true"
+                FilterMode="DataGridFilterMode.Simple"
+                FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive">
+                <Columns>
+                    <HierarchyColumn T="SupplierResponse"  />
+                    <PropertyColumn Property="x => x.Name" Title="Name"/>
+                    @* <PropertyColumn Property="x => x.Address" Title="Address"/> *@
+                    @* <PropertyColumn Property="x => x.City" Title="City"/> *@
+                    @* <PropertyColumn Property="x => x.State" Title="State"/> *@
+                    <PropertyColumn Property="x => x.Country" Title="Country"/>
+                    @* <PropertyColumn Property="x => x.Phone" Title="Phone"/> *@
+                    <PropertyColumn Property="x => x.Email" Title="Email"/>
+                    <PropertyColumn Property="x => x.Active" Title="Active"/>
+                    <TemplateColumn Title="Edit" Filterable="false">
+                        <CellTemplate>
+                            <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Add" Color="Color.Tertiary" @onclick="AddRow"/>
+                            <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Edit" Color="Color.Primary" OnClick="@(() => EditRow(context.Item))"/>
+                            <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Delete" Color="Color.Error" OnClick="@(() => DeleteRow(context.Item))"/>
+                        </CellTemplate>
+                    </TemplateColumn>
+                </Columns>
+                <ChildRowContent>
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">Address</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                    </MudCard>
+
+                        <MudCard>
+                            <MudCardContent>
+                                <MudGrid>
+                                    <MudItem xs="12" sm="6" md="4">
+                                        <MudField Label="Address" Variant="Variant.Outlined">@context.Item.Address</MudField>
+                                    </MudItem>
+                                @* </MudGrid> *@
+                                @* <MudGrid> *@
+                                    <MudItem xs="12" sm="6" md="4">
+                                        <MudField Label="City" Variant="Variant.Outlined">@context.Item.City</MudField>
+                                    </MudItem>
+                                @* </MudGrid> *@
+                                @* <MudGrid> *@
+                                    <MudItem xs="12" sm="6" md="4">
+                                        <MudField Label="Country" Variant="Variant.Outlined">@context.Item.Country</MudField>
+                                    </MudItem>
+                                </MudGrid>
+                            </MudCardContent>
+                        </MudCard>
+
+                    <MudCard>
+                        <MudCardHeader>
+                            <CardHeaderContent>
+                                <MudText Typo="Typo.h6">Contact Details</MudText>
+                            </CardHeaderContent>
+                        </MudCardHeader>
+                    </MudCard>
+                    <MudCard>
+                             <MudCardContent>
+                                 <MudGrid>
+                                     <MudItem xs="12" sm="6" md="4">
+                                         <MudField Label="Phone" Variant="Variant.Outlined">@context.Item.Phone</MudField>
+                                     </MudItem>
+                                 @* </MudGrid> *@
+                                 @* <MudGrid> *@
+                                     <MudItem xs="12" sm="6" md="4">
+                                         <MudField Label="Email" Variant="Variant.Outlined">@context.Item.Email</MudField>
+                                     </MudItem>
+                                 </MudGrid>
+                             </MudCardContent>
+                    </MudCard>
+
+                </ChildRowContent>
+            </MudDataGrid>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+<br/>
+
+<MudFab class="d-flex" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Add" @onclick="@AddRow"/>
+
+@code
+{
+    private IEnumerable<SupplierResponse> suppliers = new List<SupplierResponse>();
+    private IEnumerable<Services.Tenant.Models.Tenant> tenants = new List<Services.Tenant.Models.Tenant>();
+
+    private List<string> _events = new();
+
+    private DialogOptions options = new DialogOptions() { FullWidth = true, MaxWidth = MaxWidth.Small, CloseButton = false, DisableBackdropClick = true, NoHeader = false, Position = DialogPosition.Center, CloseOnEscapeKey = false };
+    private string selectedTenant { get; set; }
+    private int? selectedTenantId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var resultsTenant = await TenantService.GetAll();
+        tenants = resultsTenant.Value;
+    }
+
+    // events
+    void StartedEditingItem(SupplierResponse item)
+    {
+        _events.Insert(0, $"Event = StartedEditingItem, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    void CanceledEditingItem(SupplierResponse item)
+    {
+        _events.Insert(0, $"Event = CanceledEditingItem, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    void CommittedItemChanges(SupplierResponse item)
+    {
+        _events.Insert(0, $"Event = CommittedItemChanges, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    private async Task EditRow(SupplierResponse item)
+    {
+        var parameters = new DialogParameters<UpsertDialog> { { x => x.supplier, item }, {x => x.selectedTenantId, selectedTenantId} };
+
+        var dialog = await DialogService.ShowAsync<UpsertDialog>("Upsert", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            RefreshData();
+        }
+    }
+
+    private async Task AddRow()
+    {
+        var parameters = new DialogParameters<UpsertDialog> { {x => x.selectedTenantId, selectedTenantId} };
+
+        var dialog = await DialogService.ShowAsync<UpsertDialog>("Add", parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            RefreshData();
+        }
+    }
+
+    private async Task DeleteRow(SupplierResponse item)
+    {
+
+    }
+
+    private string[] EnumTenantToStringArray()
+    {
+        List<string> tenantTypeList = new ();
+        return tenants.Select(t => t.Name).ToArray();
+    }
+
+    private async Task OnTenantSelected(string value)
+    {
+        var resultsSupplier = await SupplierService.GetAll();
+        suppliers = resultsSupplier.Value.Where(s => s.TenantId == tenants.FirstOrDefault(t => t.Name == value).Id).ToList();
+        selectedTenantId = tenants.FirstOrDefault(t => t.Name == value).Id;
+    }
+
+    private async Task RefreshData()
+    {
+        var resultsSupplier = await SupplierService.GetAll();
+
+        suppliers = Enumerable.Empty<SupplierResponse>();
+        suppliers = resultsSupplier.Value.Where(s => s.TenantId == selectedTenantId).ToList();
+        this.StateHasChanged();
+    }
+}

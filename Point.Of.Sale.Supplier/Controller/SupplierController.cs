@@ -42,6 +42,7 @@ public class SupplierController : ControllerBase
             City = request.City,
             State = request.State,
             Country = request.Country,
+            TenantId = request.TenantId,
         }, cancellationToken);
 
         return result.ToActionResult();

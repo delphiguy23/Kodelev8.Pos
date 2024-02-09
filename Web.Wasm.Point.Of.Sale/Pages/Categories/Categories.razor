@@ -1,35 +1,15 @@
-@page "/supplier"
+@page "/categories"
+
 @using System.Text.Json
 @using global::Point.Of.Sale.Models.Supplier
-@using Web.Wasm.Point.Of.Sale.Services.Enum
 @using Web.Wasm.Point.Of.Sale.Services.Supplier
 @using Web.Wasm.Point.Of.Sale.Services.Tenant
+
 @inject ITenantService TenantService
 @inject ISupplierService SupplierService
 @inject IDialogService DialogService
 
-<PageTitle>Supplier</PageTitle>
-
-@* <MudSelect *@
-@*     T="string" *@
-@*     Label="Search" *@
-@*     AnchorOrigin="Origin.CenterLeft" *@
-@*     TransformOrigin="Origin.CenterRight" *@
-@*     Variant="Variant.Outlined" *@
-@*     AdornmentIcon="@Icons.Material.Filled.Search" *@
-@*     AdornmentColor="Color.Primary" *@
-@*     > *@
-@*         <MudSelectItem Value="@("foo")">Foo</MudSelectItem> *@
-@*         <MudSelectItem Value="@("bar")">Bar</MudSelectItem> *@
-@* </MudSelect> *@
-@* *@
-@* <br/> *@
-@* *@
-@* <MudSelect T="string" Label="Tenant" AnchorOrigin="Origin.BottomCenter"> *@
-@*     <MudSelectItem Value="@("Cappuccino")" /> *@
-@*     <MudSelectItem Value="@("Cafe Latte")" /> *@
-@*     <MudSelectItem Value="@("Espresso")" /> *@
-@* </MudSelect> *@
+<PageTitle>Categories</PageTitle>
 
 <br/>
 
@@ -50,7 +30,7 @@
 
 <br/>
 
-<h1>@((selectedTenantId ?? 0) > 0 ? "Supplier Page" : $"{selectedTenant} - Suppliers")</h1>
+<h1>@((selectedTenantId ?? 0) > 0 ? "Categories Page" : $"{selectedTenant} - Categories")</h1>
 
 <br/>
 
@@ -190,8 +170,7 @@
 
         if (!result.Canceled)
         {
-            var resultsSupplier = await SupplierService.GetAll();
-            suppliers = resultsSupplier.Value.Where(s => s.TenantId == selectedTenantId).ToList();
+            RefreshData();
         }
     }
 
@@ -202,11 +181,10 @@
         var dialog = await DialogService.ShowAsync<UpsertDialog>("Add", parameters, options);
         var result = await dialog.Result;
 
-        // if (!result.Canceled)
-        // {
-        //     var results = await TenantService.GetAll();
-        //     tenants = results.Value;
-        // }
+        if (!result.Canceled)
+        {
+            RefreshData();
+        }
     }
 
     private async Task DeleteRow(SupplierResponse item)
@@ -225,5 +203,14 @@
         var resultsSupplier = await SupplierService.GetAll();
         suppliers = resultsSupplier.Value.Where(s => s.TenantId == tenants.FirstOrDefault(t => t.Name == value).Id).ToList();
         selectedTenantId = tenants.FirstOrDefault(t => t.Name == value).Id;
+    }
+
+    private async Task RefreshData()
+    {
+        var resultsSupplier = await SupplierService.GetAll();
+
+        suppliers = Enumerable.Empty<SupplierResponse>();
+        suppliers = resultsSupplier.Value.Where(s => s.TenantId == selectedTenantId).ToList();
+        this.StateHasChanged();
     }
 }
