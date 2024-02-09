@@ -1,0 +1,166 @@
+@page "/tenant"
+@using global::Point.Of.Sale.Shared.Enums
+@using System.Text.Json
+@using Web.UI.Point.Of.Sale.Services.Tenant
+@inject ITenantService TenantService
+@inject IDialogService DialogService
+
+@rendermode InteractiveServer
+<MudDialogProvider
+    FullWidth="true"
+    MaxWidth="MaxWidth.Small"
+    CloseButton="false"
+    DisableBackdropClick="true"
+    NoHeader="false"
+    Position="DialogPosition.CenterLeft"
+    CloseOnEscapeKey="false"/>
+
+<PageTitle>Tenant</PageTitle>
+
+<h1>Tenant</h1>
+
+<MudGrid Class="d-flex flex-column flex-grow-1 gap-4">
+    <MudItem>
+        <MudPaper Elevation="15">
+            <MudDataGrid
+                T="Services.Tenant.Models.Tenant"
+                Items="@tenants"
+                EditMode="DataGridEditMode.Form"
+                StartedEditingItem="@StartedEditingItem"
+                CanceledEditingItem="@CanceledEditingItem"
+                CommittedItemChanges="@CommittedItemChanges"
+                EditTrigger="DataGridEditTrigger.Manual"
+                ReadOnly="false">
+                <Columns>
+                    <PropertyColumn Property="x => x.Id" Title="Id"/>
+                    @* <PropertyColumn Property="x => x.Type"/> *@
+                    <PropertyColumn Property="x => x.Code" Title="Code"/>
+                    <PropertyColumn Property="x => x.Name" Title="Name"/>
+                    <PropertyColumn Property="x => x.Active" Title="Active"/>
+                    <TemplateColumn Title="Edit">
+                        <CellTemplate>
+                            @* <MudFab Color="Color.Secondary" StartIcon="@Icons.Material.Filled.Edit" OnClick="@(() => EditRow(context.Item))"/> *@
+                            <MudIconButton Size="Size.Small" Icon="@Icons.Material.Outlined.Edit"
+                                           OnClick="@(() => EditRow(context.Item))"/>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    @* <TemplateColumn CellClass="d-flex justify-end"> *@
+                    @*     <CellTemplate> *@
+                    @*         <MudStack Row> *@
+                    @*             $1$ <MudRating Size="@Size.Small" /> SelectedValue="@context.Item.Rating"/> #1# *@
+                    @*             <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary">Hire</MudButton> *@
+                    @*         </MudStack> *@
+                    @*     </CellTemplate>a *@
+                    @* </TemplateColumn> *@
+                </Columns>
+            </MudDataGrid>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+<br/>
+<MudButton OnClick="@((e) => OpenDialog(maxWidth))">Open MaxWidth Dialog</MudButton>
+<MudButton OnClick="@((e) => OpenDialog(closeButton))" Color="Color.Primary">Close Button Dialog</MudButton>
+<MudButton OnClick="@((e) => OpenDialog(noHeader))" Color="Color.Secondary">No header Dialog</MudButton>
+<MudButton OnClick="@((e) => OpenDialog(disableBackdropClick))" Color="Color.Tertiary">Disable backdrop dialog</MudButton>
+<MudButton OnClick="@((e) => OpenDialog(fullScreen))" Color="Color.Info">Full Screen Dialog</MudButton>
+<MudButton OnClick="@((e) => OpenDialog(topCenter))" Color="Color.Success">Top Center Dialog</MudButton>
+
+<MudExpansionPanels Style="flex:1">
+    <MudExpansionPanel Text="Show Events">
+        @foreach (var message in _events)
+        {
+            <MudText Typo="@Typo.body2">@message</MudText>
+        }
+        @if (_events.Count > 0)
+        {
+            <div class="d-flex">
+                <MudSpacer/>
+                <MudButton Class="mt-3" ButtonType="ButtonType.Button" OnClick="@(() => _events.Clear())">Clear</MudButton>
+            </div>
+        }
+    </MudExpansionPanel>
+</MudExpansionPanels>
+
+@* <MudSelect @bind-Value="tenantType" Label="Coffee" AnchorOrigin="Origin.BottomCenter"> *@
+@*     @foreach (TenantType item in Enum.GetValues(typeof(TenantType))) *@
+@*     { *@
+@*         Console.WriteLine(item); *@
+@*         <MudSelectItem Value="@item">@item</MudSelectItem> *@
+@*     } *@
+@* </MudSelect> *@
+
+@* <MudSelect @bind-Value="enumValue" Label="Select drink" HelperText="Enum" OpenIcon="@Icons.Material.Filled.LocalDrink" AdornmentColor="Color.Secondary"> *@
+@*     @foreach (Drink item in Enum.GetValues(typeof(Drink))) *@
+@*     { *@
+@*         <MudSelectItem Value="@item">@item</MudSelectItem> *@
+@*     } *@
+@* </MudSelect> *@
+
+@code {
+
+    private TenantType tenantType { get; set; } = TenantType.NonSpecific;
+
+    private IEnumerable<Services.Tenant.Models.Tenant> tenants = new List<Services.Tenant.Models.Tenant>();
+    private List<string> _events = new();
+
+    // private IEnumerable<Element> Elements = new List<Element>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var results = await TenantService.GetAll();
+        tenants = results.Value;
+        // Elements = await httpClient.GetFromJsonAsync<List<Element>>("webapi/periodictable");
+    }
+
+    // events
+    void StartedEditingItem(Services.Tenant.Models.Tenant item)
+    {
+        _events.Insert(0, $"Event = StartedEditingItem, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    void CanceledEditingItem(Services.Tenant.Models.Tenant item)
+    {
+        _events.Insert(0, $"Event = CanceledEditingItem, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    void CommittedItemChanges(Services.Tenant.Models.Tenant item)
+    {
+        _events.Insert(0, $"Event = CommittedItemChanges, Data = {JsonSerializer.Serialize(item)}");
+    }
+
+    private async Task EditRow(Services.Tenant.Models.Tenant tenant)
+    {
+        _events.Insert(0, $"Event = EditRow, Data = {JsonSerializer.Serialize(tenant)}");
+        // var options = new DialogOptions { CloseOnEscapeKey = true };
+        // DialogService.Show<UpsertDialog>("Simple Dialog", options);
+
+        var parameters = new DialogParameters<UpsertDialog> { { x => x.tenant, tenant } };
+        // var parameters = new DialogParameters { ["DialogParameter"] = tenant};
+
+        // var options = new DialogOptionsEx { DragMode = MudDialogDragMode.Simple };
+        // var dialog = await DialogService.ShowEx<UpsertDialog>("Upsert", parameters, options);
+
+        var dialog = await DialogService.ShowAsync<UpsertDialog>("Upsert", parameters);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            var results = await TenantService.GetAll();
+            tenants = results.Value;
+        }
+    }
+
+
+    DialogOptions maxWidth = new DialogOptions() { MaxWidth = MaxWidth.Medium, FullWidth = true };
+    DialogOptions closeButton = new DialogOptions() { CloseButton = true };
+    DialogOptions noHeader = new DialogOptions() {  NoHeader = true };
+    DialogOptions disableBackdropClick = new DialogOptions() { DisableBackdropClick = true };
+    DialogOptions fullScreen = new DialogOptions() { FullScreen = true, CloseButton = true };
+    DialogOptions topCenter = new DialogOptions() { Position = DialogPosition.TopCenter };
+
+    private void OpenDialog(DialogOptions options)
+    {_events.Insert(0, $"Event = EditRow, Data = {JsonSerializer.Serialize(options)}");
+        DialogService.Show<UpsertDialog>("Custom Options Dialog");
+    }
+
+}

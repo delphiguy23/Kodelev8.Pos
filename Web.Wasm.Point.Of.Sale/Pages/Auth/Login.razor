@@ -1,0 +1,191 @@
+@* @page "/account/login" *@
+@* @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage *@
+@* @using global::Point.Of.Sale.Shared.FluentResults *@
+@* @using Web.UI.Point.Of.Sale.Services.Auth *@
+@* @using Web.UI.Point.Of.Sale.Services.Auth.Models *@
+@* *@
+@* @rendermode InteractiveServer *@
+@* @inject IAuthService AuthService *@
+@* @inject ProtectedSessionStorage ProtectedSessionStore *@
+@* @inject ISnackbar Snackbar *@
+@* @inject NavigationManager NavManager *@
+@* *@
+@* <PageTitle>Login</PageTitle> *@
+@* *@
+@* <h1>Login</h1> *@
+@* *@
+@* <MudGrid> *@
+@*     <MudItem xs="12" sm="7"> *@
+@*         <MudPaper Class="pa-4"> *@
+@*             <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors"> *@
+@*                 <MudTextField T="string" Label="Username" Required="true" RequiredError="User name is required!" @bind-Value="userName"/> *@
+@*                 <MudTextField T="string" Label="Email" Required="true" RequiredError="Email is required!" @bind-Value="userEmail"/> *@
+@*                 $1$ Validation="@(new EmailAddressAttribute { ErrorMessage = "The email address is invalid" })"/> #1# *@
+@*                 <MudTextField T="string" Label="Password" @bind-Value="userPassWord" *@
+@*                               InputType="InputType.Password" Required="true" *@
+@*                               RequiredError="Password is required!"/> *@
+@*                 <MudTextField T="string" Label="Tenant" InputType="InputType.Number" @bind-Value="userTenant"/> *@
+@*             </MudForm> *@
+@*         </MudPaper> *@
+@*         <MudPaper Class="pa-4 mt-4"> *@
+@*             <MudButton Variant="Variant.Filled" Color="Color.Primary" DisableElevation="true" OnClick="ValidateLogin">Login</MudButton> *@
+@*             <MudButton Variant="Variant.Filled" Color="Color.Secondary" DisableElevation="true" OnClick="Reset" Class="mx-2">Reset</MudButton> *@
+@*             $1$ <MudButton Variant="Variant.Filled" DisableElevation="true" OnClick="@(() => form.ResetValidation())">Reset Validation</MudButton> #1# *@
+@*         </MudPaper> *@
+@*         @if (!success) *@
+@*         { *@
+@*             <MudAlert Severity=@severity Variant="Variant.Filled">@message</MudAlert> *@
+@*         } *@
+@*     </MudItem> *@
+@* *@
+@* *@
+@*     $1$ <MudItem xs="12" sm="5"> #1# *@
+@*     $1$     <MudPaper Class="pa-4 mud-height-full"> #1# *@
+@*     $1$         <MudText Typo="Typo.subtitle2">@($"Errors ({errors.Length})")</MudText> #1# *@
+@*     $1$         @foreach (var error in errors) #1# *@
+@*     $1$         { #1# *@
+@*     $1$             <MudText Color="@Color.Error">@error</MudText> #1# *@
+@*     $1$         } #1# *@
+@*     $1$     </MudPaper> #1# *@
+@*     $1$ </MudItem> #1# *@
+@* </MudGrid> *@
+@* *@
+@* *@
+@* @code { *@
+@*     bool success; *@
+@*     Severity severity; *@
+@* *@
+@*     string[] errors = { }; *@
+@*     string message = string.Empty; *@
+@*     MudTextField<string> pwField1; *@
+@*     MudForm form; *@
+@*     string userName; *@
+@*     string userEmail; *@
+@*     string userPassWord; *@
+@*     string userTenant; *@
+@* *@
+@*     private async Task OnInitializedAsync() *@
+@*     { *@
+@*         success = true; *@
+@*     } *@
+@* *@
+@*     private async Task ValidateLogin() *@
+@*     { *@
+@*         try *@
+@*         { *@
+@*             var token = await AuthService.ValidateUser(new ValidateUserRequest *@
+@*             { *@
+@*                 UserName = "User1", *@
+@*                 Password = "UserPass&1", *@
+@*                 Email = "user1@user.com", *@
+@*                 TenantId = 4 *@
+@*             }); *@
+@* *@
+@*             if (token is null || token.Status != FluentResultsStatus.Success) *@
+@*             { *@
+@*                 severity = Severity.Error; *@
+@*                 message = token?.ToMultiLine(";") ?? "Unknown error"; *@
+@*                 return; *@
+@*             } *@
+@* *@
+@*             await ProtectedSessionStore.SetAsync("token", token.Value); *@
+@* *@
+@*             var userDetails = await AuthService.GetUserDetails(new UserExistRequest *@
+@*             { *@
+@*                 UserName = "User1", *@
+@*                 Email = "user1@user.com", *@
+@*                 TenantId = 4 *@
+@*             }); *@
+@* *@
+@*             if (userDetails is null || userDetails.Status != FluentResultsStatus.Success) *@
+@*             { *@
+@*                 severity = Severity.Error; *@
+@*                 message = userDetails?.ToMultiLine(";") ?? "Unknown error"; *@
+@*                 await AuthService.ClearSession(); *@
+@*                 return; *@
+@*             } *@
+@* *@
+@*             severity = Severity.Success; *@
+@*             message = "Login successful"; *@
+@*             await ProtectedSessionStore.SetAsync("user", userDetails.Value.UserName); *@
+@*             await ProtectedSessionStore.SetAsync("email", "user1@user.com"); *@
+@*             await ProtectedSessionStore.SetAsync("tenant", 4); *@
+@*             await ProtectedSessionStore.SetAsync("isLogged", true); *@
+@* *@
+@*             NavManager.NavigateTo("/tenant"); *@
+@*             // *@
+@*             // Console.WriteLine(userName); *@
+@*             // Console.WriteLine(userEmail); *@
+@*             // Console.WriteLine(userPassWord); *@
+@*             // Console.WriteLine(userTenant); *@
+@*         } *@
+@*         catch (Exception e) *@
+@*         { *@
+@*             severity = Severity.Error; *@
+@*             message = e.Message; *@
+@*             Console.WriteLine(e); *@
+@*             throw; *@
+@*         } *@
+@*     } *@
+@* *@
+@*     // private IEnumerable<string> PasswordStrength(string pw) *@
+@*     // { *@
+@*     //     if (string.IsNullOrWhiteSpace(pw)) *@
+@*     //     { *@
+@*     //         yield return "Password is required!"; *@
+@*     //         yield break; *@
+@*     //     } *@
+@*     // *@
+@*     //     if (pw.Length < 8) *@
+@*     //         yield return "Password must be at least of length 8"; *@
+@*     //     if (!Regex.IsMatch(pw, @"[A-Z]")) *@
+@*     //         yield return "Password must contain at least one capital letter"; *@
+@*     //     if (!Regex.IsMatch(pw, @"[a-z]")) *@
+@*     //         yield return "Password must contain at least one lowercase letter"; *@
+@*     //     if (!Regex.IsMatch(pw, @"[0-9]")) *@
+@*     //         yield return "Password must contain at least one digit"; *@
+@*     // } *@
+@*     // *@
+@*     // private string PasswordMatch(string arg) *@
+@*     // { *@
+@*     //     if (pwField1.Value != arg) *@
+@*     //         return "Passwords don't match"; *@
+@*     //     return null; *@
+@*     // } *@
+@* *@
+@* *@
+@*     private async Task Reset() *@
+@*     { *@
+@*         severity = Severity.Info; *@
+@*         message = string.Empty; *@
+@*         await AuthService.ClearSession(); *@
+@*     } *@
+@* *@
+@* } *@
+@* *@
+@* $1$ <MudAppBar> #1# *@
+@* $1$     <MudText Typo="Typo.h6">My App</MudText> #1# *@
+@* $1$     <Spacer/> #1# *@
+@* $1$     <MudIconButton Icon="@Icons.Material.Filled.Menu" OnClick="@ToggleDrawer"/> #1# *@
+@* $1$ </MudAppBar> #1# *@
+@* $1$ #1# *@
+@* $1$ <MudButton Variant="Variant.Filled">Default</MudButton> #1# *@
+@* $1$ <MudButton Variant="Variant.Filled" Color="Color.Primary">Primary</MudButton> #1# *@
+@* $1$ <MudButton Variant="Variant.Filled" Color="Color.Secondary">Secondary</MudButton> #1# *@
+@* $1$ <MudButton Variant="Variant.Filled" Disabled="true">Disabled</MudButton> #1# *@
+@* $1$ #1# *@
+@* $1$ <MudAlert Severity="Severity.Normal">The reactor type is RBMK-1000</MudAlert> #1# *@
+@* $1$ <MudAlert Severity="Severity.Info">The reactor was fired up successfully</MudAlert> #1# *@
+@* $1$ <MudAlert Severity="Severity.Success">The reactor is running at optimum temperature</MudAlert> #1# *@
+@* $1$ <MudAlert Severity="Severity.Warning">The reactor temperature exceeds the optimal range</MudAlert> #1# *@
+@* $1$ <MudAlert Severity="Severity.Error">Meltdown is imminent</MudAlert> #1# *@
+@* $1$ #1# *@
+@* $1$ #1# *@
+@* $1$ @code { #1# *@
+@* $1$ #1# *@
+@* $1$     private void ToggleDrawer() #1# *@
+@* $1$     { #1# *@
+@* $1$         throw new NotImplementedException(); #1# *@
+@* $1$     } #1# *@
+@* $1$ #1# *@
+@* $1$ } #1# *@

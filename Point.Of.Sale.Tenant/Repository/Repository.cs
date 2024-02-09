@@ -16,7 +16,7 @@ public class Repository : GenericRepository<Persistence.Models.Tenant>, IReposit
 
     public async Task<IFluentResults<string>> GetApiKeyById(int id, CancellationToken cancellationToken = default)
     {
-        var tenant = await _dbContext.Tenants.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        var tenant = await _dbContext.Tenants.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
 
         if (tenant is null)
         {

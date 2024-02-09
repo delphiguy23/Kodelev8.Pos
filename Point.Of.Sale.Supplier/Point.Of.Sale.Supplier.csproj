@@ -34,6 +34,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Point.Of.Sale.Abstraction\Point.Of.Sale.Abstraction.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Category\Point.Of.Sale.Category.csproj"/>
+        <ProjectReference Include="..\Point.Of.Sale.Models\Point.Of.Sale.Models.csproj" />
         <ProjectReference Include="..\Point.Of.Sale.Persistence\Point.Of.Sale.Persistence.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj"/>
         <ProjectReference Include="..\Point.Of.Sale.Tenant\Point.Of.Sale.Tenant.csproj"/>
@@ -58,5 +59,9 @@
 
     <ItemGroup>
         <None Remove="obj\**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\" />
     </ItemGroup>
 </Project>

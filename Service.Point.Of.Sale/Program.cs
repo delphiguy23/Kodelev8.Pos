@@ -53,7 +53,10 @@ builder.Services.AddIdentity<ServiceUser, IdentityRole>()
 
 builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 {
-    builder.AllowAnyOrigin()
+    builder
+        //.WithOrigins("http://localhost:5014")
+        .WithOrigins("*")
+        //.AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader();
 }));
@@ -162,6 +165,8 @@ app.UseSwaggerUI();
 // app.UseHttpsRedirection();
 //
 // app.UseIdentityServer();
+app.UseCors("MyPolicy");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -184,5 +189,6 @@ if (initializables is not null || initializables.Any())
         {
             //ignore errors
         }
+
 
 app.Run();

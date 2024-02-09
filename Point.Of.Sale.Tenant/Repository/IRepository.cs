@@ -1,5 +1,6 @@
 using Point.Of.Sale.Persistence.Repository;
 using Point.Of.Sale.Shared.FluentResults;
+using Point.Of.Sale.Shared.Models;
 
 namespace Point.Of.Sale.Tenant.Repository;
 

@@ -1,7 +1,7 @@
 using Point.Of.Sale.Category.Models;
+using Point.Of.Sale.Models.Supplier;
 using Point.Of.Sale.Product.Models;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Supplier.Models;
 using Point.Of.Sale.Tenant.Models;
 
 namespace Point.Of.Sale.Inventory.Models;

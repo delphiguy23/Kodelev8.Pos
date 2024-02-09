@@ -10,4 +10,5 @@ public sealed record UpdateCommand : ICommand
     public string Name { get; set; }
     public TenantType Type { get; set; }
     public bool Active { get; set; }
+    public string Email { get; set; }
 }

@@ -1,0 +1,224 @@
+@using global::Point.Of.Sale.Shared.Enums
+@using Web.UI.Point.Of.Sale.Services.Tenant
+@using MudBlazor
+@using Microsoft.AspNetCore.Components
+@using System.Globalization;
+@using MudBlazor.Extensions
+@* @using Web.UI.Point.Of.Sale.Services.Tenant *@
+@* @using Point.Of.Sale.Shared.Enums *@
+@* @using MudBlazor *@
+@* @using Point.Of.Sale.Shared.Enums *@
+@* @using Web.UI.Point.Of.Sale.Services.Tenant *@
+@* @using MudBlazor *@
+@* @using Point.Of.Sale.Shared.Enums *@
+@* @using Web.UI.Point.Of.Sale.Services.Tenant *@
+@* @using MudBlazor *@
+@* @using Point.Of.Sale.Shared.Enums *@
+@* @using Web.UI.Point.Of.Sale.Services.Tenant *@
+@* @using MudBlazor *@
+@* @using Point.Of.Sale.Shared.Enums *@
+@* @using Web.UI.Point.Of.Sale.Services.Tenant *@
+@* @using MudBlazor *@
+@* @using Point.Of.Sale.Shared.Enums *@
+@* @using Web.UI.Point.Of.Sale.Services.Tenant *@
+@using MudBlazor
+@* @using Web.UI.Point.Of.Sale.Services.Tenant *@
+
+@inject ITenantService TenantService
+
+@* @inject ISnackbar Snackbar *@
+@* @rendermode InteractiveServer *@
+
+
+@* <MudDialog> *@
+@*     <DialogContent> *@
+@*         Dialog Content *@
+@*     </DialogContent> *@
+@*     <DialogActions> *@
+@*         <MudButton OnClick="Cancel">Cancel</MudButton> *@
+@*         <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton> *@
+@*     </DialogActions> *@
+@* </MudDialog> *@
+@* @code { *@
+@*     [CascadingParameter] MudDialogInstance MudDialog { get; set; } *@
+@* *@
+@*     void Submit() => MudDialog.Close(DialogResult.Ok(true)); *@
+@*     void Cancel() => MudDialog.Cancel(); *@
+@* } *@
+
+        <MudSelectExtended T="string" Label="Data Based" ItemCollection="@EnumTenantToStringArray()" />
+
+    <MudSelectExtended T="string" Label="RenderFragment Based">
+        <MudSelectItemExtended Value="@("Foo")" Text="Foo" />
+        <MudSelectItemExtended Value="@("Bar")" Text="Bar" />
+        <MudSelectItemExtended Value="@("Fizz")" Text="Fizz" />
+        <MudSelectItemExtended Value="@("Buzz")" Text="Buzz" />
+    </MudSelectExtended>
+<MudDialog>
+
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/> Add
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTextField Value="@tenant.Id.ToString()" Label="Id" ReadOnly="false"/>
+        @* <mudselectEx T ="TenantTypeDialog" TEnum="TenantTypeDialog" @bind-Value="_tenantTypeA"></mudselectEx> *@
+        @* <MudSelect class="mud-select-table" *@
+        @*            T="string" *@
+        @*            @bind-Value="option" *@
+        @*            @bind-SelectedValues="Options" *@
+        @*            Margin="@(_margin==true?Margin.Dense:Margin.None)" *@
+        @*            Dense="@_dense" *@
+        @*            > *@
+        @* *@
+        @*     @foreach (var type in Enum.GetValues(typeof(TenantTypeDialog))) *@
+        @*     { *@
+        @*         <MudSelectItem Value="@type.ToString()" /> *@
+        @*     } *@
+        @* </MudSelect> *@
+        @* <MudSelect *@
+        @*     @bind-SelectedValues="_tenantType" *@
+        @*             T = "TenantTypeDialog" *@
+        @*            AdornmentColor="Color.Secondary" *@
+        @*     MultiSelection="false" *@
+        @*            > *@
+        @*         $1$ #1# *@
+        @*         $1$ <MudSelectItem Value="@TenantTypeDialog.Auto">@TenantTypeDialog.Auto</MudSelectItem> #1# *@
+        @*         $1$ <MudSelectItem Value="@TenantTypeDialog.Clothing">@TenantTypeDialog.Clothing</MudSelectItem> #1# *@
+        @* *@
+        @*     @foreach (TenantTypeDialog aaaa in Enum.GetValues(typeof(TenantTypeDialog))) *@
+        @*     { *@
+        @*         <MudSelectItem Value="@aaaa">@aaaa</MudSelectItem> *@
+        @*     } *@
+        @* </MudSelect> *@
+        @* <Select class="form-select" *@
+        @*         $1$ @bind-Value="@tenant.Type" #1# *@
+        @*         > *@
+        @*     @foreach (TenantType tenantType in Enum.GetValues(typeof(TenantType))) *@
+        @*     { *@
+        @*         <option value="@tenantType">@(tenantType.ToString())</option> *@
+        @*     } *@
+        @* </Select> *@
+        <MudTextField Value="@tenant.Code" Label="Code" ReadOnly="false"/>
+        <MudTextField Value="@tenant.Name" Label="Name" ReadOnly="false"/>
+        <MudTextField Value="@tenant.Active" Label="Active" ReadOnly="false"/>
+        <MudSelectExtended T="string" Label="Data Based" ItemCollection="@EnumTenantToStringArray()"/>
+
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="Upsert">Add Tenant</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code
+{
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public Services.Tenant.Models.Tenant tenant { get; set; } = new ();
+
+    // public IEnumerable<string> TenantTypeDialog
+    // {
+    //     NonSpecific = 0,
+    //     Hardware,
+    //     Pharmacy,
+    //     Grocery,
+    //     Restaurant,
+    //     Liquor,
+    //     Convenience,
+    //     Clothing,
+    //     Auto,
+    //     Furniture,
+    //     Electronics,
+    //     Jewelry,
+    //     SportingGoods,
+    //     SariSari,
+    // }
+
+
+    // private TenantTypeDialog _tenantTypeA { get; set; }
+    // private IEnumerable<TenantTypeDialog> _tenantType { get; set; } = new List<TenantTypeDialog>();
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task Upsert()
+    {
+        await Task.Delay(1000);
+        MudDialog.Close(DialogResult.Ok(tenant.Id));
+    }
+
+    private string[] EnumTenantToStringArray()
+    {
+        //convert enum TenantType to string array
+        // return Enum.GetValues(typeof(TenantType)).Cast().Select(x => x.ToString()).ToArray();
+
+        List<string> tenantTypeList = new ();
+
+        foreach (TenantType tenantType in Enum.GetValues(typeof(TenantType)))
+        {
+            tenantTypeList.Add(tenantType.ToString());
+        }
+
+        return tenantTypeList.ToArray();
+    }
+
+    // private IEnumerable<string> options;
+    // public IEnumerable<string> Options
+    // {
+    //     get { return options;
+    //     set {
+    //         options = value;
+    //         if (value.Count() > 0)
+    //         {
+    //             if (EnumTenantProperty.ToString() != value.First())
+    //             {
+    //                 EnumTenantProperty = (TenantType)Enum.Parse(typeof(TenantType), value.First(), true);
+    //                 EnumDriverPropertyChanged.InvokeAsync(EnumTenantProperty);
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // public TenantType EnumTenantProperty { get; set; }
+    //
+    // public EventCallback<TenantType> EnumDriverPropertyChanged { get; set; }
+    //
+
+
+    // protected override void OnInitialized()
+    // {
+    //     option = EnumTenantProperty.ToString();
+    //     Options = new HashSet<string>() { option };
+    // }
+
+    // bool _margin = true;
+    // bool _dense = true;
+    //
+    // private string option { get; set; } = EnumDriverProperty.ToString();
+    //
+    // private IEnumerable<string> options;
+    // public IEnumerable<string> Options
+    // {
+    //     get { return options; }
+    //     set {
+    //         options = value;
+    //         if (value.Count() > 0)
+    //         {
+    //             if (EnumDriverProperty.ToString() != value.First())
+    //             {
+    //                 EnumDriverProperty = (TenantTypeDialog)Enum.Parse(typeof(TenantTypeDialog), value.First(), true);
+    //                 EnumDriverPropertyChanged.InvokeAsync(EnumDriverProperty);
+    //             }
+    //         }
+    //     }
+    // }
+    //
+    // //<!-- [Parameter] -->
+    // public static TenantTypeDialog EnumDriverProperty { get; set; }
+    //
+    // //<!-- [Parameter] -->
+    // public EventCallback<TenantTypeDialog> EnumDriverPropertyChanged { get; set; }
+}

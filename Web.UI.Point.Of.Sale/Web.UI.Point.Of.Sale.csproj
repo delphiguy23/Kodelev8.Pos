@@ -8,7 +8,20 @@
 
   
   <ItemGroup>
-    <PackageReference Include="MudBlazor" Version="6.*" />
+    <PackageReference Include="CodeBeam.MudBlazor.Extensions" Version="6.8.0" />
+    <PackageReference Include="MudBlazor" Version="6.14.0" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Point.Of.Sale.Shared\Point.Of.Sale.Shared.csproj" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <AdditionalFiles Include="Components\Pages\Auth\Login.razor" />
+    <AdditionalFiles Include="Components\Pages\Auth\RegisterUser.razor" />
+    <AdditionalFiles Include="Components\Pages\Tenant\Tenant.razor" />
   </ItemGroup>
   
 </Project>

@@ -1,8 +1,8 @@
 using Microsoft.Extensions.Logging;
 using Point.Of.Sale.Abstraction.Message;
+using Point.Of.Sale.Models.Supplier;
 using Point.Of.Sale.Retries.RetryPolicies;
 using Point.Of.Sale.Shared.FluentResults;
-using Point.Of.Sale.Supplier.Models;
 using Point.Of.Sale.Supplier.Repository;
 using Polly;
 

@@ -1,0 +1,95 @@
+@using Web.Wasm.Point.Of.Sale.Services.Enum
+@using Web.Wasm.Point.Of.Sale.Services.Supplier
+@using Web.Wasm.Point.Of.Sale.Services.Tenant
+@using global::Point.Of.Sale.Models.Supplier
+
+@inject ITenantService TenantService
+@inject ISupplierService SupplierService
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/> @MudDialog.Title.Trim().ToUpper()
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        @* <MudSelectExtended T="string" Label="Tenant Type" @bind-Value="@selectedTenantType" ItemCollection="@EnumTenantToStringArray()"/> *@
+        <MudTextField @bind-Value="@supplier.Name" Label="Name" ReadOnly="false"/>
+        <MudTextField @bind-Value="@supplier.Address" Label="Address" ReadOnly="false"/>
+        <MudTextField @bind-Value="@supplier.City" Label="City" ReadOnly="false"/>
+        <MudTextField @bind-Value="@supplier.Country" Label="Country" ReadOnly="false"/>
+        <MudTextField @bind-Value="@supplier.Phone" Label="Phone" ReadOnly="false"/>
+        <MudTextField @bind-Value="@supplier.Email" Label="Email" ReadOnly="false"/>
+        <br/>
+        @if (MudDialog.Title.Trim().ToUpper() == "UPSERT")
+        {
+            <MudSwitchM3 @bind-Checked="@supplier.Active" Color="Color.Primary" ThumbIcon="@(supplier.Active ? Icons.Material.Filled.Done : Icons.Material.Filled.Close)">Active</MudSwitchM3>
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="Upsert">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code
+{
+    private bool selectedActive;
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public SupplierResponse supplier { get; set; } = new ();
+    [Parameter] public int? selectedTenantId { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task Upsert()
+    {
+        var aa = 0;
+        var upsertedSupplier = new UpsertSupplier
+        {
+            Id = supplier.Id,
+            Name = supplier.Name,
+            Address = supplier.Address,
+            City = supplier.City,
+            Country = supplier.Country,
+            Phone = supplier.Phone,
+            Email = supplier.Email,
+            State = string.Empty,
+            Active = MudDialog.Title.Trim().ToUpper() == "UPSERT" ? supplier.Active : true,
+            TenantId = selectedTenantId.Value,
+        };
+
+        if (MudDialog.Title.Trim().ToUpper() == "UPSERT")
+        {
+            await SupplierService.Upsert(upsertedSupplier, true, CancellationToken.None);
+            Snackbar.Add("Supplier Successfully Updated", Severity.Success);
+        }
+        else
+        {
+            await SupplierService.Upsert(upsertedSupplier, false, CancellationToken.None);
+            Snackbar.Add("Supplier Successfully Added", Severity.Success);
+        }
+
+        await Task.Delay(2000);
+        MudDialog.Close(DialogResult.Ok(1));
+    }
+
+    private string[] EnumTenantToStringArray()
+    {
+        //convert enum TenantType to string array
+        // return Enum.GetValues(typeof(TenantType)).Cast<string>().Select(x => x.ToString()).OrderBy(s => s).ToArray();
+
+        List<string> tenantTypeList = new ();
+
+        foreach (TenantType tenantType in Enum.GetValues(typeof(TenantType)))
+        {
+            tenantTypeList.Add(tenantType.ToString());
+        }
+
+        return tenantTypeList.OrderBy(t => t).ToArray();
+    }
+
+}

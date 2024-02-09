@@ -1,0 +1,100 @@
+@using Web.Wasm.Point.Of.Sale.Services.Tenant.Models
+@using Web.Wasm.Point.Of.Sale.Services.Enum
+@using Web.Wasm.Point.Of.Sale.Services.Tenant
+@inject ITenantService TenantService
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+            <MudIcon Icon="@Icons.Material.Filled.Add" Class="mr-3 mb-n1"/> @MudDialog.Title.Trim().ToUpper()
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+        @* <MudTextField Value="@tenant.Type" Label="tenant" ReadOnly="true"/> *@
+        @* <MudTextField Value="@selectedActive" Label="active" ReadOnly="true"/> *@
+        @* <MudTextField Value="@tenant.Id.ToString()" Label="Id" ReadOnly="true"/> *@
+        <MudSelectExtended T="string" Label="Tenant Type" @bind-Value="@selectedTenantType" ItemCollection="@EnumTenantToStringArray()"/>
+        <MudTextField @bind-Value="@tenant.Code" Label="Code" ReadOnly="false"/>
+        <MudTextField @bind-Value="@tenant.Name" Label="Name" ReadOnly="false"/>
+        <MudTextField @bind-Value="@tenant.Email" Label="Email" ReadOnly="false"/>
+        <br/>
+        <MudSwitchM3 @bind-Checked="@tenant.Active" Color="Color.Primary" ThumbIcon="@(tenant.Active ? Icons.Material.Filled.Done : Icons.Material.Filled.Close)">Active</MudSwitchM3>
+        @* <MudSelectExtended T="bool" Label="Active" @bind-Value="@selectedActive"> *@
+        @*     <MudSelectItemExtended class="mud-list-item-extended mud-list-item-gutters-extended mud-list-item-clickable-extended mud-ripple" Value="@true" Text="True" /> *@
+        @*     <MudSelectItemExtended class="mud-list-item-extended mud-list-item-gutters-extended mud-list-item-clickable-extended mud-ripple" Value="@false" Text="False" /> *@
+        @* </MudSelectExtended> *@
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Error" OnClick="Upsert">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code
+{
+    private bool selectedActive;
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    [Parameter] public Services.Tenant.Models.Tenant tenant { get; set; } = new ();
+    [Parameter] public string selectedTenantType { get; set; }
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private async Task Upsert()
+    {
+        if (MudDialog.Title.Trim().ToUpper() == "UPSERT")
+        {
+            var upsertedTenant = new UpsertTenant
+            {
+                Id = tenant.Id,
+                Code = tenant.Code,
+                Name = tenant.Name,
+                Type = Enum.Parse<TenantType>(string.IsNullOrWhiteSpace( selectedTenantType) ? "NonSpecific": selectedTenantType)   ,
+                Email = tenant.Email,
+                Active = tenant.Active,
+            };
+
+            await TenantService.Upsert(upsertedTenant, true, CancellationToken.None);
+
+            Snackbar.Add("Tenant Successfully Updated", Severity.Success);
+        }
+        else
+        {
+            var upsertedTenant = new UpsertTenant
+            {
+                Id = tenant.Id,
+                Code = tenant.Code,
+                Name = tenant.Name,
+                Type = Enum.Parse<TenantType>(string.IsNullOrWhiteSpace( selectedTenantType) ? "NonSpecific": selectedTenantType)   ,
+                Email = tenant.Email,
+                Active = true,
+            };
+
+            await TenantService.Upsert(upsertedTenant, false, CancellationToken.None);
+
+            Snackbar.Add("Tenant Successfully Added", Severity.Success);
+        }
+
+        await Task.Delay(2000);
+        MudDialog.Close(DialogResult.Ok(tenant.Id));
+    }
+
+    private string[] EnumTenantToStringArray()
+    {
+        //convert enum TenantType to string array
+        // return Enum.GetValues(typeof(TenantType)).Cast<string>().Select(x => x.ToString()).OrderBy(s => s).ToArray();
+
+        List<string> tenantTypeList = new ();
+
+        foreach (TenantType tenantType in Enum.GetValues(typeof(TenantType)))
+        {
+            tenantTypeList.Add(tenantType.ToString());
+        }
+
+        return tenantTypeList.OrderBy(t => t).ToArray();
+    }
+
+}

@@ -74,6 +74,7 @@ public sealed class TenantController : ControllerBase
 
     [HttpPut]
     [LogAuditAction]
+    [AllowAnonymous]
     public async Task<IActionResult> Upsert([FromBody] UpsertTenant request,
         CancellationToken cancellationToken = default)
     {
@@ -83,7 +84,8 @@ public sealed class TenantController : ControllerBase
             Code = request.Code,
             Name = request.Name,
             Type = request.Type,
-            Active = request.Active
+            Active = request.Active,
+            Email = request.Email,
         }, cancellationToken);
         return result.ToActionResult();
     }

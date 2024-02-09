@@ -8,12 +8,10 @@ public class TenantService : ITenantService
 {
     private readonly HttpClient _client;
     private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ProtectedSessionStorage _protectedSessionStorage;
 
-    public TenantService(IHttpClientFactory httpClientFactory, ProtectedSessionStorage protectedSessionStorage)
+    public TenantService(IHttpClientFactory httpClientFactory)
     {
         _httpClientFactory = httpClientFactory;
-        _protectedSessionStorage = protectedSessionStorage;
         _client = _httpClientFactory.CreateClient("Kodelev8-POS");
     }
 

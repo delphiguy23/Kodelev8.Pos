@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Point.Of.Sale.Events.Attributes;
+using Point.Of.Sale.Models.Supplier;
 using Point.Of.Sale.Shared.FluentResults;
 using Point.Of.Sale.Shared.FluentResults.Extension;
 using Point.Of.Sale.Supplier.Handlers.Command.LinkToTenant;
@@ -10,7 +11,6 @@ using Point.Of.Sale.Supplier.Handlers.Command.Update;
 using Point.Of.Sale.Supplier.Handlers.Query.GetAll;
 using Point.Of.Sale.Supplier.Handlers.Query.GetById;
 using Point.Of.Sale.Supplier.Handlers.Query.GetByTenantId;
-using Point.Of.Sale.Supplier.Models;
 using Point.Of.Sale.Tenant.Handlers.Query.GetTenantById;
 
 namespace Point.Of.Sale.Supplier.Controller;
@@ -30,6 +30,7 @@ public class SupplierController : ControllerBase
     [HttpPost]
     [Route("register")]
     [LogAuditAction]
+    [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] UpsertSupplier request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new RegisterCommand
@@ -48,6 +49,7 @@ public class SupplierController : ControllerBase
 
     [HttpGet]
     [LogAuditAction]
+    [AllowAnonymous]
     public async Task<IActionResult> All(CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new GetAllQuery(), cancellationToken);
@@ -96,6 +98,7 @@ public class SupplierController : ControllerBase
 
     [HttpPut]
     [LogAuditAction]
+    [AllowAnonymous]
     public async Task<IActionResult> Upsert([FromBody] UpsertSupplier request, CancellationToken cancellationToken = default)
     {
         var result = await _sender.Send(new UpdateCommand

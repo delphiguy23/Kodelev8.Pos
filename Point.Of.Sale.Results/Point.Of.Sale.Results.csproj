@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <OutputType>Library</OutputType>
+        <LangVersion>12</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+<!--        <Reference Include="Microsoft.AspNetCore.Mvc.Abstractions">-->
+<!--            <HintPath>..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\7.0.0\Microsoft.AspNetCore.Mvc.Abstractions.dll</HintPath>-->
+<!--        </Reference>-->
+<!--        <Reference Include="Microsoft.AspNetCore.Mvc.Core">-->
+<!--            <HintPath>..\..\..\..\..\..\..\..\usr\local\share\dotnet\shared\Microsoft.AspNetCore.App\7.0.0\Microsoft.AspNetCore.Mvc.Core.dll</HintPath>-->
+<!--        </Reference>-->
+    </ItemGroup>
+
+</Project>

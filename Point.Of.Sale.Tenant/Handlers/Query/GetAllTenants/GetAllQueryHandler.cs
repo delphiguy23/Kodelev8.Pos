@@ -35,6 +35,7 @@ public sealed class GetAllQueryHandler : IQueryHandler<GetAll, List<TenantRespon
                     Type = r.Type,
                     Code = r.Code,
                     Name = r.Name,
+                    Email = r.Email,
                     Active = r.Active,
                     CreatedDate = r.CreatedOn.ToLocalTime(),
                     UpdatedBy = r.UpdatedBy,
